@@ -9,6 +9,7 @@ object Versions {
     const val VERSION_RETROFIT = "2.9.0"
     const val VERSION_OKHTTP = "4.9.2"
     const val VERSION_GLIDE = "4.11.0"
+    const val VERSION_LOTTIE = "5.2.0"
 }
 object Dependencies {
 
@@ -32,6 +33,7 @@ object Dependencies {
         const val COMPOSE_ACTIVITY = "androidx.activity:activity-compose:1.6.1"
         const val COMPOSE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
         const val COMPOSE_LIVEDATA = "androidx.compose.runtime:runtime-livedata"
+        const val COMPOSE_NAVIGATION = "androidx.navigation:navigation-compose:2.6.0-alpha02"
     }
 
     object Lifecycle {
@@ -69,6 +71,10 @@ object Dependencies {
     object Glide {
         const val GLIDE = "com.github.bumptech.glide:glide:${Versions.VERSION_GLIDE}"
         const val GLIDE_COMPILE = "com.github.bumptech.glide:compiler:${Versions.VERSION_GLIDE}"
+    }
+
+    object Lottie {
+        const val LOTTIE = "com.airbnb.android:lottie-compose:${Versions.VERSION_LOTTIE}"
     }
 
 }
