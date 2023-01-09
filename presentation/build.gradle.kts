@@ -58,12 +58,15 @@ dependencies {
     implementation(Dependencies.Compose.COMPOSE_ACTIVITY)
     implementation(Dependencies.Compose.COMPOSE_VIEWMODEL)
     implementation(Dependencies.Compose.COMPOSE_LIVEDATA)
+    implementation(Dependencies.Compose.COMPOSE_NAVIGATION)
     implementation(Dependencies.Lifecycle.LIVEDATA_LIFE)
     implementation(Dependencies.Lifecycle.VIEWMODEL_LIFE)
     implementation(Dependencies.Lifecycle.RUNTIME_LIFE)
 
     implementation(Dependencies.Hilt.HILT)
     kapt(Dependencies.Hilt.HILT_COMPILE)
+
+    implementation(Dependencies.Lottie.LOTTIE)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
