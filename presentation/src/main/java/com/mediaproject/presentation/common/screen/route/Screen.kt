@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.common.route
+package com.mediaproject.presentation.common.screen.route
 
 sealed class Screen(val route: String) {
     object Landing : Screen("landing_screen")
