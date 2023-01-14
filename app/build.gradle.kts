@@ -59,6 +59,13 @@ dependencies {
     implementation(Dependencies.KTX.KTX)
     implementation(Dependencies.Hilt.HILT)
     kapt(Dependencies.Hilt.HILT_COMPILE)
+    implementation(Dependencies.Retrofit.RETROFIT)
+    implementation(Dependencies.Retrofit.RETROFIT_GSON)
+    implementation(Dependencies.OkHttp.OKHTTP)
+    implementation(Dependencies.OkHttp.OKHTTP_LOGGING)
+    implementation(Dependencies.Room.ROOM_KTX)
+    implementation(Dependencies.Room.ROOM_RUNTIME)
+    kapt(Dependencies.Room.ROOM_COMPILE)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
