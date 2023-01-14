@@ -51,7 +51,7 @@ dependencies {
     androidTestImplementation(composeBom)
 
     implementation(Dependencies.KTX.KTX)
-    implementation(Dependencies.Compose.COMPOSE_MATERIAL3)
+    implementation(Dependencies.Compose.COMPOSE_MATERIAL2)
     implementation(Dependencies.Compose.COMPOSE_FOUNDATION)
     implementation(Dependencies.Compose.COMPOSE_UI)
     implementation(Dependencies.Compose.COMPOSE_PREVIEW)

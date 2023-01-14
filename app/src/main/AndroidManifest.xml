@@ -17,7 +17,8 @@
             android:name="com.mediaproject.presentation.screen.signin.SignInActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ReRollBag">
+            android:theme="@style/Theme.AnimatedSplashScreen"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

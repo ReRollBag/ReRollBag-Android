@@ -1,31 +1,35 @@
 package com.mediaproject.presentation.common.screen
 
-import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.theme.Purple80
-import com.mediaproject.presentation.common.route.Screen
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
-@SuppressLint("CoroutineCreationDuringComposition")
+private const val SplashWaitTime: Long = 2000
+
 @Composable
-fun SplashScreen(navController: NavHostController) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                color = Purple80
-            )
-    ) {
+fun LandingScreen(modifier: Modifier = Modifier, onTimeout: () -> Unit) = Box(
+    modifier = modifier
+        .fillMaxSize()
+        .background(
+            color = Purple80
+        ),
+    contentAlignment = Alignment.Center
+) {
+    val currentOnTimeout by rememberUpdatedState(onTimeout)
+
 //        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.logo))
 //        val logoAnimationState =
 //            animateLottieCompositionAsState(composition = composition)
@@ -36,15 +40,15 @@ fun SplashScreen(navController: NavHostController) {
 //        if (logoAnimationState.isAtEnd && logoAnimationState.isPlaying) {
 //        }
 
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(3000)
-            navController.navigate(Screen.SignIn.route)
-        }
+    LaunchedEffect(onTimeout) {
+        delay(SplashWaitTime) // Simulates loading things
+        currentOnTimeout()
     }
+    Image(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = null)
 }
 
 @Preview(showBackground = true)
 @Composable
-fun SplashScreenPreview() {
-    SplashScreen(navController = rememberNavController())
+fun LandingScreenPreview() {
+    LandingScreen(onTimeout = {})
 }

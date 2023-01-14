@@ -3,20 +3,9 @@ package com.mediaproject.presentation.screen.signin
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mediaproject.presentation.common.nav.SetupNavGraph
 import com.mediaproject.presentation.common.theme.AnimatedSplashScreenTheme
-//import com.mediaproject.presentation.common.nav.SetupNavGraph
-import com.mediaproject.presentation.common.theme.ReRollBagTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,18 +19,5 @@ class SignInActivity : ComponentActivity() {
                 SetupNavGraph(navController = navController)
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ReRollBagTheme {
-        Greeting("Android")
     }
 }
