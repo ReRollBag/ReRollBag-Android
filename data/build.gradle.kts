@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
 
     implementation(Dependencies.KTX.KTX)
     testImplementation("junit:junit:4.13.2")
@@ -52,4 +53,5 @@ dependencies {
     implementation(Dependencies.Room.ROOM_KTX)
     implementation(Dependencies.Room.ROOM_RUNTIME)
     kapt(Dependencies.Room.ROOM_COMPILE)
+    implementation(Dependencies.DataStore.DATASTORE_PREFERENCE)
 }

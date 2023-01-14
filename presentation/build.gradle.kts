@@ -45,6 +45,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
 
     val composeBom = platform(Dependencies.Compose.COMPOSE_BOM)
     implementation(composeBom)
@@ -64,6 +65,7 @@ dependencies {
     implementation(Dependencies.Lifecycle.RUNTIME_LIFE)
 
     implementation(Dependencies.Hilt.HILT)
+    implementation(Dependencies.Hilt.HILT_COMPOSE_NAVIGATION)
     kapt(Dependencies.Hilt.HILT_COMPILE)
 
     implementation(Dependencies.Lottie.LOTTIE)

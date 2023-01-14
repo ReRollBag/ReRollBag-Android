@@ -26,7 +26,7 @@ fun SetupNavGraph(
         }
         composable(route = Screen.SignIn.route) {
             SignInScreen(
-                onSignUpBtnClick = {
+                onSignInBtnClick = {
                     navController.navigate(Screen.SignUp.route)
                 }
             )

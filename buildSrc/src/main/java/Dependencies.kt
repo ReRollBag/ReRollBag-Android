@@ -51,6 +51,7 @@ object Dependencies {
     object Hilt {
         const val HILT = "com.google.dagger:hilt-android:${Versions.VERSION_HILT}"
         const val HILT_COMPILE = "com.google.dagger:hilt-compiler:${Versions.VERSION_HILT}"
+        const val HILT_COMPOSE_NAVIGATION = "androidx.hilt:hilt-navigation-compose:1.0.0"
     }
 
     object Coroutine {
@@ -75,6 +76,11 @@ object Dependencies {
 
     object Lottie {
         const val LOTTIE = "com.airbnb.android:lottie-compose:${Versions.VERSION_LOTTIE}"
+    }
+
+    object DataStore {
+        const val DATASTORE = "androidx.datastore:datastore:1.0.0"
+        const val DATASTORE_PREFERENCE = "androidx.datastore:datastore-preferences:1.0.0"
     }
 
 }
