@@ -54,7 +54,9 @@ fun SignInScreen(
             Button(onClick = onSignInBtnClick) {
                 Text(text = "SignIn")
             }
-            Button(onClick = {  }) {
+            Button(onClick = {
+                viewModel.signIn("test", "test1234")
+            }) {
                 Text(text = "Test SignIn")
             }
         }
