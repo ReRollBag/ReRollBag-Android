@@ -30,6 +30,7 @@ constructor(
         nickname: String,
         password: String
     ) = viewModelScope.launch {
+        _signUpState.postValue(SignUpState.SignUpLoading)
         signUpUseCase(
             params = SignUpUseCase.Params(
                 userId = userId,

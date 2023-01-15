@@ -13,4 +13,6 @@ interface UserRepository {
         password: String,
     )
 
+    suspend fun clearToken()
+
 }

@@ -10,6 +10,7 @@ object Versions {
     const val VERSION_OKHTTP = "4.9.2"
     const val VERSION_GLIDE = "4.11.0"
     const val VERSION_LOTTIE = "5.2.0"
+    const val VERSION_DATASTORE = "1.0.0"
 }
 object Dependencies {
 
@@ -79,8 +80,9 @@ object Dependencies {
     }
 
     object DataStore {
-        const val DATASTORE = "androidx.datastore:datastore:1.0.0"
-        const val DATASTORE_PREFERENCE = "androidx.datastore:datastore-preferences:1.0.0"
+        const val DATASTORE = "androidx.datastore:datastore:${Versions.VERSION_DATASTORE}"
+        const val DATASTORE_PREFERENCE = "androidx.datastore:datastore-preferences:${Versions.VERSION_DATASTORE}"
+        const val DATASTORE_PREFERENCE_CORE = "androidx.datastore:datastore-preferences-core:${Versions.VERSION_DATASTORE}"
     }
 
 }

@@ -4,6 +4,8 @@ sealed class SignUpState {
 
     object SignUpInit : SignUpState()
 
+    object SignUpLoading : SignUpState()
+
     data class SignUpError(
         val userId: String,
         val nickname: String,

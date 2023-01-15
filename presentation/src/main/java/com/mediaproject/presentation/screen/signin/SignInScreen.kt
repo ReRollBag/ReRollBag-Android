@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -19,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mediaproject.presentation.widgets.states.SignInState
 
 @Composable
 fun SignInScreen(
@@ -36,31 +38,37 @@ fun SignInScreen(
             .background(Color.White),
         contentAlignment = Alignment.Center
     ) {
-        Column {
-            TextField(
-                value = userId,
-                onValueChange = {
-                    userId = it
-                },
-                label = { Text("Email") }
-            )
-            TextField(
-                value = password,
-                onValueChange = {
-                    password = it
-                },
-                label = { Text("Password") }
-            )
-            Button(onClick = onSignInBtnClick) {
-                Text(text = "SignIn")
+        when (signInState.value) {
+            is SignInState.SignInLoading -> {
+                CircularProgressIndicator()
             }
-            Button(onClick = {
-                viewModel.signIn("test", "test1234")
-            }) {
-                Text(text = "Test SignIn")
+            else -> {
+                Column {
+                    TextField(
+                        value = userId,
+                        onValueChange = {
+                            userId = it
+                        },
+                        label = { Text("Email") }
+                    )
+                    TextField(
+                        value = password,
+                        onValueChange = {
+                            password = it
+                        },
+                        label = { Text("Password") }
+                    )
+                    Button(onClick = onSignInBtnClick) {
+                        Text(text = "SignIn")
+                    }
+                    Button(onClick = {
+                        viewModel.signIn("test", "test1234")
+                    }) {
+                        Text(text = "Test SignIn")
+                    }
+                }
             }
         }
-
     }
 }
 

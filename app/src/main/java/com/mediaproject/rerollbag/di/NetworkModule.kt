@@ -1,8 +1,9 @@
 package com.mediaproject.rerollbag.di
 
+import com.mediaproject.data.local.datasource.LocalUserDataSource
 import com.mediaproject.data.remote.api.UserAPI
-import com.mediaproject.rerollbag.utils.interceptors.AuthInterceptor
-import com.mediaproject.rerollbag.utils.interceptors.NullOrEmptyConverterFactory
+import com.mediaproject.data.utils.interceptors.AuthInterceptor
+import com.mediaproject.data.utils.interceptors.NullOrEmptyConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +12,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -22,7 +22,11 @@ object NetworkModule {
     //region OkHttpClient
 
     @Provides
-    fun providerAuthInterceptor(): AuthInterceptor = AuthInterceptor()
+    fun providerAuthInterceptor(
+        localUserDataSource: LocalUserDataSource
+    ): AuthInterceptor = AuthInterceptor(
+        localUserDataSource = localUserDataSource
+    )
 
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {

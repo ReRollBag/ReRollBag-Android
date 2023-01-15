@@ -1,4 +1,4 @@
-package com.mediaproject.rerollbag.utils.exceptions
+package com.mediaproject.data.utils.exceptions
 
 import java.io.IOException
 

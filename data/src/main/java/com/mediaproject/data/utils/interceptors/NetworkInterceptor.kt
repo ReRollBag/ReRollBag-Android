@@ -1,10 +1,10 @@
-package com.mediaproject.rerollbag.utils.interceptors
+package com.mediaproject.data.utils.interceptors
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import com.mediaproject.rerollbag.utils.exceptions.NoInternetException
+import com.mediaproject.data.utils.exceptions.NoInternetException
 import okhttp3.Interceptor
 import okhttp3.Response
 
