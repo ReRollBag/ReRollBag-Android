@@ -26,7 +26,8 @@ import com.mediaproject.presentation.widgets.states.SignInState
 fun SignInScreen(
     modifier: Modifier = Modifier,
     viewModel: SignInViewModel = hiltViewModel(),
-    onSignInBtnClick: () -> Unit,
+    onSuccessSignIn: () -> Unit = {},
+    onSignUpBtnClick: () -> Unit,
 ) {
     val signInState = viewModel.signInState.observeAsState()
     var userId by rememberSaveable { mutableStateOf("") }
@@ -41,6 +42,9 @@ fun SignInScreen(
         when (signInState.value) {
             is SignInState.SignInLoading -> {
                 CircularProgressIndicator()
+            }
+            is SignInState.SignInSuccess -> {
+                onSuccessSignIn()
             }
             else -> {
                 Column {
@@ -58,8 +62,8 @@ fun SignInScreen(
                         },
                         label = { Text("Password") }
                     )
-                    Button(onClick = onSignInBtnClick) {
-                        Text(text = "SignIn")
+                    Button(onClick = onSignUpBtnClick) {
+                        Text(text = "회원가입 하러가기")
                     }
                     Button(onClick = {
                         viewModel.signIn("test", "test1234")
@@ -75,5 +79,5 @@ fun SignInScreen(
 @Preview(showBackground = true)
 @Composable
 fun SignInScreenPreview() {
-    SignInScreen(onSignInBtnClick = { Log.d("[SignIn]", "onClick SignUpBtn") })
+    SignInScreen(onSignUpBtnClick = { Log.d("[SignIn]", "onClick SignUpBtn") })
 }

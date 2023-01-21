@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.signin
+package com.mediaproject.presentation.screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,7 +9,7 @@ import com.mediaproject.presentation.common.theme.AnimatedSplashScreenTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignInActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

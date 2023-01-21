@@ -26,13 +26,21 @@ fun SetupNavGraph(
         }
         composable(route = Screen.SignIn.route) {
             SignInScreen(
-                onSignInBtnClick = {
+                onSuccessSignIn = {
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(0)
+                    }
+                },
+                onSignUpBtnClick = {
                     navController.navigate(Screen.SignUp.route)
                 }
             )
         }
         composable(route = Screen.SignUp.route) {
             SignUpScreen()
+        }
+        composable(route = Screen.Home.route) {
+
         }
     }
 }
