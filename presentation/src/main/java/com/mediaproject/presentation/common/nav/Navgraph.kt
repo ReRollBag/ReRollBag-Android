@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mediaproject.presentation.common.screen.route.Screen
 import com.mediaproject.presentation.common.screen.LandingScreen
+import com.mediaproject.presentation.common.theme.AnimatedSplashScreenTheme
 import com.mediaproject.presentation.screen.signin.SignInScreen
 import com.mediaproject.presentation.screen.signup.SignUpScreen
 
@@ -18,9 +19,11 @@ fun SetupNavGraph(
         startDestination = Screen.Landing.route
     ) {
         composable(route = Screen.Landing.route) {
-            LandingScreen {
-                navController.navigate(Screen.SignIn.route) {
-                    popUpTo(0)
+            AnimatedSplashScreenTheme {
+                LandingScreen {
+                    navController.navigate(Screen.SignIn.route) {
+                        popUpTo(0)
+                    }
                 }
             }
         }

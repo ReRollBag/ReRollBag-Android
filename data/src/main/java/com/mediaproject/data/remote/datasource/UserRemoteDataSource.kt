@@ -1,6 +1,5 @@
 package com.mediaproject.data.remote.datasource
 
-import com.mediaproject.domain.model.User
 import com.mediaproject.domain.model.UserToken
 
 interface UserRemoteDataSource {
@@ -14,6 +13,6 @@ interface UserRemoteDataSource {
         userId: String,
         nickname: String,
         password: String,
-    ): User
+    ): UserToken
 
 }

@@ -1,14 +1,13 @@
 package com.mediaproject.presentation.screen.signin
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -18,9 +17,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mediaproject.presentation.R
+import com.mediaproject.presentation.common.component.ReRollBagTextField
+import com.mediaproject.presentation.common.theme.green1
 import com.mediaproject.presentation.widgets.states.SignInState
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @Composable
 fun SignInScreen(
@@ -47,28 +52,69 @@ fun SignInScreen(
                 onSuccessSignIn()
             }
             else -> {
-                Column {
-                    TextField(
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(
+                        modifier = Modifier
+                            .height(32.dp)
+                            .fillMaxWidth(),
+                        painter = painterResource(id = R.drawable.logo_rerollbag),
+                        contentDescription = "ReRollBag"
+                    )
+                    Spacer(modifier = Modifier.height(60.dp))
+                    ReRollBagTextField(
                         value = userId,
-                        onValueChange = {
-                            userId = it
+                        onValueChange = { newValue ->
+                            userId = newValue
                         },
-                        label = { Text("Email") }
+                        hint = "아이디",
                     )
-                    TextField(
+                    Spacer(modifier = Modifier.height(30.dp))
+                    ReRollBagTextField(
                         value = password,
-                        onValueChange = {
-                            password = it
+                        onValueChange = { newValue ->
+                            password = newValue
                         },
-                        label = { Text("Password") }
+                        hint = "비밀번호",
+                        isPassword = true,
                     )
-                    Button(onClick = onSignUpBtnClick) {
-                        Text(text = "회원가입 하러가기")
+                    Spacer(modifier = Modifier.height(40.dp))
+                    Button(
+                        modifier = modifier
+                            .height(44.dp)
+                            .fillMaxWidth(),
+                        shape = RoundedCornerShape(25.dp),
+                        onClick = {
+                            viewModel.signIn(
+                                userId = userId,
+                                password = password
+                            )
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = green1,
+                            contentColor = Color.White
+                        )
+                    ) {
+                        Text(text = "로그인")
                     }
-                    Button(onClick = {
-                        viewModel.signIn("test", "test1234")
-                    }) {
-                        Text(text = "Test SignIn")
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Button(
+                        modifier = modifier
+                            .height(44.dp)
+                            .fillMaxWidth(),
+                        shape = RoundedCornerShape(25.dp),
+                        border = BorderStroke(2.dp, green1),
+                        onClick = onSignUpBtnClick,
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color.White,
+                            contentColor = green1
+                        )
+                    ) {
+                        Text(text = "회원가입")
                     }
                 }
             }
@@ -79,5 +125,7 @@ fun SignInScreen(
 @Preview(showBackground = true)
 @Composable
 fun SignInScreenPreview() {
-    SignInScreen(onSignUpBtnClick = { Log.d("[SignIn]", "onClick SignUpBtn") })
+    SignInScreen(
+        onSignUpBtnClick = { Log.d("[SignIn]", "onClick SignUpBtn") }
+    )
 }

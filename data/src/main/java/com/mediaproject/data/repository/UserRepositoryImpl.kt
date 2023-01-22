@@ -39,7 +39,8 @@ constructor(
             nickname = nickname,
             password = password
         ).also {
-            Log.d(TAG, "userId = ${it.userId}, nickname = ${it.nickname}")
+            Log.d(TAG, "accessToken = ${it.accessToken}, refreshToken = ${it.refreshToken}")
+            localUserDataSource.saveToken(userToken = it)
         }
     }
 

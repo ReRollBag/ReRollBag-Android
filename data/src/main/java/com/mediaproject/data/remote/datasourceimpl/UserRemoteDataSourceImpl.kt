@@ -32,7 +32,7 @@ constructor(
         userId: String,
         nickname: String,
         password: String
-    ): User = baseApiCall {
+    ): UserToken = baseApiCall {
         userAPI.signUp(
             signUpRequest = SignUpRequest(
                 userId = userId,
