@@ -4,6 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -12,9 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.theme.Purple80
+import com.mediaproject.presentation.common.theme.ivory1
 import kotlinx.coroutines.delay
 
 private const val SplashWaitTime: Long = 2000
@@ -24,7 +28,7 @@ fun LandingScreen(modifier: Modifier = Modifier, onTimeout: () -> Unit) = Box(
     modifier = modifier
         .fillMaxSize()
         .background(
-            color = Purple80
+            color = ivory1
         ),
     contentAlignment = Alignment.Center
 ) {
@@ -44,7 +48,15 @@ fun LandingScreen(modifier: Modifier = Modifier, onTimeout: () -> Unit) = Box(
         delay(SplashWaitTime) // Simulates loading things
         currentOnTimeout()
     }
-    Image(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = null)
+    Image(
+        modifier = Modifier
+            .height(40.dp)
+            .fillMaxWidth(),
+        painter = painterResource(
+            id = R.drawable.logo_rerollbag
+        ),
+        contentDescription = null
+    )
 }
 
 @Preview(showBackground = true)

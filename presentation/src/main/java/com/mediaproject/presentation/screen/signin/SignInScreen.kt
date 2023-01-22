@@ -18,11 +18,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.ReRollBagTextField
+import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.green1
 import com.mediaproject.presentation.widgets.states.SignInState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -58,13 +63,7 @@ fun SignInScreen(
                         .padding(horizontal = 30.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Image(
-                        modifier = Modifier
-                            .height(32.dp)
-                            .fillMaxWidth(),
-                        painter = painterResource(id = R.drawable.logo_rerollbag),
-                        contentDescription = "ReRollBag"
-                    )
+                    SignInLogoScreen()
                     Spacer(modifier = Modifier.height(60.dp))
                     ReRollBagTextField(
                         value = userId,
@@ -73,6 +72,7 @@ fun SignInScreen(
                         },
                         hint = "아이디",
                     )
+                    Divider(color = gray1, thickness = 1.dp)
                     Spacer(modifier = Modifier.height(30.dp))
                     ReRollBagTextField(
                         value = password,
@@ -82,6 +82,13 @@ fun SignInScreen(
                         hint = "비밀번호",
                         isPassword = true,
                     )
+                    Divider(color = gray1, thickness = 1.dp)
+                    if (signInState.value is SignInState.SignInError) {
+                        SignInErrorScreen(
+                            condition = true,
+                            errorMessage = (signInState.value as SignInState.SignInError).errorMessage
+                        )
+                    }
                     Spacer(modifier = Modifier.height(40.dp))
                     Button(
                         modifier = modifier

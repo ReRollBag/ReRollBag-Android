@@ -7,6 +7,8 @@ import androidx.navigation.compose.composable
 import com.mediaproject.presentation.common.screen.route.Screen
 import com.mediaproject.presentation.common.screen.LandingScreen
 import com.mediaproject.presentation.common.theme.AnimatedSplashScreenTheme
+import com.mediaproject.presentation.common.theme.ReRollBagTheme
+import com.mediaproject.presentation.screen.home.HomeScreen
 import com.mediaproject.presentation.screen.signin.SignInScreen
 import com.mediaproject.presentation.screen.signup.SignUpScreen
 
@@ -30,9 +32,7 @@ fun SetupNavGraph(
         composable(route = Screen.SignIn.route) {
             SignInScreen(
                 onSuccessSignIn = {
-                    navController.navigate(Screen.Home.route) {
-                        popUpTo(0)
-                    }
+                    navController.navigate(Screen.Home.route)
                 },
                 onSignUpBtnClick = {
                     navController.navigate(Screen.SignUp.route)
@@ -43,7 +43,9 @@ fun SetupNavGraph(
             SignUpScreen()
         }
         composable(route = Screen.Home.route) {
-
+            ReRollBagTheme {
+                HomeScreen()
+            }
         }
     }
 }

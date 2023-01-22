@@ -1,9 +1,7 @@
 package com.mediaproject.presentation.common.component
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -12,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -22,11 +21,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mediaproject.presentation.R
 
 // region const value field
-private val TextFieldHeight: Dp = 44.dp
+private val TextFieldHeight: Dp = 40.dp
 private val DefaultTextFieldRound: Dp = 0.dp
-private val BasicTextFieldStartPadding = 14.dp
+private val BasicTextFieldStartPadding = 0.dp
 // endregion
 
 @Composable
@@ -116,6 +116,7 @@ private fun RRBBasicTextField(
 ) {
     BasicTextField(
         modifier = Modifier
+//            .height(TextFieldHeight)
             .fillMaxWidth()
             .padding(start = BasicTextFieldStartPadding),
         value = value,
@@ -145,24 +146,16 @@ private fun RRBBasicTextField(
                     Spacer(modifier = Modifier.weight(1f))
 
                     if (isPassword) {
-//                        Image(
-//                            modifier = Modifier
-//                                .simClickable(
-//                                    rippleEnabled = false,
-//                                ) {
-//                                    onPasswordVisibleChanged(!passwordVisible)
-//                                },
-//                            painter = painterResource(
-//                                id = if (passwordVisible) SimTongIcon.Password_Visible.drawableId
-//                                else SimTongIcon.Password_InVisible.drawableId,
-//                            ),
-//                            contentDescription =
-//                            stringResource(
-//                                if (passwordVisible) R.string.descriptiom_ic_password_visible
-//                                else R.string.descriptiom_ic_password_invisible
-//                            ),
-//                            alpha = if (value.isNotEmpty()) 1f else 0f
-//                        )
+                        Image(
+                            modifier = Modifier.clickable { onPasswordVisibleChanged(!passwordVisible) },
+                            painter = painterResource(
+                                when (passwordVisible) {
+                                    true -> R.drawable.ic_clarity_eye_show
+                                    false -> R.drawable.ic_clarity_eye_hide
+                                }
+                            ),
+                            contentDescription = "IC_PASSWORD_VISIBLE",
+                        )
                     }
 
                     Spacer(modifier = Modifier.width(9.dp))
@@ -175,13 +168,13 @@ private fun RRBBasicTextField(
 
 @Preview
 @Composable
-fun PreviewSimTongTextField() {
+fun PreviewReRollBagTextField() {
     var value by remember { mutableStateOf<String?>(null) }
     var value2 by remember { mutableStateOf<String?>(null) }
     var value3 by remember { mutableStateOf<String?>(null) }
 
     Column(
-        modifier = Modifier.padding(horizontal = 20.dp),
+//        modifier = Modifier.padding(horizontal = 20.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         // default text field
