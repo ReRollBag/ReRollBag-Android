@@ -1,4 +1,4 @@
-package com.mediaproject.rerollbag.utils.interceptors
+package com.mediaproject.data.utils.interceptors
 
 import okhttp3.ResponseBody
 import retrofit2.Converter

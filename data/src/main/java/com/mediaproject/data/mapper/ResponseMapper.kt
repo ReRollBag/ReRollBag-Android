@@ -10,7 +10,7 @@ internal fun SignInResponse.toModel() = UserToken(
     refreshToken = refreshToken,
 )
 
-internal fun SignUpResponse.toModel() = User(
-    userId = userId,
-    nickname = nickname,
+internal fun SignUpResponse.toModel() = UserToken(
+    accessToken = accessToken,
+    refreshToken = refreshToken,
 )

@@ -54,4 +54,5 @@ dependencies {
     implementation(Dependencies.Room.ROOM_RUNTIME)
     kapt(Dependencies.Room.ROOM_COMPILE)
     implementation(Dependencies.DataStore.DATASTORE_PREFERENCE)
+    implementation(Dependencies.DataStore.DATASTORE_PREFERENCE_CORE)
 }

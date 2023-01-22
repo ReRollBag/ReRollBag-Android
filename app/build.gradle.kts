@@ -69,6 +69,7 @@ dependencies {
     implementation(Dependencies.Room.ROOM_RUNTIME)
     kapt(Dependencies.Room.ROOM_COMPILE)
     implementation(Dependencies.DataStore.DATASTORE_PREFERENCE)
+    implementation(Dependencies.DataStore.DATASTORE_PREFERENCE_CORE)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

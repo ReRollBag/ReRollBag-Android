@@ -29,6 +29,7 @@ constructor(
         userId: String,
         password: String,
     ) = viewModelScope.launch {
+        _signInState.postValue(SignInState.SignInLoading)
         signInUseCase(
             params = SignInUseCase.Params(
                 userId = userId,
