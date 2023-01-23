@@ -1,10 +1,10 @@
 package com.mediaproject.data.utils.exceptions
 
 /*
-* code: 5000
-* cause: UnHandled Exception
+* code : 2000
+* cause : token 이 expired 된 경우
 * */
-class UnknownHttpException(
+class ExpiredJwtException(
     val code: Int,
     override val message: String?,
 ) : RuntimeException()

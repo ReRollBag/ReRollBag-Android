@@ -1,10 +1,10 @@
 package com.mediaproject.data.utils.exceptions
 
 /*
-* code: 5000
-* cause: UnHandled Exception
+* code : 1000
+* cause : User Id 가 이미 존재하는 경우
 * */
-class UnknownHttpException(
+class UserIdAlreadyExistException(
     val code: Int,
     override val message: String?,
 ) : RuntimeException()

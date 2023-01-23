@@ -1,10 +1,10 @@
 package com.mediaproject.data.utils.exceptions
 
 /*
-* code: 5000
-* cause: UnHandled Exception
+* code : 1002
+* cause : Nickname 이 이미 존재하는 경우
 * */
-class UnknownHttpException(
+class NicknameAlreadyException(
     val code: Int,
     override val message: String?,
 ) : RuntimeException()

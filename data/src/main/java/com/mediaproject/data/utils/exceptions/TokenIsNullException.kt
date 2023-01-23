@@ -1,10 +1,10 @@
 package com.mediaproject.data.utils.exceptions
 
 /*
-* code: 5000
-* cause: UnHandled Exception
+* code : 2002
+* cause : token 값이 필요하지만 null 인 경우
 * */
-class UnknownHttpException(
+class TokenIsNullException(
     val code: Int,
     override val message: String?,
 ) : RuntimeException()
