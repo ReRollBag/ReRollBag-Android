@@ -11,6 +11,15 @@ interface UserRepository {
         userId: String,
         nickname: String,
         password: String,
+        userRole: String,
+    )
+
+    suspend fun isExistUserId(
+        userId: String
+    )
+
+    suspend fun isExistNickname(
+        nickname: String
     )
 
     suspend fun clearToken()

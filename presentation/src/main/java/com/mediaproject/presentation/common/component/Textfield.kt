@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mediaproject.presentation.R
+import com.mediaproject.presentation.common.theme.ReRollBagTypography
 
 // region const value field
 private val TextFieldHeight: Dp = 40.dp
@@ -125,11 +126,7 @@ private fun RRBBasicTextField(
         singleLine = singleLine,
         visualTransformation = if (!passwordVisible && isPassword) PasswordVisualTransformation() else VisualTransformation.None,
         maxLines = 1,
-        textStyle = TextStyle(
-            fontWeight = FontWeight.Normal,
-            fontSize = 13.sp,
-            lineHeight = 19.sp,
-        ),
+        textStyle = ReRollBagTypography.title2,
         decorationBox = @Composable { innerTextField ->
             Box(
                 contentAlignment = Alignment.CenterStart,

@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.ReRollBagTextField
+import com.mediaproject.presentation.common.theme.ReRollBagTypography
 import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.green1
 import com.mediaproject.presentation.widgets.states.SignInState
@@ -106,7 +107,14 @@ fun SignInScreen(
                             contentColor = Color.White
                         )
                     ) {
-                        Text(text = "로그인")
+                        Text(
+                            text = "로그인",
+                            style = TextStyle(
+                                fontWeight = FontWeight(700),
+                                fontSize = 13.sp,
+                                lineHeight = 17.sp
+                            )
+                        )
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                     Button(
@@ -119,10 +127,26 @@ fun SignInScreen(
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = Color.White,
                             contentColor = green1
-                        )
+                        ),
                     ) {
-                        Text(text = "회원가입")
+                        Text(
+                            text = "회원가입",
+                            style = TextStyle(
+                                fontWeight = FontWeight(700),
+                                fontSize = 13.sp,
+                                lineHeight = 17.sp
+                            ),
+                        )
                     }
+                    Spacer(modifier = Modifier.height(40.dp))
+                    Text(
+                        text = "SNS 계정으로 로그인",
+                        style = TextStyle(
+                            fontWeight = FontWeight(700),
+                            fontSize = 13.sp,
+                            lineHeight = 19.sp
+                        ),
+                    )
                 }
             }
         }

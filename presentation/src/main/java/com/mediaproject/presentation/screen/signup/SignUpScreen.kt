@@ -7,6 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,18 +22,61 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun SignUpScreen(
     modifier: Modifier = Modifier,
     viewModel: SignUpViewModel = hiltViewModel(),
+    onBackPress: () -> Unit = {},
 ) {
+    val signUpState = viewModel.signUpState.observeAsState()
+    var userId by rememberSaveable { mutableStateOf("") }
+    var isExistUserId by rememberSaveable { mutableStateOf(false) }
+    var nickname by rememberSaveable { mutableStateOf("") }
+    var isExistNickname by rememberSaveable { mutableStateOf(false) }
+    var password by rememberSaveable { mutableStateOf("") }
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(Color.White),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.TopCenter
     ) {
         Column {
-            Button(onClick = {  }) {
-                Text(text = "SignUp")
+            SignUpAppBarView(
+                onBackPress = onBackPress
+            )
+            Button(
+                onClick = {
+                    viewModel.duplicateCheckUserId(
+                        userId = "test",
+                        isExistUserId = false,
+                        nickname = "test",
+                        isExistNickname = false,
+                        password = "test1234"
+                    )
+                }
+            ) {
+                Text(text = "Test UserId check")
             }
-            Button(onClick = { viewModel.signUp(userId = "test", nickname = "test", password = "test1234") }) {
+            Button(
+                onClick = {
+                    viewModel.duplicateCheckUserId(
+                        userId = "test",
+                        isExistUserId = false,
+                        nickname = "test",
+                        isExistNickname = false,
+                        password = "test1234"
+                    )
+                }
+            ) {
+                Text(text = "Test Nickname check")
+            }
+            Button(
+                onClick = {
+                    viewModel.signUp(
+                        userId = "test",
+                        isExistUserId = true,
+                        nickname = "test",
+                        isExistNickname = true,
+                        password = "test1234"
+                    )
+                }
+            ) {
                 Text(text = "Test SignUp")
             }
         }

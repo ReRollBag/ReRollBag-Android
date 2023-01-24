@@ -40,7 +40,11 @@ fun SetupNavGraph(
             )
         }
         composable(route = Screen.SignUp.route) {
-            SignUpScreen()
+            SignUpScreen(
+                onBackPress = {
+                    navController.popBackStack()
+                }
+            )
         }
         composable(route = Screen.Home.route) {
             ReRollBagTheme {
