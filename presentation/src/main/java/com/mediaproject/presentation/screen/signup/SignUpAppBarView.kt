@@ -8,10 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.theme.ReRollBagTypography
+import com.mediaproject.presentation.common.theme.notoSansFamily
 
 @Composable
 fun SignUpAppBarView(
@@ -33,7 +38,13 @@ fun SignUpAppBarView(
     Text(
         "회원가입",
         modifier = Modifier.align(Alignment.Center),
-        style = ReRollBagTypography.body
+        style = TextStyle(
+            fontFamily = notoSansFamily,
+            fontWeight = FontWeight.Bold,
+            fontStyle = FontStyle.Normal,
+            fontSize = 16.sp,
+            lineHeight = 41.sp
+        )
     )
 }
 

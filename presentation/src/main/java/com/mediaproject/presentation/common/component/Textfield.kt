@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,9 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.theme.ReRollBagTypography
+import com.mediaproject.presentation.common.theme.gray1
 
 // region const value field
-private val TextFieldHeight: Dp = 40.dp
+private val TextFieldHeight: Dp = 50.dp
 private val DefaultTextFieldRound: Dp = 0.dp
 private val BasicTextFieldStartPadding = 0.dp
 // endregion
@@ -91,7 +93,6 @@ fun ReRollBagTextField(
                 singleLine = singleLine,
             )
         }
-
     }
 
 
