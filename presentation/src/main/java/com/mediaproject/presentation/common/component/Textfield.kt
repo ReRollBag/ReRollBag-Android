@@ -39,6 +39,7 @@ fun ReRollBagTextField(
     onValueChange: (newValue: String) -> Unit,
     backgroundColor: Color = Color.White,
     title: String? = null,
+    enable: Boolean = true,
     hint: String? = null,
     hintBackgroundColor: Color? = Color.Transparent,
     enabledSideBtn: Boolean = false,
@@ -77,6 +78,7 @@ fun ReRollBagTextField(
                 value = value,
                 onValueChange = onValueChange,
                 hint = hint,
+                enable = enable,
                 passwordVisible = passwordVisible,
                 onPasswordVisibleChanged = {
                     passwordVisible = it
@@ -103,6 +105,7 @@ private fun RRBBasicTextField(
     value: String,
     onValueChange: (String) -> Unit,
     hint: String? = null,
+    enable: Boolean = true,
     passwordVisible: Boolean = false,
     onPasswordVisibleChanged: (Boolean) -> Unit,
     enabledSideBtn: Boolean = false,
@@ -121,6 +124,7 @@ private fun RRBBasicTextField(
 //            .height(TextFieldHeight)
             .fillMaxWidth()
             .padding(start = BasicTextFieldStartPadding),
+        enabled = enable,
         value = value,
         onValueChange = onValueChange,
         keyboardOptions = keyboardOptions,

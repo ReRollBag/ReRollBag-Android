@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.mediaproject.domain.usecase.IsExistNicknameUseCase
 import com.mediaproject.domain.usecase.IsExistUserIdUseCase
 import com.mediaproject.domain.usecase.SignUpUseCase
+import com.mediaproject.presentation.widgets.states.SignUpData
 import com.mediaproject.presentation.widgets.states.SignUpState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -29,108 +30,96 @@ constructor(
     val signUpState: LiveData<SignUpState>
         get() = _signUpState
 
-    fun signUp(
+    private fun postLoading() = _signUpState.postValue(SignUpState.SignUpLoading(_signUpState.value!!.data))
+
+    fun changeEmail(
         userId: String,
-        isExistUserId: Boolean,
-        nickname: String,
-        isExistNickname: Boolean,
-        password: String,
-        userRole: String = "",
+    ) = _signUpState.postValue(
+        signUpState.value!!.apply {
+            data = SignUpData(
+                userId = userId,
+                isExistUserId = data.isExistUserId,
+                password = data.password,
+                passwordCheckStr = data.passwordCheckStr,
+                nickname = data.nickname,
+                isExistNickname = data.isExistNickname,
+            )
+        }
+    )
+
+    fun signUp(
+        data: SignUpData,
     ) = viewModelScope.launch {
-        _signUpState.postValue(SignUpState.SignUpLoading)
-        if (isExistUserId && isExistNickname) {
-            signUpUseCase(
-                params = SignUpUseCase.Params(
-                    userId = userId,
-                    nickname = nickname,
-                    password = password,
-                    userRole = userRole,
-                )
-            ).onSuccess {
-                Log.d(TAG, "Entry signUp method onSuccess")
-                _signUpState.postValue(SignUpState.SignUpSuccess)
-            }.onFailure {
-                Log.d(TAG, "Entry signUp method onFailure")
-                _signUpState.postValue(
-                    SignUpState.SignUpError(
+        postLoading()
+        data.run {
+            if (isExistUserId && isExistNickname) {
+                signUpUseCase(
+                    params = SignUpUseCase.Params(
                         userId = userId,
-                        isExistUserId = isExistUserId,
                         nickname = nickname,
-                        isExistNickname = isExistNickname,
                         password = password,
                         userRole = userRole,
-                        errorMessage = it.message ?: ""
                     )
-                )
-            }
-        } else {
-            when (isExistUserId) {
-                true -> {
+                ).onSuccess {
+                    Log.d(TAG, "Entry signUp method onSuccess")
+                    _signUpState.postValue(SignUpState.SignUpSuccess)
+                }.onFailure {
+                    Log.d(TAG, "Entry signUp method onFailure")
                     _signUpState.postValue(
                         SignUpState.SignUpError(
-                            userId = userId,
-                            isExistUserId = isExistUserId,
-                            nickname = nickname,
-                            isExistNickname = isExistNickname,
-                            password = password,
-                            userRole = userRole,
-                            errorMessage = "닉네임 중복 검사를 해주세요."
+                            state = data,
+                            errorMessage = it.message ?: ""
                         )
                     )
                 }
-                false -> {
-                    _signUpState.postValue(
-                        SignUpState.SignUpError(
-                            userId = userId,
-                            isExistUserId = isExistUserId,
-                            nickname = nickname,
-                            isExistNickname = isExistNickname,
-                            password = password,
-                            userRole = userRole,
-                            errorMessage = "아이디 중복 검사를 해주세요."
+            } else {
+                when (isExistUserId) {
+                    true -> {
+                        _signUpState.postValue(
+                            SignUpState.SignUpError(
+                                state = data,
+                                errorMessage = "닉네임 중복 검사를 해주세요."
+                            )
                         )
-                    )
+                    }
+                    false -> {
+                        _signUpState.postValue(
+                            SignUpState.SignUpError(
+                                state = data,
+                                errorMessage = "아이디 중복 검사를 해주세요."
+                            )
+                        )
+                    }
                 }
-            }
 
+            }
         }
     }
 
     fun duplicateCheckUserId(
-        userId: String,
-        isExistUserId: Boolean,
-        nickname: String,
-        isExistNickname: Boolean,
-        password: String,
-        userRole: String = "",
+        data: SignUpData
     ) = viewModelScope.launch {
-        _signUpState.postValue(SignUpState.SignUpLoading)
+        postLoading()
         isExistUserIdUseCase(
             params = IsExistUserIdUseCase.Params(
-                userId = userId
+                userId = data.userId
             )
         ).onSuccess {
             Log.d(TAG, "Success")
             _signUpState.postValue(
                 SignUpState.DuplicateCheckSuccess(
-                    userId = userId,
-                    isExistUserId = true,
-                    nickname = nickname,
-                    isExistNickname = isExistNickname,
-                    password = password,
-                    userRole = userRole,
+                    state = SignUpData(
+                        data,
+                        isExistUserId = true,
+                        isExistNickname = data.isExistNickname,
+                    ),
                 )
             )
         }.onFailure {
             Log.d(TAG, it.message ?: "")
             _signUpState.postValue(
                 SignUpState.SignUpError(
-                    userId = userId,
-                    isExistUserId = isExistUserId,
-                    nickname = nickname,
-                    isExistNickname = isExistNickname,
-                    password = password,
-                    userRole = userRole,
+                    state = data,
                     errorMessage = "동일한 아이디가 존재합니다."
                 )
             )
@@ -138,40 +127,29 @@ constructor(
     }
 
     fun duplicateCheckNickname(
-        userId: String,
-        isExistUserId: Boolean,
-        nickname: String,
-        isExistNickname: Boolean,
-        password: String,
-        userRole: String = "",
+        data: SignUpData,
     ) = viewModelScope.launch {
-        _signUpState.postValue(SignUpState.SignUpLoading)
+        postLoading()
         isExistNicknameUseCase(
             params = IsExistNicknameUseCase.Params(
-                nickname = nickname
+                nickname = data.nickname
             )
         ).onSuccess {
             Log.d(TAG, "Success")
             _signUpState.postValue(
                 SignUpState.DuplicateCheckSuccess(
-                    userId = userId,
-                    isExistUserId = isExistUserId,
-                    nickname = nickname,
-                    isExistNickname = true,
-                    password = password,
-                    userRole = userRole,
+                    state = SignUpData(
+                        data,
+                        isExistUserId = data.isExistUserId,
+                        isExistNickname = true
+                    )
                 )
             )
         }.onFailure {
             Log.d(TAG, it.message ?: "")
             _signUpState.postValue(
                 SignUpState.SignUpError(
-                    userId = userId,
-                    isExistUserId = isExistUserId,
-                    nickname = nickname,
-                    isExistNickname = isExistNickname,
-                    password = password,
-                    userRole = userRole,
+                    state = data,
                     errorMessage = "동일한 닉네임이 존재합니다."
                 )
             )

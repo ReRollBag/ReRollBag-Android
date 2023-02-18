@@ -1,8 +1,12 @@
 package com.mediaproject.presentation.screen.signin
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -13,13 +17,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.ReRollBagTextField
 import com.mediaproject.presentation.common.theme.ReRollBagTypography
 import com.mediaproject.presentation.common.theme.gray1
@@ -157,6 +165,71 @@ fun SignInContentView(
                             lineHeight = 19.sp
                         ),
                     )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Row {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_naver_logo),
+                                contentDescription = "naver",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(64.dp)
+                                    .clip(CircleShape)
+                                    .clickable {
+                                        Log.d("Naver", "Naver Login Click")
+                                    }
+                            )
+                            Spacer(modifier = Modifier.height(5.dp))
+                            Text(
+                                text = "네이버 로그인",
+                                style = ReRollBagTypography.title3,
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(20.dp))
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_kakao_logo),
+                                contentDescription = "kakao",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(64.dp)
+                                    .clip(CircleShape)
+                                    .clickable {
+                                        Log.d("kakao", "kakao Login Click")
+                                    }
+                            )
+                            Spacer(modifier = Modifier.height(5.dp))
+                            Text(
+                                text = "카카오 로그인",
+                                style = ReRollBagTypography.title3,
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(20.dp))
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_google_logo),
+                                contentDescription = "google",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(64.dp)
+                                    .clip(CircleShape)
+                                    .clickable {
+                                        Log.d("google", "google Login Click")
+                                    }
+                            )
+                            Spacer(modifier = Modifier.height(5.dp))
+                            Text(
+                                text = "구글 로그인",
+                                style = ReRollBagTypography.title3,
+                            )
+                        }
+                    }
                 }
             }
         }

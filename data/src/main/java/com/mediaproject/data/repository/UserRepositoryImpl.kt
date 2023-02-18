@@ -52,7 +52,9 @@ constructor(
         remoteUserDataSource.isExistUser(
             userId = userId
         ).also {
-
+            if (!(it.condition)) {
+                throw Exception()
+            }
         }
     }
 
