@@ -1,8 +1,6 @@
 package com.mediaproject.presentation.screen.signup
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -23,6 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,8 +51,8 @@ fun SignUpScreenBody(
     val colorLength = if (password.length in 8..20) green2 else gray2
     val colorPassword = if (password == passwordCheckStr) green2 else gray2
 
-    var nickname by rememberSaveable { mutableStateOf("") }
-    var isExistNickname by rememberSaveable { mutableStateOf(false) }
+    var name by rememberSaveable { mutableStateOf("") }
+    var phoneNumber by rememberSaveable { mutableStateOf("") }
 
 
     Box(
@@ -68,7 +67,8 @@ fun SignUpScreenBody(
                 .padding(
                     horizontal = 30.dp,
                     vertical = 8.dp
-                ),
+                )
+                .verticalScroll(rememberScrollState()),
         ) {
             Column(
                 modifier = Modifier
@@ -116,10 +116,9 @@ fun SignUpScreenBody(
                                 data = SignUpData(
                                     userId = userId,
                                     isExistUserId = isExistUserId,
-                                    password = "",
-                                    passwordCheckStr = "",
-                                    nickname = nickname,
-                                    isExistNickname = isExistNickname,
+                                    password = password,
+                                    passwordCheckStr = passwordCheckStr,
+                                    name = name,
                                 )
                             )
                         },
@@ -172,6 +171,7 @@ fun SignUpScreenBody(
                                 value = password,
                                 onValueChange = {
                                     password = it
+                                    viewModel.changePassword(password)
                                 },
                                 isPassword = true
                             )
@@ -258,6 +258,7 @@ fun SignUpScreenBody(
                                 value = passwordCheckStr,
                                 onValueChange = {
                                     passwordCheckStr = it
+                                    viewModel.changePasswordChecker(passwordCheckStr)
                                 },
                                 isPassword = true
                             )
@@ -309,9 +310,10 @@ fun SignUpScreenBody(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         ReRollBagTextField(
-                            value = userId,
+                            value = name,
                             onValueChange = {
-                                userId = it
+                                name = it
+                                viewModel.changeName(name)
                             },
                         )
                         Divider(color = gray2, thickness = 1.dp)
@@ -320,15 +322,80 @@ fun SignUpScreenBody(
             }
             // endregion
 
+            Spacer(modifier = Modifier.height(30.dp))
 
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    "전화 번호",
+                    style = TextStyle(
+                        fontFamily = notoSansFamily,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 10.sp,
+                        textAlign = TextAlign.Center,
+                        lineHeight = 18.sp
+                    )
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(
+                        modifier = Modifier.widthIn(max = 200.dp)
+                    ) {
+                        ReRollBagTextField(
+                            value = phoneNumber,
+                            onValueChange = { newValue ->
+                                phoneNumber = newValue
+                            },
+                            enable = !(uiState!!.data.isExistUserId),
+                            keyboardType = KeyboardType.Number
+                        )
+                        Divider(color = isEmailSuccessColor(uiState), thickness = 1.dp)
+                    }
+                    Spacer(modifier = Modifier.width(40.dp))
+                    Button(
+                        modifier = Modifier
+                            .width(100.dp),
+                        border = BorderStroke(
+                            1.dp,
+                            isEmailSuccessColor(uiState)
+                        ),
+                        shape = RoundedCornerShape(25.dp),
+                        enabled = !(uiState!!.data.isExistUserId),
+                        onClick = {
+
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color.White,
+                            contentColor = isEmailSuccessColor(uiState)
+                        ),
+                    ) {
+                        Text(
+                            text = "인증 요청",
+                            style = TextStyle(
+                                fontWeight = FontWeight.Normal,
+                                fontSize = 12.sp,
+                                textAlign = TextAlign.Center,
+                                lineHeight = 0.sp,
+                            ),
+                            modifier = Modifier.height(20.dp)
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(30.dp))
         }
     }
 }
 
-private fun isEmailSuccessColor(uiState: SignUpState?) = when (uiState) {
+private fun isEmailSuccessColor(uiState: SignUpState?) = when (uiState!!) {
     is SignUpState.SignUpError -> Color.Red
-    is SignUpState.DuplicateCheckSuccess -> if (uiState.data.isExistUserId) green1 else gray2
-    else -> gray2
+    else -> if (uiState.data.isExistUserId) green1 else gray2
 }
 
 private fun checkEnglish(

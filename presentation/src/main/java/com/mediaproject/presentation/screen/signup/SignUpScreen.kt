@@ -1,12 +1,15 @@
 package com.mediaproject.presentation.screen.signup
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,8 +26,9 @@ fun SignUpScreen(
     onBackPress: () -> Unit = {},
 ) {
     val signUpState = viewModel.signUpState.observeAsState()
+    val focusManager = LocalFocusManager.current
     SignUpScreenContent(
-        modifier = modifier,
+        modifier = modifier.clickable { focusManager.clearFocus() },
         uiState = signUpState.value,
         onBackPress = onBackPress
     )
@@ -46,8 +50,8 @@ fun SignUpScreenContent(
         val isEnable: Boolean = (
             uiState!!.data.isExistUserId
             && uiState.data.password == uiState.data.passwordCheckStr
-            && uiState.data.isExistNickname
             && checkAll(uiState.data.password)
+            && uiState.data.name.isNotEmpty()
         )
 
         Box(
@@ -57,6 +61,7 @@ fun SignUpScreenContent(
                 .background(gray1),
             contentAlignment = Alignment.Center,
         ) {
+            Log.d("TAG", "Refresh $isEnable")
             Button(
                 modifier = modifier
                     .fillMaxWidth()
@@ -68,8 +73,7 @@ fun SignUpScreenContent(
                             isExistUserId = true,
                             password = "test1234",
                             passwordCheckStr = "test1234",
-                            nickname = "테스트",
-                            isExistNickname = true,
+                            name = "테스트",
                         )
                     )
                 },
@@ -96,14 +100,13 @@ fun SignUpScreenContent(
 @Composable
 fun SignUpScreenContentPreview() {
     SignUpScreenContent(
-        uiState = SignUpState.DuplicateCheckSuccess(
+        uiState = SignUpState.UpdateData(
             state = SignUpData(
                 userId = "test@gmail.com",
                 isExistUserId = true,
                 password = "test1234",
                 passwordCheckStr = "test1234",
-                nickname = "테스트",
-                isExistNickname = true,
+                name = "테스트",
             ),
         )
     )

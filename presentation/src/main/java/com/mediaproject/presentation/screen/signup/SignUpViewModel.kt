@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mediaproject.domain.usecase.IsExistNicknameUseCase
 import com.mediaproject.domain.usecase.IsExistUserIdUseCase
 import com.mediaproject.domain.usecase.SignUpUseCase
 import com.mediaproject.presentation.widgets.states.SignUpData
@@ -20,7 +19,6 @@ class SignUpViewModel
 constructor(
     private val signUpUseCase: SignUpUseCase,
     private val isExistUserIdUseCase: IsExistUserIdUseCase,
-    private val isExistNicknameUseCase: IsExistNicknameUseCase,
 ) : ViewModel() {
     companion object {
         private const val TAG = "[SignUpVM]"
@@ -41,57 +39,94 @@ constructor(
                 isExistUserId = data.isExistUserId,
                 password = data.password,
                 passwordCheckStr = data.passwordCheckStr,
-                nickname = data.nickname,
-                isExistNickname = data.isExistNickname,
+                name = data.name,
             )
         }
     )
+
+    fun changePassword(
+        password: String
+    ) = _signUpState.value!!.data.run {
+        _signUpState.postValue(
+            SignUpState.UpdateData(
+                state = SignUpData(
+                    userId = this.userId,
+                    isExistUserId = this.isExistUserId,
+                    password = password,
+                    passwordCheckStr = this.passwordCheckStr,
+                    name = this.name
+                )
+            )
+        )
+    }
+
+    fun changePasswordChecker(
+        passwordChecker: String
+    ) = _signUpState.value!!.data.run {
+        _signUpState.postValue(
+            SignUpState.UpdateData(
+                state = SignUpData(
+                    userId = this.userId,
+                    isExistUserId = this.isExistUserId,
+                    password = this.password,
+                    passwordCheckStr = passwordChecker,
+                    name = this.name
+                )
+            )
+        )
+    }
+
+    fun changeName(
+        name: String
+    ) = _signUpState.value!!.data.run {
+        _signUpState.postValue(
+            SignUpState.UpdateData(
+                state = SignUpData(
+                    userId = this.userId,
+                    isExistUserId = this.isExistUserId,
+                    password = this.password,
+                    passwordCheckStr = this.passwordCheckStr,
+                    name = name
+                )
+            )
+        )
+    }
 
     fun signUp(
         data: SignUpData,
     ) = viewModelScope.launch {
         postLoading()
         data.run {
-            if (isExistUserId && isExistNickname) {
-                signUpUseCase(
-                    params = SignUpUseCase.Params(
-                        userId = userId,
-                        nickname = nickname,
-                        password = password,
-                        userRole = userRole,
-                    )
-                ).onSuccess {
-                    Log.d(TAG, "Entry signUp method onSuccess")
-                    _signUpState.postValue(SignUpState.SignUpSuccess)
-                }.onFailure {
-                    Log.d(TAG, "Entry signUp method onFailure")
+            when (isExistUserId) {
+                true -> {
+                    signUpUseCase(
+                        params = SignUpUseCase.Params(
+                            userId = userId,
+                            nickname = name,
+                            password = password,
+                            userRole = userRole,
+                        )
+                    ).onSuccess {
+                        Log.d(TAG, "Entry signUp method onSuccess")
+                        _signUpState.postValue(SignUpState.SignUpSuccess)
+                    }.onFailure {
+                        Log.d(TAG, "Entry signUp method onFailure")
+                        _signUpState.postValue(
+                            SignUpState.SignUpError(
+                                state = data,
+                                errorMessage = it.message ?: ""
+                            )
+                        )
+                    }
+                }
+                false -> {
                     _signUpState.postValue(
                         SignUpState.SignUpError(
                             state = data,
-                            errorMessage = it.message ?: ""
+                            errorMessage = "아이디 중복 검사를 해주세요."
                         )
                     )
                 }
-            } else {
-                when (isExistUserId) {
-                    true -> {
-                        _signUpState.postValue(
-                            SignUpState.SignUpError(
-                                state = data,
-                                errorMessage = "닉네임 중복 검사를 해주세요."
-                            )
-                        )
-                    }
-                    false -> {
-                        _signUpState.postValue(
-                            SignUpState.SignUpError(
-                                state = data,
-                                errorMessage = "아이디 중복 검사를 해주세요."
-                            )
-                        )
-                    }
-                }
-
             }
         }
     }
@@ -107,11 +142,10 @@ constructor(
         ).onSuccess {
             Log.d(TAG, "Success")
             _signUpState.postValue(
-                SignUpState.DuplicateCheckSuccess(
+                SignUpState.UpdateData(
                     state = SignUpData(
                         data,
                         isExistUserId = true,
-                        isExistNickname = data.isExistNickname,
                     ),
                 )
             )
@@ -126,34 +160,35 @@ constructor(
         }
     }
 
-    fun duplicateCheckNickname(
+    @Deprecated("UnUsed")
+    private fun duplicateCheckNickname(
         data: SignUpData,
     ) = viewModelScope.launch {
-        postLoading()
-        isExistNicknameUseCase(
-            params = IsExistNicknameUseCase.Params(
-                nickname = data.nickname
-            )
-        ).onSuccess {
-            Log.d(TAG, "Success")
-            _signUpState.postValue(
-                SignUpState.DuplicateCheckSuccess(
-                    state = SignUpData(
-                        data,
-                        isExistUserId = data.isExistUserId,
-                        isExistNickname = true
-                    )
-                )
-            )
-        }.onFailure {
-            Log.d(TAG, it.message ?: "")
-            _signUpState.postValue(
-                SignUpState.SignUpError(
-                    state = data,
-                    errorMessage = "동일한 닉네임이 존재합니다."
-                )
-            )
-        }
+//        postLoading()
+//        isExistNicknameUseCase(
+//            params = IsExistNicknameUseCase.Params(
+//                nickname = data.name
+//            )
+//        ).onSuccess {
+//            Log.d(TAG, "Success")
+//            _signUpState.postValue(
+//                SignUpState.DuplicateCheckSuccess(
+//                    state = SignUpData(
+//                        data,
+//                        isExistUserId = data.isExistUserId,
+//                        isExistNickname = true
+//                    )
+//                )
+//            )
+//        }.onFailure {
+//            Log.d(TAG, it.message ?: "")
+//            _signUpState.postValue(
+//                SignUpState.SignUpError(
+//                    state = data,
+//                    errorMessage = "동일한 닉네임이 존재합니다."
+//                )
+//            )
+//        }
     }
 
 }

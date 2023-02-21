@@ -3,6 +3,7 @@ package com.mediaproject.domain.usecase
 import com.mediaproject.domain.repository.UserRepository
 import javax.inject.Inject
 
+@Deprecated("Un-Used")
 class IsExistNicknameUseCase
 @Inject
 constructor(

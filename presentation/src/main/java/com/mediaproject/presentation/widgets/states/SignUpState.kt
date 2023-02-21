@@ -14,8 +14,8 @@ sealed class SignUpState(
         val errorMessage: String
     ) : SignUpState(data = state)
 
-    data class DuplicateCheckSuccess(
-        private var state: SignUpData,
+    data class UpdateData(
+        private var state: SignUpData
     ) : SignUpState(data = state)
 
     object SignUpSuccess : SignUpState(data = SignUpData())
@@ -27,8 +27,7 @@ data class SignUpData(
     val isExistUserId: Boolean,
     val password: String,
     val passwordCheckStr: String,
-    val nickname: String,
-    val isExistNickname: Boolean,
+    val name: String,
     val userRole: String,
 ) {
     constructor() : this(
@@ -36,8 +35,7 @@ data class SignUpData(
         isExistUserId = false,
         password = "",
         passwordCheckStr = "",
-        nickname = "",
-        isExistNickname = false,
+        name = "",
         userRole = "",
     )
 
@@ -46,15 +44,13 @@ data class SignUpData(
         isExistUserId: Boolean,
         password: String,
         passwordCheckStr: String,
-        nickname: String,
-        isExistNickname: Boolean,
+        name: String,
     ) : this(
         userId = userId,
         isExistUserId = isExistUserId,
         password = password,
         passwordCheckStr = passwordCheckStr,
-        nickname = nickname,
-        isExistNickname = isExistNickname,
+        name = name,
         userRole = "",
     )
 
@@ -63,22 +59,19 @@ data class SignUpData(
         isExistUserId = signUpData.isExistUserId,
         password = signUpData.password,
         passwordCheckStr = signUpData.passwordCheckStr,
-        nickname = signUpData.nickname,
-        isExistNickname = signUpData.isExistNickname,
+        name = signUpData.name,
         userRole = signUpData.userRole,
     )
 
     constructor(
         signUpData: SignUpData,
         isExistUserId: Boolean,
-        isExistNickname: Boolean,
     ) : this(
         userId = signUpData.userId,
         isExistUserId = isExistUserId,
         password = signUpData.password,
         passwordCheckStr = signUpData.passwordCheckStr,
-        nickname = signUpData.nickname,
-        isExistNickname = isExistNickname,
+        name = signUpData.name,
         userRole = signUpData.userRole,
     )
 
