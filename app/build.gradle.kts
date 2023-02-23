@@ -1,9 +1,14 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     kotlin("kapt")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
+
+fun getApiKey(propertyKey: String): String = gradleLocalProperties(rootDir).getProperty(propertyKey)
 
 android {
     namespace = "com.mediaproject.rerollbag"
@@ -20,6 +25,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        manifestPlaceholders["MAPS_API_KEY"] = getApiKey("MAPS_API_KEY")
     }
 
     buildTypes {
@@ -70,6 +77,9 @@ dependencies {
     kapt(Dependencies.Room.ROOM_COMPILE)
     implementation(Dependencies.DataStore.DATASTORE_PREFERENCE)
     implementation(Dependencies.DataStore.DATASTORE_PREFERENCE_CORE)
+
+    implementation(Dependencies.Google.MAP)
+    implementation(Dependencies.Google.MAP_COMPOSE)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

@@ -9,4 +9,6 @@ data class SignUpRequest(
     val nickname: String,
     @SerializedName("password")
     val password: String,
+    @SerializedName("userRole")
+    val userRole: String
 )

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,9 +23,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mediaproject.presentation.R
+import com.mediaproject.presentation.common.theme.ReRollBagTypography
+import com.mediaproject.presentation.common.theme.gray1
 
 // region const value field
-private val TextFieldHeight: Dp = 40.dp
+private val TextFieldHeight: Dp = 50.dp
 private val DefaultTextFieldRound: Dp = 0.dp
 private val BasicTextFieldStartPadding = 0.dp
 // endregion
@@ -36,6 +39,7 @@ fun ReRollBagTextField(
     onValueChange: (newValue: String) -> Unit,
     backgroundColor: Color = Color.White,
     title: String? = null,
+    enable: Boolean = true,
     hint: String? = null,
     hintBackgroundColor: Color? = Color.Transparent,
     enabledSideBtn: Boolean = false,
@@ -74,6 +78,7 @@ fun ReRollBagTextField(
                 value = value,
                 onValueChange = onValueChange,
                 hint = hint,
+                enable = enable,
                 passwordVisible = passwordVisible,
                 onPasswordVisibleChanged = {
                     passwordVisible = it
@@ -90,7 +95,6 @@ fun ReRollBagTextField(
                 singleLine = singleLine,
             )
         }
-
     }
 
 
@@ -101,6 +105,7 @@ private fun RRBBasicTextField(
     value: String,
     onValueChange: (String) -> Unit,
     hint: String? = null,
+    enable: Boolean = true,
     passwordVisible: Boolean = false,
     onPasswordVisibleChanged: (Boolean) -> Unit,
     enabledSideBtn: Boolean = false,
@@ -119,17 +124,14 @@ private fun RRBBasicTextField(
 //            .height(TextFieldHeight)
             .fillMaxWidth()
             .padding(start = BasicTextFieldStartPadding),
+        enabled = enable,
         value = value,
         onValueChange = onValueChange,
         keyboardOptions = keyboardOptions,
         singleLine = singleLine,
         visualTransformation = if (!passwordVisible && isPassword) PasswordVisualTransformation() else VisualTransformation.None,
         maxLines = 1,
-        textStyle = TextStyle(
-            fontWeight = FontWeight.Normal,
-            fontSize = 13.sp,
-            lineHeight = 19.sp,
-        ),
+        textStyle = ReRollBagTypography.title2,
         decorationBox = @Composable { innerTextField ->
             Box(
                 contentAlignment = Alignment.CenterStart,

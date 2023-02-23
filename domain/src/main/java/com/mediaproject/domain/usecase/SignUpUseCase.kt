@@ -15,7 +15,8 @@ constructor(
         repository.signUp(
             userId = params.userId,
             nickname = params.nickname,
-            password = params.password
+            password = params.password,
+            userRole = params.userRole
         )
     }
 
@@ -23,5 +24,6 @@ constructor(
         val userId: String,
         val nickname: String,
         val password: String,
+        val userRole: String,
     )
 }

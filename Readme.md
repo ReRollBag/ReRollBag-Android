@@ -4,26 +4,31 @@
 ## 마지막 수정일
 
 ---------------------------------------------------
-+ 2023/01/08
++ 2023/02/23
 
 ## 프로젝트 구분
 
 ---------------------------------------------------
     미디어프로젝트 및 GDSC 프로젝트를 위한 ReRollBag 프로젝트
 
-----------------------------------------------------
+
+## Project 설명
+
+---------------------------------------------------
+
+
 
 ## Package 구성
 
 ---------------------------------------------------
 + **module (:app)**
-  > DI, Widget
+  > DI
 + **module (:data)**
-  > DB, Mapper, Remote, Repository
+  > DB, Local, Mapper, Remote, Repository, Utils
 + **module (:domain)**
   > Model, Repository, UseCase, Utils
 + **module (:presentation)**
-  > Common, Screen, Widget
+  > Common, Screen, Widgets
 
 ## Work in
 
@@ -73,3 +78,12 @@
 + **Glide**
     + _GLIDE_
     + _GLIDE_COMPILE_
++ **Lottie**
+  + _LOTTIE_
++ **DataStore**
+  + _DATASTORE_
+  + _DATASTORE_PREFERENCE_
+  + _DATASTORE_PREFERENCE_CORE_
++ **Google**
+  + _MAP_
+  + _MAP_COMPOSE_
