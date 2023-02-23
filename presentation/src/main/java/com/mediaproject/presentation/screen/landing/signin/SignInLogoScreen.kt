@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.signin
+package com.mediaproject.presentation.screen.landing.signin
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth

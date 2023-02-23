@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.signup
+package com.mediaproject.presentation.screen.landing.signup
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -18,6 +18,8 @@ import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.green1
 import com.mediaproject.presentation.widgets.states.SignUpData
 import com.mediaproject.presentation.widgets.states.SignUpState
+
+private val TAG = "SignUpScreen"
 
 @Composable
 fun SignUpScreen(
@@ -54,6 +56,8 @@ fun SignUpScreenContent(
             && uiState.data.name.isNotEmpty()
         )
 
+        Log.d(TAG, "isEnable: $isEnable")
+
         Box(
             modifier = modifier
                 .fillMaxWidth()
@@ -89,7 +93,10 @@ fun SignUpScreenContent(
         modifier = modifier
             .padding(padding),
         uiState = uiState,
-        viewModel = viewModel,
+        onDuplicateCheckUserId = { viewModel.duplicateCheckUserId(it) },
+        onChangePassword = { viewModel.changePassword(it) },
+        onChangePasswordChecker = { viewModel.changePasswordChecker(it) },
+        onChangeName = { viewModel.changeName(it) },
     )
 }
 

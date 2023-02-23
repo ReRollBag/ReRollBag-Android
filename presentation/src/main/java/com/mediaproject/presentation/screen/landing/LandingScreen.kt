@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.common.screen
+package com.mediaproject.presentation.screen.landing
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,9 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import com.mediaproject.presentation.R
-import com.mediaproject.presentation.common.theme.Purple80
 import com.mediaproject.presentation.common.theme.ivory1
 import kotlinx.coroutines.delay
 

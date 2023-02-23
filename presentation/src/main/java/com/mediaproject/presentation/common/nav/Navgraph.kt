@@ -1,20 +1,23 @@
 package com.mediaproject.presentation.common.nav
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.currentCompositionLocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.mediaproject.presentation.common.screen.route.Screen
-import com.mediaproject.presentation.common.screen.LandingScreen
+import com.mediaproject.presentation.common.route.Screen
+import com.mediaproject.presentation.screen.landing.LandingScreen
 import com.mediaproject.presentation.common.theme.AnimatedSplashScreenTheme
-import com.mediaproject.presentation.common.theme.ReRollBagTheme
-import com.mediaproject.presentation.screen.home.HomeScreen
-import com.mediaproject.presentation.screen.signin.SignInScreen
-import com.mediaproject.presentation.screen.signup.SignUpScreen
+import com.mediaproject.presentation.screen.home.HomeActivity
+import com.mediaproject.presentation.screen.landing.signin.SignInScreen
+import com.mediaproject.presentation.screen.landing.signup.SignUpScreen
 
 @Composable
-fun SetupNavGraph(
-    navController: NavHostController
+fun LandingNavGraph(
+    navController: NavHostController,
+    context: Context,
 ) {
     NavHost(
         navController = navController,
@@ -32,7 +35,11 @@ fun SetupNavGraph(
         composable(route = Screen.SignIn.route) {
             SignInScreen(
                 onSuccessSignIn = {
-                    navController.navigate(Screen.Home.route)
+                    context.startActivity(
+                        Intent(context, HomeActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                    )
                 },
                 onSignUpBtnClick = {
                     navController.navigate(Screen.SignUp.route)
@@ -45,11 +52,6 @@ fun SetupNavGraph(
                     navController.popBackStack()
                 }
             )
-        }
-        composable(route = Screen.Home.route) {
-            ReRollBagTheme {
-                HomeScreen()
-            }
         }
     }
 }

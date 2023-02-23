@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.signup
+package com.mediaproject.presentation.screen.landing.signup
 
 import android.util.Log
 import androidx.lifecycle.LiveData

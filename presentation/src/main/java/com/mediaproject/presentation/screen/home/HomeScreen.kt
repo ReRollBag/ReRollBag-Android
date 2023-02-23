@@ -1,29 +1,20 @@
 package com.mediaproject.presentation.screen.home
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-//    viewModel: ViewModel = hiltViewModel(),
-) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.White),
-        contentAlignment = Alignment.Center
-    ) {
-        Text("Home")
-    }
+) = Scaffold(
+    topBar = { HomeScreenAppBar() },
+) { padding ->
+    HomeScreenBody(
+        modifier = modifier.padding(padding),
+    )
 }
 
 @Preview(showBackground = true)

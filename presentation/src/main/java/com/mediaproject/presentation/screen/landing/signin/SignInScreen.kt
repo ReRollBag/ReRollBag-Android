@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.signin
+package com.mediaproject.presentation.screen.landing.signin
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
@@ -243,7 +243,31 @@ fun SignInContentView(
 @Preview(showBackground = true)
 @Composable
 fun SignInScreenPreview() {
-    SignInContentView(
-        uiState = SignInState.SignInInit
-    )
+    val screenCase = 1
+
+    when (screenCase) {
+        1 ->  {
+            SignInContentView(
+                uiState = SignInState.SignInError(
+                    userId = "",
+                    password = "",
+                    errorMessage = "UsersIdOrPasswordInvalidException"
+                )
+            )
+        }
+        2 -> {
+            SignInContentView(
+                uiState = SignInState.SignInError(
+                    userId = "",
+                    password = "",
+                    errorMessage = ""
+                )
+            )
+        }
+        else -> {
+            SignInContentView(
+                uiState = SignInState.SignInInit
+            )
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.signup
+package com.mediaproject.presentation.screen.landing.signup
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -38,7 +38,10 @@ import com.mediaproject.presentation.widgets.states.SignUpState
 fun SignUpScreenBody(
     modifier: Modifier = Modifier,
     uiState: SignUpState?,
-    viewModel: SignUpViewModel = hiltViewModel(),
+    onDuplicateCheckUserId: (data: SignUpData) -> Unit = {},
+    onChangePassword: (newValue: String) -> Unit = {},
+    onChangePasswordChecker: (newValue: String) -> Unit = {},
+    onChangeName: (newValue: String) -> Unit = {},
 ) {
 
     var userId by rememberSaveable { mutableStateOf("") }
@@ -112,8 +115,8 @@ fun SignUpScreenBody(
                         shape = RoundedCornerShape(25.dp),
                         enabled = !(uiState!!.data.isExistUserId),
                         onClick = {
-                            viewModel.duplicateCheckUserId(
-                                data = SignUpData(
+                            onDuplicateCheckUserId(
+                                SignUpData(
                                     userId = userId,
                                     isExistUserId = isExistUserId,
                                     password = password,
@@ -171,7 +174,7 @@ fun SignUpScreenBody(
                                 value = password,
                                 onValueChange = {
                                     password = it
-                                    viewModel.changePassword(password)
+                                    onChangePassword(password)
                                 },
                                 isPassword = true
                             )
@@ -258,7 +261,7 @@ fun SignUpScreenBody(
                                 value = passwordCheckStr,
                                 onValueChange = {
                                     passwordCheckStr = it
-                                    viewModel.changePasswordChecker(passwordCheckStr)
+                                    onChangePasswordChecker(passwordCheckStr)
                                 },
                                 isPassword = true
                             )
@@ -313,7 +316,7 @@ fun SignUpScreenBody(
                             value = name,
                             onValueChange = {
                                 name = it
-                                viewModel.changeName(name)
+                                onChangeName(name)
                             },
                         )
                         Divider(color = gray2, thickness = 1.dp)
@@ -415,7 +418,17 @@ fun checkAll(
 )
 @Composable
 fun SignUpScreenBodyPreview() {
-    SignUpScreenBody(
-        uiState = SignUpState.SignUpInit
-    )
+    val screenCase = 1
+    when (screenCase) {
+        1 -> SignUpScreenBody(
+            uiState = SignUpState.SignUpError(
+                state = SignUpData(),
+                errorMessage = "error"
+            )
+        )
+        else -> SignUpScreenBody(
+            uiState = SignUpState.SignUpInit
+        )
+    }
+
 }

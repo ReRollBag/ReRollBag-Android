@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     kotlin("kapt")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -69,6 +70,9 @@ dependencies {
     kapt(Dependencies.Hilt.HILT_COMPILE)
 
     implementation(Dependencies.Lottie.LOTTIE)
+
+    implementation(Dependencies.Google.MAP)
+    implementation(Dependencies.Google.MAP_COMPOSE)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

@@ -85,4 +85,9 @@ object Dependencies {
         const val DATASTORE_PREFERENCE_CORE = "androidx.datastore:datastore-preferences-core:${Versions.VERSION_DATASTORE}"
     }
 
+    object Google {
+        const val MAP = "com.google.android.gms:play-services-maps:18.1.0"
+        const val MAP_COMPOSE = "com.google.maps.android:maps-compose:2.7.2"
+    }
+
 }
