@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.home
+package com.mediaproject.presentation.screen.home.menu
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -12,9 +12,9 @@ import androidx.compose.ui.unit.dp
 import com.mediaproject.presentation.R
 
 @Composable
-fun HomeScreenAppBar(
+fun HomeMenuAppBar(
     modifier: Modifier = Modifier,
-    onClickMenu: () -> Unit = {},
+    onBackPressed: () -> Unit = {},
 ) = Box(
     modifier = modifier
         .fillMaxWidth()
@@ -24,9 +24,9 @@ fun HomeScreenAppBar(
     Image(
         modifier = Modifier.padding(
             start = 16.dp
-        ).clickable { onClickMenu() },
-        painter = painterResource(id = R.drawable.ic_menu_hamburger),
-        contentDescription = "menu",
+        ).clickable { onBackPressed() },
+        painter = painterResource(id = R.drawable.ic_back),
+        contentDescription = "back",
     )
     Image(
         modifier = Modifier
@@ -40,6 +40,6 @@ fun HomeScreenAppBar(
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreenAppBarPreview() {
-    HomeScreenAppBar()
+fun HomeMenuAppBarPreview() {
+    HomeMenuAppBar()
 }

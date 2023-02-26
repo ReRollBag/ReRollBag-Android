@@ -33,6 +33,7 @@ import com.mediaproject.presentation.common.component.ReRollBagTextField
 import com.mediaproject.presentation.common.theme.ReRollBagTypography
 import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.green1
+import com.mediaproject.presentation.screen.vm.SignInViewModel
 import com.mediaproject.presentation.widgets.states.SignInState
 
 @Composable

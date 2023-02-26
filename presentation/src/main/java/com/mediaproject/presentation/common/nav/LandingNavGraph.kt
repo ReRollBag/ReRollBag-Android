@@ -3,11 +3,10 @@ package com.mediaproject.presentation.common.nav
 import android.content.Context
 import android.content.Intent
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.currentCompositionLocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.mediaproject.presentation.common.route.Screen
+import com.mediaproject.presentation.common.route.LandingScreenRoute
 import com.mediaproject.presentation.screen.landing.LandingScreen
 import com.mediaproject.presentation.common.theme.AnimatedSplashScreenTheme
 import com.mediaproject.presentation.screen.home.HomeActivity
@@ -21,18 +20,18 @@ fun LandingNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Landing.route
+        startDestination = LandingScreenRoute.Landing.route
     ) {
-        composable(route = Screen.Landing.route) {
+        composable(route = LandingScreenRoute.Landing.route) {
             AnimatedSplashScreenTheme {
                 LandingScreen {
-                    navController.navigate(Screen.SignIn.route) {
+                    navController.navigate(LandingScreenRoute.SignIn.route) {
                         popUpTo(0)
                     }
                 }
             }
         }
-        composable(route = Screen.SignIn.route) {
+        composable(route = LandingScreenRoute.SignIn.route) {
             SignInScreen(
                 onSuccessSignIn = {
                     context.startActivity(
@@ -42,11 +41,11 @@ fun LandingNavGraph(
                     )
                 },
                 onSignUpBtnClick = {
-                    navController.navigate(Screen.SignUp.route)
+                    navController.navigate(LandingScreenRoute.SignUp.route)
                 }
             )
         }
-        composable(route = Screen.SignUp.route) {
+        composable(route = LandingScreenRoute.SignUp.route) {
             SignUpScreen(
                 onBackPress = {
                     navController.popBackStack()

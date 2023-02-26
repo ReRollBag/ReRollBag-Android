@@ -15,9 +15,6 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-
-var num = 0
-
 @Composable
 fun HomeScreenBody(
     modifier: Modifier = Modifier,
@@ -27,28 +24,24 @@ fun HomeScreenBody(
         .background(Color.White),
     contentAlignment = Alignment.Center
 ) {
-    if (num == 0) {
-        val latLng = LatLng(37.7387295, 127.0458908)
-        val cameraPositionState = rememberCameraPositionState {
-            position = CameraPosition.fromLatLngZoom(latLng, 15f)
+    val latLng = LatLng(37.7387295, 127.0458908)
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(latLng, 15f)
+    }
+    GoogleMap(
+        modifier = Modifier.fillMaxSize(),
+        cameraPositionState = cameraPositionState,
+        googleMapOptionsFactory = {
+            val options = GoogleMapOptions()
+            options.zoomControlsEnabled(false)
+            return@GoogleMap options
         }
-        GoogleMap(
-            modifier = Modifier.fillMaxSize(),
-            cameraPositionState = cameraPositionState,
-            googleMapOptionsFactory = {
-                val options = GoogleMapOptions()
-                options.zoomControlsEnabled(false)
-                return@GoogleMap options
-            }
-        ) {
-            Marker(
-                state = MarkerState(position = latLng),
-                title = "의정부역",
-                snippet = "Uijeongbu subway"
-            )
-        }
-
-        num++
+    ) {
+        Marker(
+            state = MarkerState(position = latLng),
+            title = "의정부역",
+            snippet = "Uijeongbu subway"
+        )
     }
 }
 

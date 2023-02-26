@@ -16,10 +16,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.green1
+import com.mediaproject.presentation.screen.vm.SignUpViewModel
 import com.mediaproject.presentation.widgets.states.SignUpData
 import com.mediaproject.presentation.widgets.states.SignUpState
 
-private val TAG = "SignUpScreen"
+private const val TAG = "SignUpScreen"
 
 @Composable
 fun SignUpScreen(
