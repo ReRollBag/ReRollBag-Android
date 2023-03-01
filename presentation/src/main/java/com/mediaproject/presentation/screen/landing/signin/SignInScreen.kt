@@ -42,6 +42,7 @@ fun SignInScreen(
     viewModel: SignInViewModel = hiltViewModel(),
     onSuccessSignIn: () -> Unit = {},
     onSignUpBtnClick: () -> Unit = {},
+    onSocialSignUp: () -> Unit = {},
 ) {
     val signInState = viewModel.signInState.observeAsState()
     val focusManager = LocalFocusManager.current

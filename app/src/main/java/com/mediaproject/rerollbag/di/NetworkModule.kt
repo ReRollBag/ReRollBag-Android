@@ -1,5 +1,6 @@
 package com.mediaproject.rerollbag.di
 
+import com.google.firebase.auth.FirebaseAuth
 import com.mediaproject.data.local.datasource.LocalUserDataSource
 import com.mediaproject.data.remote.api.UserAPI
 import com.mediaproject.data.utils.interceptors.AuthInterceptor
@@ -72,6 +73,12 @@ object NetworkModule {
     fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
     //endregion
+
+    @Provides
+    @Singleton
+    fun provideFirebase(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
+    }
 
     @Provides
     fun providerUserAPI(

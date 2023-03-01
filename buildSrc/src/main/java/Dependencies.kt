@@ -88,6 +88,9 @@ object Dependencies {
     object Google {
         const val MAP = "com.google.android.gms:play-services-maps:18.1.0"
         const val MAP_COMPOSE = "com.google.maps.android:maps-compose:2.7.2"
+        const val FIREBASE = "com.google.firebase:firebase-bom:31.2.2"
+        const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
+        const val FIREBASE_AUTH = "com.google.firebase:firebase-auth-ktx"
     }
 
 }

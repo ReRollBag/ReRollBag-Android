@@ -37,6 +37,10 @@
         </activity>
 
         <activity
+            android:name="com.mediaproject.presentation.screen.access.AccessActivity"
+            android:exported="false"/>
+
+        <activity
             android:name="com.mediaproject.presentation.screen.home.HomeActivity"
             android:exported="false"/>
 

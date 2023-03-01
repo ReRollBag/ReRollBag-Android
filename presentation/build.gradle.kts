@@ -4,6 +4,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     kotlin("kapt")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -73,6 +74,9 @@ dependencies {
 
     implementation(Dependencies.Google.MAP)
     implementation(Dependencies.Google.MAP_COMPOSE)
+    implementation(platform(Dependencies.Google.FIREBASE))
+    implementation(Dependencies.Google.FIREBASE_ANALYTICS)
+    implementation(Dependencies.Google.FIREBASE_AUTH)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

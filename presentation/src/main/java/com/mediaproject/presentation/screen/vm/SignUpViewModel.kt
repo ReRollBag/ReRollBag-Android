@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.mediaproject.domain.model.SignUpData
 import com.mediaproject.domain.usecase.IsExistUserIdUseCase
 import com.mediaproject.domain.usecase.SignUpUseCase
-import com.mediaproject.presentation.widgets.states.SignUpData
+import com.mediaproject.presentation.screen.landing.signup.SignUpErrorConst
 import com.mediaproject.presentation.widgets.states.SignUpState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,6 +21,7 @@ class SignUpViewModel
 constructor(
     private val signUpUseCase: SignUpUseCase,
     private val isExistUserIdUseCase: IsExistUserIdUseCase,
+    private val firebaseAuth: FirebaseAuth
 ) : ViewModel() {
     companion object {
         private const val TAG = "[SignUpVM]"
@@ -32,30 +35,28 @@ constructor(
 
     fun changeEmail(
         userId: String,
-    ) = _signUpState.postValue(
-        signUpState.value!!.apply {
-            data = SignUpData(
+    ) = _signUpState.value!!.data.run {
+        _signUpState.value = SignUpState.UpdateData(
+            state = SignUpData(
                 userId = userId,
-                isExistUserId = data.isExistUserId,
-                password = data.password,
-                passwordCheckStr = data.passwordCheckStr,
-                name = data.name,
+                isExistUserId = this.isExistUserId,
+                password = this.password,
+                passwordCheckStr = this.passwordCheckStr,
+                name = this.name
             )
-        }
-    )
+        )
+    }
 
     fun changePassword(
         password: String
     ) = _signUpState.value!!.data.run {
-        _signUpState.postValue(
-            SignUpState.UpdateData(
-                state = SignUpData(
-                    userId = this.userId,
-                    isExistUserId = this.isExistUserId,
-                    password = password,
-                    passwordCheckStr = this.passwordCheckStr,
-                    name = this.name
-                )
+        _signUpState.value = SignUpState.UpdateData(
+            state = SignUpData(
+                userId = this.userId,
+                isExistUserId = this.isExistUserId,
+                password = password,
+                passwordCheckStr = this.passwordCheckStr,
+                name = this.name
             )
         )
     }
@@ -63,15 +64,13 @@ constructor(
     fun changePasswordChecker(
         passwordChecker: String
     ) = _signUpState.value!!.data.run {
-        _signUpState.postValue(
-            SignUpState.UpdateData(
-                state = SignUpData(
-                    userId = this.userId,
-                    isExistUserId = this.isExistUserId,
-                    password = this.password,
-                    passwordCheckStr = passwordChecker,
-                    name = this.name
-                )
+        _signUpState.value = SignUpState.UpdateData(
+            state = SignUpData(
+                userId = this.userId,
+                isExistUserId = this.isExistUserId,
+                password = this.password,
+                passwordCheckStr = passwordChecker,
+                name = this.name
             )
         )
     }
@@ -79,15 +78,13 @@ constructor(
     fun changeName(
         name: String
     ) = _signUpState.value!!.data.run {
-        _signUpState.postValue(
-            SignUpState.UpdateData(
-                state = SignUpData(
-                    userId = this.userId,
-                    isExistUserId = this.isExistUserId,
-                    password = this.password,
-                    passwordCheckStr = this.passwordCheckStr,
-                    name = name
-                )
+        _signUpState.value = SignUpState.UpdateData(
+            state = SignUpData(
+                userId = this.userId,
+                isExistUserId = this.isExistUserId,
+                password = this.password,
+                passwordCheckStr = this.passwordCheckStr,
+                name = name
             )
         )
     }
@@ -99,31 +96,50 @@ constructor(
         data.run {
             when (isExistUserId) {
                 true -> {
-                    signUpUseCase(
-                        params = SignUpUseCase.Params(
-                            userId = userId,
-                            nickname = name,
-                            password = password,
-                            userRole = userRole,
-                        )
-                    ).onSuccess {
-                        Log.d(TAG, "Entry signUp method onSuccess")
-                        _signUpState.postValue(SignUpState.SignUpSuccess)
-                    }.onFailure {
-                        Log.d(TAG, "Entry signUp method onFailure")
-                        _signUpState.postValue(
-                            SignUpState.SignUpError(
-                                state = data,
-                                errorMessage = it.message ?: ""
-                            )
-                        )
+                    Log.d(TAG, "userId: $userId")
+                    firebaseAuth.createUserWithEmailAndPassword(userId, password).addOnCompleteListener { task ->
+                        when (task.isSuccessful) {
+                            true -> {
+//                                firebaseAuth.currentUser!!.getIdToken(false)
+                                viewModelScope.launch {
+                                    signUpUseCase(
+                                        params = SignUpUseCase.Params(
+                                            userId = userId,
+                                            nickname = name,
+                                            password = password,
+                                            userRole = userRole,
+                                        )
+                                    ).onSuccess {
+                                        Log.d(TAG, "Entry signUp method onSuccess")
+                                        _signUpState.postValue(SignUpState.SignUpSuccess)
+                                    }.onFailure {
+                                        Log.d(TAG, "Entry signUp method onFailure")
+                                        _signUpState.postValue(
+                                            SignUpState.SignUpError(
+                                                state = data,
+                                                errorMessage = it.message ?: ""
+                                            )
+                                        )
+                                    }
+                                }
+                            }
+                            false -> {
+                                Log.d(TAG,task.exception?.message ?: "aaaa")
+                                _signUpState.postValue(
+                                    SignUpState.SignUpError(
+                                        state = data,
+                                        errorMessage = SignUpErrorConst.UNKNOWN_ERROR
+                                    )
+                                )
+                            }
+                        }
                     }
                 }
                 false -> {
                     _signUpState.postValue(
                         SignUpState.SignUpError(
                             state = data,
-                            errorMessage = "아이디 중복 검사를 해주세요."
+                            errorMessage = SignUpErrorConst.DUPLICATE_EMAIL_CHECK_NOT_AVAILABLE
                         )
                     )
                 }
@@ -154,7 +170,7 @@ constructor(
             _signUpState.postValue(
                 SignUpState.SignUpError(
                     state = data,
-                    errorMessage = "동일한 아이디가 존재합니다."
+                    errorMessage = SignUpErrorConst.DUPLICATE_EMAIL
                 )
             )
         }
@@ -164,6 +180,7 @@ constructor(
     private fun duplicateCheckNickname(
         data: SignUpData,
     ) = viewModelScope.launch {
+        throw Exception("UnUsed")
 //        postLoading()
 //        isExistNicknameUseCase(
 //            params = IsExistNicknameUseCase.Params(

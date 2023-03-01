@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import com.mediaproject.presentation.common.route.LandingScreenRoute
 import com.mediaproject.presentation.screen.landing.LandingScreen
 import com.mediaproject.presentation.common.theme.AnimatedSplashScreenTheme
+import com.mediaproject.presentation.screen.access.AccessActivity
 import com.mediaproject.presentation.screen.home.HomeActivity
 import com.mediaproject.presentation.screen.landing.signin.SignInScreen
 import com.mediaproject.presentation.screen.landing.signup.SignUpScreen
@@ -36,12 +37,15 @@ fun LandingNavGraph(
                 onSuccessSignIn = {
                     context.startActivity(
                         Intent(context, HomeActivity::class.java).apply {
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         }
                     )
                 },
                 onSignUpBtnClick = {
                     navController.navigate(LandingScreenRoute.SignUp.route)
+                },
+                onSocialSignUp = {
+                    navController.navigate(LandingScreenRoute.SocialSignUp.route)
                 }
             )
         }
@@ -49,6 +53,28 @@ fun LandingNavGraph(
             SignUpScreen(
                 onBackPress = {
                     navController.popBackStack()
+                },
+                onSuccessSignUp = {
+                    context.startActivity(
+                        Intent(context, AccessActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        }
+                    )
+                }
+            )
+        }
+        composable(route = LandingScreenRoute.SocialSignUp.route) {
+            SignUpScreen(
+                isSocial = true,
+                onBackPress = {
+                    navController.popBackStack()
+                },
+                onSuccessSignUp = {
+                    context.startActivity(
+                        Intent(context, AccessActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        }
+                    )
                 }
             )
         }
