@@ -93,4 +93,12 @@ object Dependencies {
         const val FIREBASE_AUTH = "com.google.firebase:firebase-auth-ktx"
     }
 
+    object Kakao {
+        const val ALL = "com.kakao.sdk:v2-all:2.13.0"
+        const val LOGIN = "com.kakao.sdk:v2-user:2.13.0"
+        const val TALK = "com.kakao.sdk:v2-talk:2.13.0"
+        const val SHARE = "com.kakao.sdk:v2-share:2.13.0"
+        const val NAVI = "com.kakao.sdk:v2-navi:2.13.0"
+    }
+
 }

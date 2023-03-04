@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mediaproject.presentation.widgets.utils.error.SignInErrorConst
 
 @Composable
 private fun SignInErrorText(
@@ -36,7 +37,7 @@ fun SignInErrorScreen(
     errorMessage: String,
 ) = when (condition) {
     true -> when (errorMessage) {
-        "UsersIdOrPasswordInvalidException" -> SignInErrorText(
+        SignInErrorConst.INVALID_USER_EXCEPTION -> SignInErrorText(
             text = "아이디 또는 비밀번호가 일치하지 않습니다."
         )
         else -> SignInErrorText(

@@ -1,5 +1,4 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-import com.android.build.gradle.internal.scope.ProjectInfo.Companion.getBaseName
 
 plugins {
     id("com.android.application")
@@ -29,6 +28,8 @@ android {
         }
 
         manifestPlaceholders["MAPS_API_KEY"] = getApiKey("MAPS_API_KEY")
+        manifestPlaceholders["KAKAO_KEY"] = getApiKey("KAKAO_KEY")
+        manifestPlaceholders["KAKAO_REDIRECTION_KEY"] = getApiKey("KAKAO_REDIRECTION_KEY")
     }
 
     buildTypes {
@@ -92,4 +93,6 @@ dependencies {
     androidTestImplementation(Dependencies.Compose.COMPOSE_TEST)
     debugImplementation(Dependencies.Compose.COMPOSE_TOOLING)
     debugImplementation(Dependencies.Compose.COMPOSE_TEST_MANIFEST)
+
+    implementation(Dependencies.Kakao.ALL)
 }

@@ -2,7 +2,7 @@ package com.mediaproject.domain.model
 
 data class SignUpData(
     val userId: String,
-    val isExistUserId: Boolean,
+    val isCheckDuplication: Boolean,
     val password: String,
     val passwordCheckStr: String,
     val name: String,
@@ -10,7 +10,7 @@ data class SignUpData(
 ) {
     constructor() : this(
         userId = "",
-        isExistUserId = false,
+        isCheckDuplication = false,
         password = "",
         passwordCheckStr = "",
         name = "",
@@ -25,7 +25,7 @@ data class SignUpData(
         name: String,
     ) : this(
         userId = userId,
-        isExistUserId = isExistUserId,
+        isCheckDuplication = isExistUserId,
         password = password,
         passwordCheckStr = passwordCheckStr,
         name = name,
@@ -34,7 +34,7 @@ data class SignUpData(
 
     constructor(signUpData: SignUpData) : this(
         userId = signUpData.userId,
-        isExistUserId = signUpData.isExistUserId,
+        isCheckDuplication = signUpData.isCheckDuplication,
         password = signUpData.password,
         passwordCheckStr = signUpData.passwordCheckStr,
         name = signUpData.name,
@@ -46,7 +46,7 @@ data class SignUpData(
         isExistUserId: Boolean,
     ) : this(
         userId = signUpData.userId,
-        isExistUserId = isExistUserId,
+        isCheckDuplication = isExistUserId,
         password = signUpData.password,
         passwordCheckStr = signUpData.passwordCheckStr,
         name = signUpData.name,

@@ -11,11 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.mediaproject.domain.model.SignUpData
 import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.green1
 import com.mediaproject.presentation.screen.vm.SignUpViewModel
@@ -75,7 +72,7 @@ fun SignUpScreenContent(
     },
     bottomBar = {
         val isEnable: Boolean = (
-            uiState!!.data.isExistUserId
+            uiState!!.data.isCheckDuplication
             && uiState.data.password == uiState.data.passwordCheckStr
             && checkAll(uiState.data.password)
             && uiState.data.name.isNotEmpty()
@@ -111,6 +108,7 @@ fun SignUpScreenContent(
         isSocial = isSocial,
         onChangeEmail = { viewModel.changeEmail(it) },
         onDuplicateCheckUserId = { viewModel.duplicateCheckUserId(it) },
+        onRefreshCheck = { viewModel.refreshCheck(it) },
         onChangePassword = { viewModel.changePassword(it) },
         onChangePasswordChecker = { viewModel.changePasswordChecker(it) },
         onChangeName = { viewModel.changeName(it) },

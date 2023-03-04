@@ -11,10 +11,14 @@ class LocalUserDataSourceImpl
 constructor(
     private val dataStoreDataSource: DataStoreDataSource
 ) : LocalUserDataSource {
+    override fun fetchIdToken(): Flow<String> = dataStoreDataSource.fetchIdToken()
 
     override fun fetchAccessToken(): Flow<String> = dataStoreDataSource.fetchAccessToken()
 
     override fun fetchRefreshToken(): Flow<String> = dataStoreDataSource.fetchRefreshToken()
+    override suspend fun saveIdToken(idToken: String) {
+        dataStoreDataSource.saveIdToken(token = idToken)
+    }
 
     override suspend fun saveAccessToken(accessToken: String) {
         dataStoreDataSource.saveAccessToken(token = accessToken)
@@ -29,6 +33,10 @@ constructor(
             saveAccessToken(accessToken)
             saveRefreshToken(refreshToken)
         }
+    }
+
+    override suspend fun clearIdToken() {
+        dataStoreDataSource.clearIdToken()
     }
 
     override suspend fun clearToken() {

@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -28,6 +29,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.util.Utility
+import com.kakao.sdk.user.UserApiClient
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.ReRollBagTextField
 import com.mediaproject.presentation.common.theme.ReRollBagTypography
@@ -70,6 +74,7 @@ fun SignInContentView(
     onSuccessSignIn: () -> Unit = {},
     onSignUpBtnClick: () -> Unit = {},
 ) {
+    val context = LocalContext.current
     var userId by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
 
@@ -206,6 +211,20 @@ fun SignInContentView(
                                     .clip(CircleShape)
                                     .clickable {
                                         Log.d("kakao", "kakao Login Click")
+                                        if (UserApiClient.instance.isKakaoTalkLoginAvailable(context = context)) {
+                                            UserApiClient.instance.loginWithKakaoTalk(
+                                                context = context,
+                                                callback = mCallback
+                                            )
+                                        } else {
+                                            UserApiClient.instance.loginWithKakaoAccount(
+                                                context = context,
+                                                callback = mCallback
+                                            )
+                                        }
+//                                        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
+//                                            Log.d("kakao", tokenInfo.toString())
+//                                        }
                                     }
                             )
                             Spacer(modifier = Modifier.height(5.dp))
@@ -242,6 +261,16 @@ fun SignInContentView(
     }
 }
 
+private val mCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+    Log.d("kakao", "TEST")
+    if (error != null) {
+        Log.d("SignIn", "로그인 실패 $error")
+    } else if (token != null) {
+        Log.d("SignIn", "로그인 성공 ${token.accessToken}")
+    }
+}
+
+
 @Preview(showBackground = true)
 @Composable
 fun SignInScreenPreview() {
@@ -265,6 +294,12 @@ fun SignInScreenPreview() {
                     errorMessage = ""
                 )
             )
+        }
+        3 -> {
+            SignInContentView(uiState = SignInState.SignInLoading)
+        }
+        4 -> {
+            SignInContentView(uiState = SignInState.SignInSuccess)
         }
         else -> {
             SignInContentView(

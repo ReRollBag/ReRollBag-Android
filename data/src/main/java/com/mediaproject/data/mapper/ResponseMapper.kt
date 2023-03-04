@@ -1,9 +1,7 @@
 package com.mediaproject.data.mapper
 
-import com.mediaproject.data.remote.model.response.IsExistNicknameResponse
-import com.mediaproject.data.remote.model.response.IsExistUserResponse
-import com.mediaproject.data.remote.model.response.SignInResponse
-import com.mediaproject.data.remote.model.response.SignUpResponse
+import com.mediaproject.data.remote.model.response.*
+import com.mediaproject.domain.model.AccessToken
 import com.mediaproject.domain.model.BaseCondition
 import com.mediaproject.domain.model.User
 import com.mediaproject.domain.model.UserToken
@@ -24,4 +22,8 @@ internal fun IsExistUserResponse.toModel() = BaseCondition(
 
 internal fun IsExistNicknameResponse.toModel() = BaseCondition(
     condition = isExist
+)
+
+internal fun ReIssueResponse.toModel() = AccessToken(
+    accessToken = accessToken
 )

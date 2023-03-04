@@ -16,17 +16,42 @@ constructor(
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
         var request = request()
 
-        if(request.header("No-Authentication") == null){
-            val accessToken = runBlocking {
-                localUserDataSource.fetchAccessToken().first()
+        if (request.header("No-Authentication") == null) {
+            if (request.header("idToken") != null) {
+                val idToken = runBlocking {
+                    localUserDataSource.fetchIdToken().first()
+                }
+
+                request = request.newBuilder()
+                    .addHeader(
+                        name = "token",
+                        value = idToken
+                    )
+                    .build()
+            } else if (request.header("refreshToken") != null) {
+                val refreshToken = runBlocking {
+                    localUserDataSource.fetchRefreshToken().first()
+                }
+
+                request = request.newBuilder()
+                    .addHeader(
+                        name = "token",
+                        value = refreshToken
+                    )
+                    .build()
+            } else {
+                val accessToken = runBlocking {
+                    localUserDataSource.fetchAccessToken().first()
+                }
+
+                request = request.newBuilder()
+                    .addHeader(
+                        name = "token",
+                        value = accessToken
+                    )
+                    .build()
             }
 
-            request = request.newBuilder()
-                .addHeader(
-                    name = "Authorization",
-                    value = accessToken
-                )
-                .build()
         }
 
         proceed(request)

@@ -3,14 +3,13 @@ package com.mediaproject.domain.repository
 interface UserRepository {
 
     suspend fun signIn(
-        userId: String,
-        password: String,
+        idToken: String
     )
 
     suspend fun signUp(
         userId: String,
-        nickname: String,
-        password: String,
+        name: String,
+        idToken: String,
         userRole: String,
     )
 
@@ -18,6 +17,7 @@ interface UserRepository {
         userId: String
     )
 
+    @Deprecated("Non-Used")
     suspend fun isExistNickname(
         nickname: String
     )

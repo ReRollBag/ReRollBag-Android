@@ -4,6 +4,7 @@ import android.util.Log
 import com.mediaproject.data.local.datasource.LocalUserDataSource
 import com.mediaproject.data.remote.datasource.UserRemoteDataSource
 import com.mediaproject.domain.repository.UserRepository
+import okhttp3.internal.wait
 import javax.inject.Inject
 
 class UserRepositoryImpl
@@ -16,14 +17,9 @@ constructor(
         private const val TAG = "[UserRepo]"
     }
 
-    override suspend fun signIn(
-        userId: String,
-        password: String
-    ) {
-        remoteUserDataSource.signIn(
-            userId = userId,
-            password = password,
-        ).also {
+    override suspend fun signIn(idToken: String) {
+        localUserDataSource.saveIdToken(idToken = idToken)
+        remoteUserDataSource.signIn().also {
             Log.d(TAG, "accessToken = ${it.accessToken}, refreshToken = ${it.refreshToken} ")
             localUserDataSource.saveToken(userToken = it)
         }
@@ -31,14 +27,14 @@ constructor(
 
     override suspend fun signUp(
         userId: String,
-        nickname: String,
-        password: String,
+        name: String,
+        idToken: String,
         userRole: String
     ) {
         remoteUserDataSource.signUp(
             userId = userId,
-            nickname = nickname,
-            password = password,
+            name = name,
+            idToken = idToken,
             userRole = userRole
         ).also {
             Log.d(TAG, "accessToken = ${it.accessToken}, refreshToken = ${it.refreshToken}")
@@ -58,13 +54,12 @@ constructor(
         }
     }
 
-    override suspend fun isExistNickname(
-        nickname: String
-    ) {
-        remoteUserDataSource.isExistNickname(
-            nickname = nickname
-        ).also {
-
+    @Deprecated("Non-Used")
+    override suspend fun isExistNickname(nickname: String) {
+        remoteUserDataSource.isExistNickname(nickname = nickname).also {
+            if (!(it.condition)) {
+                throw Exception()
+            }
         }
     }
 

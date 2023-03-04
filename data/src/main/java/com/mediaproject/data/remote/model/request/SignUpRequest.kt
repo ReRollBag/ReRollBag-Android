@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName
 data class SignUpRequest(
     @SerializedName("usersId")
     val userId: String,
-    @SerializedName("nickname")
-    val nickname: String,
-    @SerializedName("password")
-    val password: String,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("idToken")
+    val idToken: String,
     @SerializedName("userRole")
     val userRole: String
 )

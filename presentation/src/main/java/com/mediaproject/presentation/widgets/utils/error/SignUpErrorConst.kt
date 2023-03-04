@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.landing.signup
+package com.mediaproject.presentation.widgets.utils.error
 
 object SignUpErrorConst {
     const val DUPLICATE_EMAIL_CHECK_NOT_AVAILABLE = "아이디 중복 검사를 해주세요."

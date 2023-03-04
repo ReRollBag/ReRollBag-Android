@@ -2,6 +2,8 @@ package com.mediaproject.rerollbag.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.mediaproject.data.local.datasource.LocalUserDataSource
+import com.mediaproject.data.remote.api.AuthAPI
+import com.mediaproject.data.remote.api.BagAPI
 import com.mediaproject.data.remote.api.UserAPI
 import com.mediaproject.data.utils.interceptors.AuthInterceptor
 import com.mediaproject.data.utils.interceptors.NullOrEmptyConverterFactory
@@ -85,4 +87,13 @@ object NetworkModule {
         retrofit: Retrofit
     ): UserAPI = retrofit.create(UserAPI::class.java)
 
+    @Provides
+    fun providerAuthAPI(
+        retrofit: Retrofit
+    ): AuthAPI = retrofit.create(AuthAPI::class.java)
+
+    @Provides
+    fun providerBagAPI(
+        retrofit: Retrofit
+    ): BagAPI = retrofit.create(BagAPI::class.java)
 }

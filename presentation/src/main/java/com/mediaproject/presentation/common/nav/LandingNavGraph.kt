@@ -7,10 +7,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mediaproject.presentation.common.route.LandingScreenRoute
-import com.mediaproject.presentation.screen.landing.LandingScreen
 import com.mediaproject.presentation.common.theme.AnimatedSplashScreenTheme
 import com.mediaproject.presentation.screen.access.AccessActivity
 import com.mediaproject.presentation.screen.home.HomeActivity
+import com.mediaproject.presentation.screen.landing.LandingScreen
 import com.mediaproject.presentation.screen.landing.signin.SignInScreen
 import com.mediaproject.presentation.screen.landing.signup.SignUpScreen
 

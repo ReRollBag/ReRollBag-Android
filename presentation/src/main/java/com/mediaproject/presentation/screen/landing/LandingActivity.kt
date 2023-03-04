@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
 import com.mediaproject.presentation.common.nav.LandingNavGraph
-import com.mediaproject.presentation.common.theme.AnimatedSplashScreenTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,10 +14,8 @@ class LandingActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            AnimatedSplashScreenTheme {
-                val navController = rememberNavController()
-                LandingNavGraph(navController = navController, context = applicationContext)
-            }
+            val navController = rememberNavController()
+            LandingNavGraph(navController = navController, context = applicationContext)
         }
     }
 }

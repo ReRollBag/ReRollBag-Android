@@ -84,4 +84,8 @@ dependencies {
     androidTestImplementation(Dependencies.Compose.COMPOSE_TEST)
     debugImplementation(Dependencies.Compose.COMPOSE_TOOLING)
     debugImplementation(Dependencies.Compose.COMPOSE_TEST_MANIFEST)
+
+    implementation(Dependencies.Kakao.ALL)
+//    implementation(Dependencies.Kakao.LOGIN)
+//    implementation(Dependencies.Kakao.TALK)
 }

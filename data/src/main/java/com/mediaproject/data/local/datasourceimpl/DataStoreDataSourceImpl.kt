@@ -15,13 +15,21 @@ constructor(
     private val context: Context,
 ) : DataStoreDataSource {
     companion object {
+        private val ID_TOKEN = stringPreferencesKey("ID_TOKEN")
         private val ACCESS_TOKEN = stringPreferencesKey("ACCESS_TOKEN")
         private val REFRESH_TOKEN = stringPreferencesKey("REFRESH_TOKEN")
     }
 
+    override fun fetchIdToken(): Flow<String> = context.fetchStringPreference(key = ID_TOKEN)
+
     override fun fetchAccessToken(): Flow<String> = context.fetchStringPreference(key = ACCESS_TOKEN)
 
     override fun fetchRefreshToken(): Flow<String> = context.fetchStringPreference(key = REFRESH_TOKEN)
+    override suspend fun saveIdToken(token: String) {
+        context.datastore.edit { preference ->
+            preference[ID_TOKEN] = token
+        }
+    }
 
     override suspend fun saveAccessToken(token: String) {
         context.datastore.edit { preference ->
@@ -32,6 +40,12 @@ constructor(
     override suspend fun saveRefreshToken(token: String) {
         context.datastore.edit { preference ->
             preference[REFRESH_TOKEN] = token
+        }
+    }
+
+    override suspend fun clearIdToken() {
+        context.datastore.edit { preference ->
+            preference.remove(ID_TOKEN)
         }
     }
 

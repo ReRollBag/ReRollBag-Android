@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.mediaproject.domain.model.SignUpData
 import com.mediaproject.domain.usecase.IsExistUserIdUseCase
 import com.mediaproject.domain.usecase.SignUpUseCase
-import com.mediaproject.presentation.screen.landing.signup.SignUpErrorConst
+import com.mediaproject.presentation.widgets.utils.error.SignUpErrorConst
 import com.mediaproject.presentation.widgets.states.SignUpState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -39,7 +39,7 @@ constructor(
         _signUpState.value = SignUpState.UpdateData(
             state = SignUpData(
                 userId = userId,
-                isExistUserId = this.isExistUserId,
+                isExistUserId = this.isCheckDuplication,
                 password = this.password,
                 passwordCheckStr = this.passwordCheckStr,
                 name = this.name
@@ -53,7 +53,7 @@ constructor(
         _signUpState.value = SignUpState.UpdateData(
             state = SignUpData(
                 userId = this.userId,
-                isExistUserId = this.isExistUserId,
+                isExistUserId = this.isCheckDuplication,
                 password = password,
                 passwordCheckStr = this.passwordCheckStr,
                 name = this.name
@@ -67,7 +67,7 @@ constructor(
         _signUpState.value = SignUpState.UpdateData(
             state = SignUpData(
                 userId = this.userId,
-                isExistUserId = this.isExistUserId,
+                isExistUserId = this.isCheckDuplication,
                 password = this.password,
                 passwordCheckStr = passwordChecker,
                 name = this.name
@@ -81,7 +81,7 @@ constructor(
         _signUpState.value = SignUpState.UpdateData(
             state = SignUpData(
                 userId = this.userId,
-                isExistUserId = this.isExistUserId,
+                isExistUserId = this.isCheckDuplication,
                 password = this.password,
                 passwordCheckStr = this.passwordCheckStr,
                 name = name
@@ -94,34 +94,24 @@ constructor(
     ) = viewModelScope.launch {
         postLoading()
         data.run {
-            when (isExistUserId) {
+            when (isCheckDuplication) {
                 true -> {
                     Log.d(TAG, "userId: $userId")
                     firebaseAuth.createUserWithEmailAndPassword(userId, password).addOnCompleteListener { task ->
                         when (task.isSuccessful) {
                             true -> {
-//                                firebaseAuth.currentUser!!.getIdToken(false)
-                                viewModelScope.launch {
-                                    signUpUseCase(
-                                        params = SignUpUseCase.Params(
-                                            userId = userId,
-                                            nickname = name,
-                                            password = password,
-                                            userRole = userRole,
-                                        )
-                                    ).onSuccess {
-                                        Log.d(TAG, "Entry signUp method onSuccess")
-                                        _signUpState.postValue(SignUpState.SignUpSuccess)
-                                    }.onFailure {
-                                        Log.d(TAG, "Entry signUp method onFailure")
+                                firebaseAuth.currentUser!!.getIdToken(true)
+                                    .addOnCompleteListener {
+                                        signUpWithIdToken(data = data, idToken = it.result.token ?: "")
+                                    }
+                                    .addOnCanceledListener {
                                         _signUpState.postValue(
                                             SignUpState.SignUpError(
                                                 state = data,
-                                                errorMessage = it.message ?: ""
+                                                errorMessage = SignUpErrorConst.UNKNOWN_ERROR
                                             )
                                         )
                                     }
-                                }
                             }
                             false -> {
                                 Log.d(TAG,task.exception?.message ?: "aaaa")
@@ -144,6 +134,31 @@ constructor(
                     )
                 }
             }
+        }
+    }
+
+    private fun signUpWithIdToken(
+        data: SignUpData,
+        idToken: String,
+    ) = viewModelScope.launch {
+        signUpUseCase(
+            params = SignUpUseCase.Params(
+                userId = data.userId,
+                name = data.name,
+                idToken = idToken,
+                userRole = data.userRole,
+            )
+        ).onSuccess {
+            Log.d(TAG, "Entry signUp method onSuccess")
+            _signUpState.postValue(SignUpState.SignUpSuccess)
+        }.onFailure {
+            Log.d(TAG, "Entry signUp method onFailure")
+            _signUpState.postValue(
+                SignUpState.SignUpError(
+                    state = data,
+                    errorMessage = it.message ?: ""
+                )
+            )
         }
     }
 
@@ -174,6 +189,17 @@ constructor(
                 )
             )
         }
+    }
+
+    fun refreshCheck(
+        data: SignUpData
+    ) = viewModelScope.launch {
+        postLoading()
+        _signUpState.postValue(
+            SignUpState.UpdateData(
+                state = data
+            )
+        )
     }
 
     @Deprecated("UnUsed")
