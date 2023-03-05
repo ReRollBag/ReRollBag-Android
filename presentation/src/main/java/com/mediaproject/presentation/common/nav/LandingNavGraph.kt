@@ -13,11 +13,14 @@ import com.mediaproject.presentation.screen.home.HomeActivity
 import com.mediaproject.presentation.screen.landing.LandingScreen
 import com.mediaproject.presentation.screen.landing.signin.SignInScreen
 import com.mediaproject.presentation.screen.landing.signup.SignUpScreen
+import com.mediaproject.presentation.screen.vm.SignInViewModel
 
 @Composable
 fun LandingNavGraph(
     navController: NavHostController,
     context: Context,
+    viewModel: SignInViewModel,
+    googleSignIn: () -> Unit = {},
 ) {
     NavHost(
         navController = navController,
@@ -34,6 +37,7 @@ fun LandingNavGraph(
         }
         composable(route = LandingScreenRoute.SignIn.route) {
             SignInScreen(
+                viewModel = viewModel,
                 onSuccessSignIn = {
                     context.startActivity(
                         Intent(context, HomeActivity::class.java).apply {
@@ -44,6 +48,7 @@ fun LandingNavGraph(
                 onSignUpBtnClick = {
                     navController.navigate(LandingScreenRoute.SignUp.route)
                 },
+                onGoogleSignIn = googleSignIn,
                 onSocialSignUp = {
                     navController.navigate(LandingScreenRoute.SocialSignUp.route)
                 }

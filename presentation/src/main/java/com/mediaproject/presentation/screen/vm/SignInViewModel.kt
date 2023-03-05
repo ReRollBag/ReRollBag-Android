@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.mediaproject.domain.usecase.SignInUseCase
@@ -74,6 +75,42 @@ constructor(
             }
         }
     }
+
+    fun signIn(
+        token: String
+    ) = signInWithIdToken(idToken = token)
+
+    fun signIn(
+        credential: AuthCredential
+    ) = viewModelScope.launch {
+        _signInState.postValue(SignInState.SignInLoading)
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
+            when (task.isSuccessful) {
+                true -> {
+                    try {
+                        task.result.user!!.getIdToken(true).addOnCompleteListener {
+                            signInWithIdToken(it.result.token!!)
+                        }.addOnCanceledListener {
+                            throwError(task.exception ?: Exception())
+                        }
+                    } catch (e: Exception) {
+                        throwError(task.exception ?: Exception())
+                    }
+                }
+                false -> throwError(task.exception ?: Exception())
+            }
+        }
+    }
+
+    fun throwError(
+        error: Throwable
+    ) = _signInState.postValue(
+        SignInState.SignInError(
+            userId = "",
+            password = "",
+            errorMessage = error.message ?: "",
+        )
+    )
 
     private fun signInWithIdToken(
         idToken: String

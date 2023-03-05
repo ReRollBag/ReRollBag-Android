@@ -91,6 +91,7 @@ object Dependencies {
         const val FIREBASE = "com.google.firebase:firebase-bom:31.2.2"
         const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
         const val FIREBASE_AUTH = "com.google.firebase:firebase-auth-ktx"
+        const val AUTH = "com.google.android.gms:play-services-auth:20.4.1"
     }
 
     object Kakao {

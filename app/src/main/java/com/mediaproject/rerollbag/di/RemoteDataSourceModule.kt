@@ -1,6 +1,7 @@
 package com.mediaproject.rerollbag.di
 
 import com.mediaproject.data.remote.datasource.AuthRemoteDataSource
+import com.mediaproject.data.remote.datasource.BagRemoteDataSource
 import com.mediaproject.data.remote.datasource.UserRemoteDataSource
 import com.mediaproject.data.remote.datasourceimpl.AuthRemoteDataSourceImpl
 import com.mediaproject.data.remote.datasourceimpl.UserRemoteDataSourceImpl
@@ -24,6 +25,12 @@ abstract class RemoteDataSourceModule {
     @Binds
     abstract fun providerAuthDataSource(
         remoteAuthDataSourceImpl: AuthRemoteDataSourceImpl
-    ) : AuthRemoteDataSource
+    ): AuthRemoteDataSource
+
+//    @Singleton
+//    @Binds
+//    abstract fun providerBagDataSource(
+//
+//    ): BagRemoteDataSource
 
 }

@@ -1,5 +1,9 @@
 package com.mediaproject.rerollbag.di
 
+import android.content.Context
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.mediaproject.data.local.datasource.LocalUserDataSource
 import com.mediaproject.data.remote.api.AuthAPI
@@ -7,9 +11,11 @@ import com.mediaproject.data.remote.api.BagAPI
 import com.mediaproject.data.remote.api.UserAPI
 import com.mediaproject.data.utils.interceptors.AuthInterceptor
 import com.mediaproject.data.utils.interceptors.NullOrEmptyConverterFactory
+import com.mediaproject.rerollbag.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -80,6 +86,17 @@ object NetworkModule {
     @Singleton
     fun provideFirebase(): FirebaseAuth {
         return FirebaseAuth.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGoogleSignInClient(@ApplicationContext applicationContext: Context): GoogleSignInClient {
+        val mGoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(BuildConfig.GOOGLE_CLIENT_KEY)
+            .requestProfile()
+            .requestEmail()
+            .build()
+        return GoogleSignIn.getClient(applicationContext, mGoogleSignInOptions)
     }
 
     @Provides

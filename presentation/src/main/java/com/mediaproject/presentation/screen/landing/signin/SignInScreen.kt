@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.mediaproject.presentation.R
@@ -46,6 +47,7 @@ fun SignInScreen(
     viewModel: SignInViewModel = hiltViewModel(),
     onSuccessSignIn: () -> Unit = {},
     onSignUpBtnClick: () -> Unit = {},
+    onGoogleSignIn: () -> Unit = {},
     onSocialSignUp: () -> Unit = {},
 ) {
     val signInState = viewModel.signInState.observeAsState()
@@ -61,8 +63,14 @@ fun SignInScreen(
                 password = password
             )
         },
+        onSocialSignIn = { token -> viewModel.signIn(token = token) },
+        onGoogleSignIn = onGoogleSignIn,
         onSuccessSignIn = onSuccessSignIn,
+        onErrorSignIn = { error ->
+            viewModel.throwError(error = error)
+        },
         onSignUpBtnClick = onSignUpBtnClick,
+        onSocialSignUp = onSocialSignUp,
     )
 }
 
@@ -71,8 +79,12 @@ fun SignInContentView(
     modifier: Modifier = Modifier,
     uiState: SignInState?,
     onSignInClick: (userId: String, password: String) -> Unit = { _, _ -> },
+    onSocialSignIn: (token: String) -> Unit = { _ -> },
+    onGoogleSignIn: () -> Unit = {},
     onSuccessSignIn: () -> Unit = {},
+    onErrorSignIn: (error: Throwable) -> Unit = { _ -> },
     onSignUpBtnClick: () -> Unit = {},
+    onSocialSignUp: () -> Unit = {},
 ) {
     val context = LocalContext.current
     var userId by rememberSaveable { mutableStateOf("") }
@@ -211,20 +223,32 @@ fun SignInContentView(
                                     .clip(CircleShape)
                                     .clickable {
                                         Log.d("kakao", "kakao Login Click")
-                                        if (UserApiClient.instance.isKakaoTalkLoginAvailable(context = context)) {
-                                            UserApiClient.instance.loginWithKakaoTalk(
-                                                context = context,
-                                                callback = mCallback
-                                            )
-                                        } else {
-                                            UserApiClient.instance.loginWithKakaoAccount(
-                                                context = context,
-                                                callback = mCallback
-                                            )
+                                        try {
+                                            val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+                                                Log.d("kakao", "TEST")
+                                                if (error != null) {
+                                                    Log.d("SignIn", "로그인 실패 $error")
+                                                    onErrorSignIn(error)
+                                                } else if (token != null) {
+                                                    Log.d("SignIn", "로그인 성공 ${token.idToken}")
+                                                    onSocialSignIn(token.idToken!!)
+                                                }
+                                            }
+
+                                            if (UserApiClient.instance.isKakaoTalkLoginAvailable(context = context)) {
+                                                UserApiClient.instance.loginWithKakaoTalk(
+                                                    context = context,
+                                                    callback = callback
+                                                )
+                                            } else {
+                                                UserApiClient.instance.loginWithKakaoAccount(
+                                                    context = context,
+                                                    callback = callback
+                                                )
+                                            }
+                                        } catch (e: Exception) {
+                                            onErrorSignIn(e)
                                         }
-//                                        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-//                                            Log.d("kakao", tokenInfo.toString())
-//                                        }
                                     }
                             )
                             Spacer(modifier = Modifier.height(5.dp))
@@ -246,6 +270,7 @@ fun SignInContentView(
                                     .clip(CircleShape)
                                     .clickable {
                                         Log.d("google", "google Login Click")
+                                        onGoogleSignIn()
                                     }
                             )
                             Spacer(modifier = Modifier.height(5.dp))
@@ -260,16 +285,6 @@ fun SignInContentView(
         }
     }
 }
-
-private val mCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-    Log.d("kakao", "TEST")
-    if (error != null) {
-        Log.d("SignIn", "로그인 실패 $error")
-    } else if (token != null) {
-        Log.d("SignIn", "로그인 성공 ${token.accessToken}")
-    }
-}
-
 
 @Preview(showBackground = true)
 @Composable

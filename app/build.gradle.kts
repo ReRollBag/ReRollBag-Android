@@ -30,6 +30,7 @@ android {
         manifestPlaceholders["MAPS_API_KEY"] = getApiKey("MAPS_API_KEY")
         manifestPlaceholders["KAKAO_KEY"] = getApiKey("KAKAO_KEY")
         manifestPlaceholders["KAKAO_REDIRECTION_KEY"] = getApiKey("KAKAO_REDIRECTION_KEY")
+        manifestPlaceholders["GOOGLE_CLIENT_KEY"] = getApiKey("GOOGLE_CLIENT_KEY")
     }
 
     buildTypes {
@@ -86,6 +87,7 @@ dependencies {
     implementation(platform(Dependencies.Google.FIREBASE))
     implementation(Dependencies.Google.FIREBASE_ANALYTICS)
     implementation(Dependencies.Google.FIREBASE_AUTH)
+    implementation(Dependencies.Google.AUTH)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
