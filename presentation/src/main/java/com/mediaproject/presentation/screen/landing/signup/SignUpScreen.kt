@@ -9,31 +9,52 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.green1
-import com.mediaproject.presentation.widgets.states.SignUpData
+import com.mediaproject.presentation.screen.vm.SignUpViewModel
 import com.mediaproject.presentation.widgets.states.SignUpState
 
-private val TAG = "SignUpScreen"
+private const val TAG = "SignUpScreen"
 
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
+    isSocial: Boolean = false,
     viewModel: SignUpViewModel = hiltViewModel(),
     onBackPress: () -> Unit = {},
+    onSuccessSignUp: () -> Unit = {},
 ) {
     val signUpState = viewModel.signUpState.observeAsState()
     val focusManager = LocalFocusManager.current
-    SignUpScreenContent(
-        modifier = modifier.clickable { focusManager.clearFocus() },
-        uiState = signUpState.value,
-        onBackPress = onBackPress
-    )
+    when (signUpState.value) {
+        is SignUpState.SignUpLoading -> {
+            Box(
+                modifier = Modifier.fillMaxSize()
+                    .background(color = Color.White)
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        }
+        is SignUpState.SignUpSuccess -> {
+            onSuccessSignUp()
+        }
+        else -> {
+            SignUpScreenContent(
+                modifier = modifier
+                    .background(color = Color.White)
+                    .clickable { focusManager.clearFocus() },
+                uiState = signUpState.value,
+                isSocial = isSocial,
+                onBackPress = onBackPress,
+            )
+        }
+    }
 }
 
 @Composable
@@ -41,6 +62,7 @@ fun SignUpScreenContent(
     modifier: Modifier = Modifier,
     uiState: SignUpState?,
     viewModel: SignUpViewModel = hiltViewModel(),
+    isSocial: Boolean = false,
     onBackPress: () -> Unit = {},
 ) = Scaffold(
     topBar = {
@@ -50,7 +72,7 @@ fun SignUpScreenContent(
     },
     bottomBar = {
         val isEnable: Boolean = (
-            uiState!!.data.isExistUserId
+            uiState!!.data.isCheckDuplication
             && uiState.data.password == uiState.data.passwordCheckStr
             && checkAll(uiState.data.password)
             && uiState.data.name.isNotEmpty()
@@ -70,17 +92,7 @@ fun SignUpScreenContent(
                 modifier = modifier
                     .fillMaxWidth()
                     .heightIn(min = 80.dp),
-                onClick = {
-                    viewModel.signUp(
-                        data = SignUpData(
-                            userId = "test@gmail.com",
-                            isExistUserId = true,
-                            password = "test1234",
-                            passwordCheckStr = "test1234",
-                            name = "테스트",
-                        )
-                    )
-                },
+                onClick = { viewModel.signUp(data = uiState.data) },
                 colors = if (isEnable) ButtonDefaults.buttonColors(backgroundColor = green1) else ButtonDefaults.buttonColors(backgroundColor = gray1),
                 enabled = isEnable,
             ) {
@@ -93,28 +105,12 @@ fun SignUpScreenContent(
         modifier = modifier
             .padding(padding),
         uiState = uiState,
+        isSocial = isSocial,
+        onChangeEmail = { viewModel.changeEmail(it) },
         onDuplicateCheckUserId = { viewModel.duplicateCheckUserId(it) },
+        onRefreshCheck = { viewModel.refreshCheck(it) },
         onChangePassword = { viewModel.changePassword(it) },
         onChangePasswordChecker = { viewModel.changePasswordChecker(it) },
         onChangeName = { viewModel.changeName(it) },
-    )
-}
-
-@Preview(
-    showBackground = true,
-    device = Devices.PIXEL_4
-)
-@Composable
-fun SignUpScreenContentPreview() {
-    SignUpScreenContent(
-        uiState = SignUpState.UpdateData(
-            state = SignUpData(
-                userId = "test@gmail.com",
-                isExistUserId = true,
-                password = "test1234",
-                passwordCheckStr = "test1234",
-                name = "테스트",
-            ),
-        )
     )
 }

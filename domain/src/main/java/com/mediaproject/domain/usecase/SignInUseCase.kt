@@ -13,13 +13,11 @@ constructor(
         params: Params
     ) = kotlin.runCatching {
         repository.signIn(
-            userId = params.userId,
-            password = params.password
+            idToken = params.idToken
         )
     }
 
     data class Params(
-        val userId: String,
-        val password: String,
+        val idToken: String
     )
 }

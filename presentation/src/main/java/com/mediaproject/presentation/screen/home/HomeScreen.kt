@@ -9,8 +9,13 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    onClickMenu: () -> Unit = {},
 ) = Scaffold(
-    topBar = { HomeScreenAppBar() },
+    topBar = {
+        HomeScreenAppBar {
+            onClickMenu()
+        }
+    },
 ) { padding ->
     HomeScreenBody(
         modifier = modifier.padding(padding),

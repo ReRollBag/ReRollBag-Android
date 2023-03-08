@@ -5,15 +5,12 @@ import com.mediaproject.domain.model.UserToken
 
 interface UserRemoteDataSource {
 
-    suspend fun signIn(
-        userId: String,
-        password: String,
-    ): UserToken
+    suspend fun signIn(): UserToken
 
     suspend fun signUp(
         userId: String,
-        nickname: String,
-        password: String,
+        name: String,
+        idToken: String,
         userRole: String,
     ): UserToken
 
@@ -21,6 +18,7 @@ interface UserRemoteDataSource {
         userId: String
     ): BaseCondition
 
+    @Deprecated("Non-Used")
     suspend fun isExistNickname(
         nickname: String
     ): BaseCondition

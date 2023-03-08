@@ -7,6 +7,7 @@ import com.mediaproject.data.utils.exceptions.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import retrofit2.Response
 
 private const val UnknownErrorMessage: String = "Unknown Error"
 
@@ -14,21 +15,32 @@ suspend inline fun <T> baseApiCall(
     crossinline function: suspend () -> T,
 ): T = try {
     withContext(Dispatchers.IO) {
-        function.invoke()
+        val result = function.invoke()
+        if (result is Response<*>) {
+            val response = result as Response<*>
+            if (response.code() == 202) {
+                throw HttpException(response)
+            } else {
+                result
+            }
+        } else {
+            result
+        }
     }
 } catch (e: HttpException) {
     val response = getErrorMessage(e)
 
     throw when (e.code()) {
         202 -> when (response.errorCode) {
-            1000 -> UserIdAlreadyExistException(code = response.errorCode, message = response.message)
             1002 -> NicknameAlreadyException(code = response.errorCode, message = response.message)
+            2000 -> ExpiredJwtException(code = response.errorCode, message = "ExpiredJwtException")
             2002 -> TokenIsNullException(code = response.errorCode, message = response.message)
             else -> UnknownHttpException(code = response.errorCode, message = response.message)
         }
         403 -> when (response.errorCode) {
             1001 -> UsersIdOrPasswordInvalidException(code = response.errorCode, message = response.message)
             1003 -> DuplicateUserSaveException(code = response.errorCode, message = response.message)
+            2003 -> SignatureException(code = response.errorCode, message = response.message)
             else -> UnknownHttpException(code = response.errorCode, message = response.message)
         }
         else -> UnknownHttpException(code = response.errorCode, message = response.message)

@@ -88,6 +88,18 @@ object Dependencies {
     object Google {
         const val MAP = "com.google.android.gms:play-services-maps:18.1.0"
         const val MAP_COMPOSE = "com.google.maps.android:maps-compose:2.7.2"
+        const val FIREBASE = "com.google.firebase:firebase-bom:31.2.2"
+        const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
+        const val FIREBASE_AUTH = "com.google.firebase:firebase-auth-ktx"
+        const val AUTH = "com.google.android.gms:play-services-auth:20.4.1"
+    }
+
+    object Kakao {
+        const val ALL = "com.kakao.sdk:v2-all:2.13.0"
+        const val LOGIN = "com.kakao.sdk:v2-user:2.13.0"
+        const val TALK = "com.kakao.sdk:v2-talk:2.13.0"
+        const val SHARE = "com.kakao.sdk:v2-share:2.13.0"
+        const val NAVI = "com.kakao.sdk:v2-navi:2.13.0"
     }
 
 }

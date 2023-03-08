@@ -14,16 +14,16 @@ constructor(
     ) = kotlin.runCatching {
         repository.signUp(
             userId = params.userId,
-            nickname = params.nickname,
-            password = params.password,
+            name = params.name,
+            idToken = params.idToken,
             userRole = params.userRole
         )
     }
 
     data class Params(
         val userId: String,
-        val nickname: String,
-        val password: String,
+        val name: String,
+        val idToken: String,
         val userRole: String,
     )
 }

@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -28,11 +29,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.common.util.Utility
+import com.kakao.sdk.user.UserApiClient
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.ReRollBagTextField
 import com.mediaproject.presentation.common.theme.ReRollBagTypography
 import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.green1
+import com.mediaproject.presentation.screen.vm.SignInViewModel
 import com.mediaproject.presentation.widgets.states.SignInState
 
 @Composable
@@ -41,6 +47,8 @@ fun SignInScreen(
     viewModel: SignInViewModel = hiltViewModel(),
     onSuccessSignIn: () -> Unit = {},
     onSignUpBtnClick: () -> Unit = {},
+    onGoogleSignIn: () -> Unit = {},
+    onSocialSignUp: () -> Unit = {},
 ) {
     val signInState = viewModel.signInState.observeAsState()
     val focusManager = LocalFocusManager.current
@@ -55,8 +63,14 @@ fun SignInScreen(
                 password = password
             )
         },
+        onSocialSignIn = { token -> viewModel.signIn(token = token) },
+        onGoogleSignIn = onGoogleSignIn,
         onSuccessSignIn = onSuccessSignIn,
+        onErrorSignIn = { error ->
+            viewModel.throwError(error = error)
+        },
         onSignUpBtnClick = onSignUpBtnClick,
+        onSocialSignUp = onSocialSignUp,
     )
 }
 
@@ -65,9 +79,14 @@ fun SignInContentView(
     modifier: Modifier = Modifier,
     uiState: SignInState?,
     onSignInClick: (userId: String, password: String) -> Unit = { _, _ -> },
+    onSocialSignIn: (token: String) -> Unit = { _ -> },
+    onGoogleSignIn: () -> Unit = {},
     onSuccessSignIn: () -> Unit = {},
+    onErrorSignIn: (error: Throwable) -> Unit = { _ -> },
     onSignUpBtnClick: () -> Unit = {},
+    onSocialSignUp: () -> Unit = {},
 ) {
+    val context = LocalContext.current
     var userId by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
 
@@ -204,6 +223,32 @@ fun SignInContentView(
                                     .clip(CircleShape)
                                     .clickable {
                                         Log.d("kakao", "kakao Login Click")
+                                        try {
+                                            val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+                                                Log.d("kakao", "TEST")
+                                                if (error != null) {
+                                                    Log.d("SignIn", "로그인 실패 $error")
+                                                    onErrorSignIn(error)
+                                                } else if (token != null) {
+                                                    Log.d("SignIn", "로그인 성공 ${token.idToken}")
+                                                    onSocialSignIn(token.idToken!!)
+                                                }
+                                            }
+
+                                            if (UserApiClient.instance.isKakaoTalkLoginAvailable(context = context)) {
+                                                UserApiClient.instance.loginWithKakaoTalk(
+                                                    context = context,
+                                                    callback = callback
+                                                )
+                                            } else {
+                                                UserApiClient.instance.loginWithKakaoAccount(
+                                                    context = context,
+                                                    callback = callback
+                                                )
+                                            }
+                                        } catch (e: Exception) {
+                                            onErrorSignIn(e)
+                                        }
                                     }
                             )
                             Spacer(modifier = Modifier.height(5.dp))
@@ -225,6 +270,7 @@ fun SignInContentView(
                                     .clip(CircleShape)
                                     .clickable {
                                         Log.d("google", "google Login Click")
+                                        onGoogleSignIn()
                                     }
                             )
                             Spacer(modifier = Modifier.height(5.dp))
@@ -263,6 +309,12 @@ fun SignInScreenPreview() {
                     errorMessage = ""
                 )
             )
+        }
+        3 -> {
+            SignInContentView(uiState = SignInState.SignInLoading)
+        }
+        4 -> {
+            SignInContentView(uiState = SignInState.SignInSuccess)
         }
         else -> {
             SignInContentView(
