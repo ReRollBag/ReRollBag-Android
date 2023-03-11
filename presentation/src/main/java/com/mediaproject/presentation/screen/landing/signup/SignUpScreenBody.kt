@@ -47,8 +47,7 @@ fun SignUpScreenBody(
 ) {
 
     var userId by rememberSaveable { mutableStateOf(uiState!!.data.userId) }
-    val isExistUserId by rememberSaveable { mutableStateOf(uiState!!.data.isCheckDuplication) }
-
+    val isCheckDuplication by rememberSaveable { mutableStateOf(uiState!!.data.isCheckDuplication) }
     var password by rememberSaveable { mutableStateOf(uiState!!.data.password) }
     var passwordCheckStr by rememberSaveable { mutableStateOf(uiState!!.data.passwordCheckStr) }
     val colorEnglish = if (checkEnglish(password)) green2 else gray2
@@ -103,14 +102,14 @@ fun SignUpScreenBody(
                             },
                             enable = !(uiState!!.data.isCheckDuplication),
                         )
-                        Divider(color = isEmailSuccessColor(uiState), thickness = 1.dp)
+                        Divider(color = if (uiState.data.isCheckDuplication) green1 else gray2, thickness = 1.dp)
                     }
                     Spacer(modifier = Modifier.width(40.dp))
                     Button(
                         modifier = Modifier.width(100.dp),
                         border = BorderStroke(
                             width = 1.dp,
-                            color = isEmailSuccessColor(uiState!!)
+                            color = if (uiState!!.data.isCheckDuplication) green1 else gray2
                         ),
                         shape = RoundedCornerShape(25.dp),
 //                        enabled = !(uiState.data.isExistUserId),
@@ -119,7 +118,8 @@ fun SignUpScreenBody(
                                 onRefreshCheck(
                                     SignUpData(
                                         userId = userId,
-                                        isExistUserId = !isExistUserId,
+                                        isCheckDuplication = !isCheckDuplication,
+                                        isErrorDuplication = false,
                                         password = password,
                                         passwordCheckStr = passwordCheckStr,
                                         name = name,
@@ -129,7 +129,8 @@ fun SignUpScreenBody(
                                 onDuplicateCheckUserId(
                                     SignUpData(
                                         userId = userId,
-                                        isExistUserId = isExistUserId,
+                                        isCheckDuplication = isCheckDuplication,
+                                        isErrorDuplication = uiState.data.isErrorDuplication,
                                         password = password,
                                         passwordCheckStr = passwordCheckStr,
                                         name = name,
@@ -140,7 +141,7 @@ fun SignUpScreenBody(
                         },
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = Color.White,
-                            contentColor = isEmailSuccessColor(uiState)
+                            contentColor = if (uiState.data.isCheckDuplication) green1 else gray2
                         ),
                     ) {
                         Text(
@@ -157,14 +158,22 @@ fun SignUpScreenBody(
                 }
             }
             Row(
-                modifier = Modifier.alpha(if (uiState is SignUpState.SignUpError && uiState.errorMessage == SignUpErrorConst.DUPLICATE_EMAIL) 1f else 0f),
+                modifier = Modifier.alpha(if (uiState!!.data.isErrorDuplication || uiState.data.isCheckDuplication) 1f else 0f),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = "중복된 이메일입니다. 다른 이메일을 사용해주세요.",
-                    style = ReRollBagTypography.title3,
-                    color = Color.Red
-                )
+                if (uiState.data.isErrorDuplication) {
+                    Text(
+                        text = "중복된 이메일입니다. 다른 이메일을 사용해주세요.",
+                        style = ReRollBagTypography.title3,
+                        color = Color.Red
+                    )
+                } else if (uiState.data.isCheckDuplication) {
+                    Text(
+                        text = "사용 가능한 이메일입니다.",
+                        style = ReRollBagTypography.title3,
+                        color = green2
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(30.dp))
@@ -332,7 +341,10 @@ fun SignUpScreenBody(
                                 onChangeName(name)
                             },
                         )
-                        Divider(color = gray2, thickness = 1.dp)
+                        Divider(
+                            color = if (name.isEmpty()) gray2 else green2,
+                            thickness = 1.dp
+                        )
                     }
                 }
             }
@@ -409,12 +421,6 @@ fun SignUpScreenBody(
             */
         }
     }
-}
-
-private fun isEmailSuccessColor(uiState: SignUpState) = if (uiState is SignUpState.SignUpError && uiState.errorMessage == SignUpErrorConst.DUPLICATE_EMAIL) {
-    Color.Red
-} else {
-    if (uiState.data.isCheckDuplication) green1 else gray2
 }
 
 private fun checkEnglish(

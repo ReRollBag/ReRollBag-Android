@@ -4,12 +4,15 @@ import com.mediaproject.domain.model.SignUpData
 
 sealed class SignUpState(
     var data: SignUpData,
+//    val errorMessage: String,
 ) {
-    object SignUpInit : SignUpState(data = SignUpData())
+    object SignUpInit : SignUpState(
+        data = SignUpData(),
+    )
 
     data class SignUpLoading(
         private var state: SignUpData,
-    ) : SignUpState(data = state)
+    ) : SignUpState(data = state,)
 
     data class SignUpError(
         private var state: SignUpData,

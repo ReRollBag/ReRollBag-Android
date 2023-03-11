@@ -30,10 +30,10 @@ fun HomeMenuAppBar(
     )
     Image(
         modifier = Modifier
-            .widthIn(min = 123.dp)
-            .heightIn(min = 33.dp)
+            .widthIn(max = 123.dp)
+            .heightIn(max = 33.dp)
             .align(Alignment.Center),
-        painter = painterResource(id = R.drawable.logo_rerollbag_2),
+        painter = painterResource(id = R.drawable.logo_rerollbag),
         contentDescription = "logo",
     )
 }

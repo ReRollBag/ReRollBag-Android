@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.mediaproject.domain.usecase.SignInUseCase
 import com.mediaproject.presentation.widgets.states.SignInState
@@ -35,45 +36,65 @@ constructor(
         password: String,
     ) = viewModelScope.launch {
         _signInState.postValue(SignInState.SignInLoading)
-
-        firebaseAuth.signInWithEmailAndPassword(userId, password).addOnCompleteListener { task ->
-            when (task.isSuccessful) {
-                true -> {
-                    firebaseAuth.currentUser!!.getIdToken(true)
-                        .addOnCompleteListener {
-                            signInWithIdToken(idToken = it.result.token ?: "")
-                        }
-                        .addOnCanceledListener {
-                            _signInState.postValue(
+        try {
+            firebaseAuth.signInWithEmailAndPassword(userId, password).addOnCompleteListener { task ->
+                when (task.isSuccessful) {
+                    true -> {
+                        firebaseAuth.currentUser!!.getIdToken(true)
+                            .addOnCompleteListener {
+                                signInWithIdToken(idToken = it.result.token ?: "")
+                            }
+                            .addOnCanceledListener {
+                                _signInState.postValue(
+                                    SignInState.SignInError(
+                                        userId = userId,
+                                        password = password,
+                                        errorMessage = task.exception?.message ?: ""
+                                    )
+                                )
+                            }
+                    }
+                    false -> {
+                        when (task.exception) {
+                            is FirebaseAuthInvalidUserException -> _signInState.postValue(
                                 SignInState.SignInError(
                                     userId = userId,
                                     password = password,
-                                    errorMessage = task.exception?.message ?: ""
+                                    errorMessage = SignInErrorConst.INVALID_USER_EXCEPTION
                                 )
                             )
-                        }
-                }
-                false -> {
-                    when (task.exception) {
-                        is FirebaseAuthInvalidUserException -> _signInState.postValue(
-                            SignInState.SignInError(
-                                userId = userId,
-                                password = password,
-                                errorMessage = SignInErrorConst.INVALID_USER_EXCEPTION
+                            is FirebaseAuthInvalidCredentialsException -> _signInState.postValue(
+                                SignInState.SignInError(
+                                    userId = userId,
+                                    password = password,
+                                    errorMessage = SignInErrorConst.INVALID_USER_EXCEPTION
+                                )
                             )
-                        )
-                        null -> {
-                            SignInState.SignInError(
-                                userId = userId,
-                                password = password,
-                                errorMessage = ""
-                            )
+                            else -> {
+                                Log.d("TAG", task.exception?.javaClass.toString())
+                                _signInState.postValue(
+                                    SignInState.SignInError(
+                                        userId = userId,
+                                        password = password,
+                                        errorMessage = ""
+                                    )
+                                )
+                            }
                         }
-                    }
 
+                    }
                 }
             }
+        } catch (e: IllegalArgumentException) {
+            _signInState.postValue(
+                SignInState.SignInError(
+                    userId = userId,
+                    password = password,
+                    errorMessage = SignInErrorConst.NULL_OR_EMPTY_INPUT_EXCEPTION
+                )
+            )
         }
+
     }
 
     fun signIn(
