@@ -3,6 +3,7 @@ package com.mediaproject.presentation.screen.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -10,6 +11,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mediaproject.presentation.R
+import com.mediaproject.presentation.common.component.icons.IconPack
+import com.mediaproject.presentation.common.component.icons.iconpack.IconMenuHamburger
+import com.mediaproject.presentation.common.theme.green2
 
 @Composable
 fun HomeScreenAppBar(
@@ -21,12 +25,13 @@ fun HomeScreenAppBar(
         .heightIn(min = 56.dp),
     contentAlignment = Alignment.CenterStart
 ) {
-    Image(
+    Icon(
+        imageVector = IconPack.IconMenuHamburger,
+        contentDescription = "menu",
         modifier = Modifier.padding(
             start = 16.dp
         ).clickable { onClickMenu() },
-        painter = painterResource(id = R.drawable.ic_menu_hamburger),
-        contentDescription = "menu",
+        tint = green2
     )
     Image(
         modifier = Modifier

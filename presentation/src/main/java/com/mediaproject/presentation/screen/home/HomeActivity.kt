@@ -6,15 +6,18 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.compose.rememberNavController
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanOptions
 import com.mediaproject.presentation.common.nav.HomeNavGraph
 import com.mediaproject.presentation.common.theme.ReRollBagTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.onEmpty
 
 @AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
@@ -39,6 +42,12 @@ class HomeActivity : ComponentActivity() {
         }
     }
 
+    private val barcodeLauncher: ActivityResultLauncher<ScanOptions> = registerForActivityResult(
+        ScanContract()
+    ) { result ->
+        Log.d("TAG", result.contents)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getMyLocation()
@@ -48,7 +57,9 @@ class HomeActivity : ComponentActivity() {
                 HomeNavGraph(
                     navController = navController,
                     context = applicationContext,
-                )
+                ) {
+                    barcodeLauncher.launch(ScanOptions())
+                }
             }
         }
 

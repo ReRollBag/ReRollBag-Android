@@ -14,13 +14,16 @@ import com.mediaproject.presentation.screen.home.HomeScreen
 fun HomeNavGraph(
     navController: NavHostController,
     context: Context,
+    onClickQrScan: () -> Unit = {},
 ) {
     NavHost(
         navController = navController,
         startDestination = HomeScreenRoute.Home.route
     ) {
         composable(route = HomeScreenRoute.Home.route) {
-            HomeScreen {
+            HomeScreen(
+                onClickQrScan = onClickQrScan
+            ) {
                 navController.navigate(HomeScreenRoute.HomeMenu.route)
             }
         }

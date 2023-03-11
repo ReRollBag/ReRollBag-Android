@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    onClickQrScan: () -> Unit = {},
     onClickMenu: () -> Unit = {},
 ) = Scaffold(
     topBar = {
@@ -19,6 +20,7 @@ fun HomeScreen(
 ) { padding ->
     HomeScreenBody(
         modifier = modifier.padding(padding),
+        onClickQrScan = onClickQrScan,
     )
 }
 

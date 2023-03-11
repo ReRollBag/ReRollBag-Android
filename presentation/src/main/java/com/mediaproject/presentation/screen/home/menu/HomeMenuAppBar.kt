@@ -3,6 +3,7 @@ package com.mediaproject.presentation.screen.home.menu
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -10,6 +11,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mediaproject.presentation.R
+import com.mediaproject.presentation.common.component.icons.IconPack
+import com.mediaproject.presentation.common.component.icons.iconpack.IconArrowBack
 
 @Composable
 fun HomeMenuAppBar(
@@ -21,12 +24,12 @@ fun HomeMenuAppBar(
         .heightIn(min = 56.dp),
     contentAlignment = Alignment.CenterStart
 ) {
-    Image(
+    Icon(
+        IconPack.IconArrowBack,
+        contentDescription = "back",
         modifier = Modifier.padding(
             start = 16.dp
         ).clickable { onBackPressed() },
-        painter = painterResource(id = R.drawable.ic_back),
-        contentDescription = "back",
     )
     Image(
         modifier = Modifier

@@ -102,4 +102,8 @@ object Dependencies {
         const val NAVI = "com.kakao.sdk:v2-navi:2.13.0"
     }
 
+    object Zxing {
+        const val QR = "com.journeyapps:zxing-android-embedded:4.3.0"
+    }
+
 }
