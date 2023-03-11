@@ -1,15 +1,11 @@
 package com.mediaproject.presentation.screen.home
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,10 +26,12 @@ import com.mediaproject.presentation.common.component.icons.iconpack.IconLocatio
 import com.mediaproject.presentation.common.component.icons.iconpack.IconQrScan
 import com.mediaproject.presentation.common.component.icons.iconpack.IconRefresh
 import com.mediaproject.presentation.common.theme.green1
+import com.mediaproject.presentation.widgets.states.LocationState
 
 @Composable
 fun HomeScreenBody(
     modifier: Modifier = Modifier,
+    locationState: LocationState? = LocationState.Init,
     onClickQrScan: () -> Unit = {},
 ) = Box(
     modifier = modifier
@@ -42,11 +40,15 @@ fun HomeScreenBody(
     contentAlignment = Alignment.Center
 ) {
     val context = LocalContext.current
-    var latLng = LatLng(37.7387295, 127.0458908)
-    val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(latLng, 15f)
+
+    val currentLatLng = when (locationState is LocationState.Update) {
+        true -> LatLng(locationState.location.latitude, locationState.location.longitude)
+        false -> LatLng(37.2830557, 127.0448373)
     }
-    var uiSettings by remember {
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(currentLatLng, 15f)
+    }
+    val uiSettings by remember {
         mutableStateOf(
             MapUiSettings(
                 compassEnabled = false,
@@ -62,10 +64,9 @@ fun HomeScreenBody(
             )
         )
     }
-    var properties by remember {
+    val properties by remember {
         mutableStateOf(
             MapProperties(
-                isMyLocationEnabled = true,
                 mapStyleOptions = loadRawResourceStyle(context, R.raw.style_json)
             )
         )
@@ -79,11 +80,11 @@ fun HomeScreenBody(
             uiSettings = uiSettings,
             properties = properties,
         ) {
-            Marker(
-                state = MarkerState(position = latLng),
-                title = "의정부역",
-                snippet = "Uijeongbu subway"
-            )
+//            Marker(
+//                state = MarkerState(position = currentLatLng),
+//                title = "현재 위치",
+//                snippet = "current set up"
+//            )
         }
 
         Column(
@@ -96,7 +97,7 @@ fun HomeScreenBody(
             Button(
                 modifier = Modifier.size(50.dp),
                 onClick = {
-
+                    cameraPositionState.position = CameraPosition.fromLatLngZoom(currentLatLng, 15f)
                 },
                 shape = CircleShape,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
@@ -135,7 +136,7 @@ fun HomeScreenBody(
                     .fillMaxWidth()
                     .heightIn(min = 46.dp),
                 onClick = {
-                      onClickQrScan()
+                    onClickQrScan()
 //                    cameraPositionState.position = CameraPosition.fromLatLngZoom(latLng, 15f)
                 },
                 shape = RoundedCornerShape(30),
@@ -164,8 +165,6 @@ fun HomeScreenBody(
 
             }
         }
-
-
     }
 }
 

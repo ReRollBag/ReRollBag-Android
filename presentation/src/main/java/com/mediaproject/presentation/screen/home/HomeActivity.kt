@@ -12,15 +12,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.navigation.compose.rememberNavController
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import com.mediaproject.presentation.common.nav.HomeNavGraph
 import com.mediaproject.presentation.common.theme.ReRollBagTheme
+import com.mediaproject.presentation.screen.vm.MapViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
+
+    private val mapViewModel: MapViewModel by viewModels()
 
     private lateinit var locationManager: LocationManager
     private lateinit var myLocationListener: MyLocationListener
@@ -99,7 +103,9 @@ class HomeActivity : ComponentActivity() {
 
     inner class MyLocationListener : LocationListener {
         override fun onLocationChanged(location: Location) {
-            removeLocationListener()
+//            removeLocationListener()
+            Log.d("TAG", "location change la = ${location.latitude}, lo = ${location.longitude}")
+            mapViewModel.updateLocation(location = location)
         }
 
         private fun removeLocationListener() {

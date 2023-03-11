@@ -9,6 +9,7 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.mediaproject.domain.usecase.IsAlreadyLoginUseCase
 import com.mediaproject.domain.usecase.SignInUseCase
 import com.mediaproject.presentation.widgets.states.SignInState
 import com.mediaproject.presentation.widgets.utils.error.SignInErrorConst
@@ -21,16 +22,29 @@ class SignInViewModel
 @Inject
 constructor(
     private val signInUseCase: SignInUseCase,
+    private val isAlreadyLoginUseCase: IsAlreadyLoginUseCase,
     private val firebaseAuth: FirebaseAuth,
 ) : ViewModel() {
     companion object {
         private const val TAG = "[SignInVM]"
     }
 
+    private val _alreadyLogin = MutableLiveData<Boolean>()
+    val alreadyLogin: LiveData<Boolean>
+        get() = _alreadyLogin
+
     private val _signInState = MutableLiveData<SignInState>(SignInState.SignInInit)
     val signInState: LiveData<SignInState>
         get() = _signInState
 
+    fun isAlreadyLogin() = viewModelScope.launch {
+        isAlreadyLoginUseCase()
+            .onSuccess {
+                _alreadyLogin.postValue(true)
+            }.onFailure {
+                _alreadyLogin.postValue(false)
+            }
+    }
     fun signIn(
         userId: String,
         password: String,

@@ -24,4 +24,6 @@ interface UserRepository {
 
     suspend fun clearToken()
 
+    suspend fun isAlreadyLogin()
+
 }

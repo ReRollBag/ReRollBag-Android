@@ -4,6 +4,7 @@ import android.util.Log
 import com.mediaproject.data.local.datasource.LocalUserDataSource
 import com.mediaproject.data.remote.datasource.UserRemoteDataSource
 import com.mediaproject.domain.repository.UserRepository
+import kotlinx.coroutines.flow.first
 import okhttp3.internal.wait
 import javax.inject.Inject
 
@@ -67,4 +68,11 @@ constructor(
         localUserDataSource.clearToken()
     }
 
+    override suspend fun isAlreadyLogin() {
+        val accessToken = localUserDataSource.fetchAccessToken().first()
+        val refreshToken = localUserDataSource.fetchRefreshToken().first()
+        if (accessToken.isEmpty() && refreshToken.isEmpty()) {
+            throw Exception()
+        }
+    }
 }
