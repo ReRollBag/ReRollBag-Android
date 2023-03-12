@@ -1,6 +1,8 @@
 package com.mediaproject.data.remote.datasource
 
 import com.mediaproject.domain.model.BaseCondition
+import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.domain.model.User
 import com.mediaproject.domain.model.UserToken
 
 interface UserRemoteDataSource {
@@ -23,4 +25,11 @@ interface UserRemoteDataSource {
         nickname: String
     ): BaseCondition
 
+    suspend fun getUserInfoByToken(): User
+
+    suspend fun getRentingBagsListWithUserToken(): List<BagInfo>
+
+    suspend fun getReturningBagsListWithUserToken(): List<BagInfo>
+
+    suspend fun getReturnedBagsListWithUserToken(): List<BagInfo>
 }

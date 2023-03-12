@@ -6,6 +6,8 @@ import com.mediaproject.data.remote.model.request.SignUpRequest
 import com.mediaproject.data.remote.datasource.UserRemoteDataSource
 import com.mediaproject.data.utils.baseApiCall
 import com.mediaproject.domain.model.BaseCondition
+import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.domain.model.User
 import com.mediaproject.domain.model.UserToken
 import javax.inject.Inject
 
@@ -50,6 +52,22 @@ constructor(
         userAPI.isExistNickname(
             nickname = nickname
         ).toModel()
+    }
+
+    override suspend fun getUserInfoByToken(): User = baseApiCall {
+        userAPI.getUserInfo().toModel()
+    }
+
+    override suspend fun getRentingBagsListWithUserToken(): List<BagInfo> = baseApiCall {
+        userAPI.getRentingBagsList().toModel()
+    }
+
+    override suspend fun getReturningBagsListWithUserToken(): List<BagInfo> = baseApiCall {
+        userAPI.getReturningBagsList().toModel()
+    }
+
+    override suspend fun getReturnedBagsListWithUserToken(): List<BagInfo> = baseApiCall {
+        userAPI.getReturnedBagsList().toModel()
     }
 
 }

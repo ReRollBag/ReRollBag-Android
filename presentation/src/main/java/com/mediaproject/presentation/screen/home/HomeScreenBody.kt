@@ -85,6 +85,8 @@ fun HomeScreenBody(
 //                title = "현재 위치",
 //                snippet = "current set up"
 //            )
+
+            Marker()
         }
 
         Column(

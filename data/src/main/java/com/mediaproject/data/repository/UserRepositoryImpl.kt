@@ -3,9 +3,10 @@ package com.mediaproject.data.repository
 import android.util.Log
 import com.mediaproject.data.local.datasource.LocalUserDataSource
 import com.mediaproject.data.remote.datasource.UserRemoteDataSource
+import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.domain.model.User
 import com.mediaproject.domain.repository.UserRepository
 import kotlinx.coroutines.flow.first
-import okhttp3.internal.wait
 import javax.inject.Inject
 
 class UserRepositoryImpl
@@ -75,4 +76,13 @@ constructor(
             throw Exception()
         }
     }
+
+    override suspend fun getUserInfo(): User = remoteUserDataSource.getUserInfoByToken()
+
+    override suspend fun getUserRentingBagsList(): List<BagInfo> = remoteUserDataSource.getRentingBagsListWithUserToken()
+
+    override suspend fun getUserReturningBagsList(): List<BagInfo> = remoteUserDataSource.getReturningBagsListWithUserToken()
+
+    override suspend fun getUserReturnedBagsList(): List<BagInfo> = remoteUserDataSource.getReturningBagsListWithUserToken()
+
 }
