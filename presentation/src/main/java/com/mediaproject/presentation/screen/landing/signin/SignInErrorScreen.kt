@@ -40,6 +40,9 @@ fun SignInErrorScreen(
         SignInErrorConst.INVALID_USER_EXCEPTION -> SignInErrorText(
             text = "아이디 또는 비밀번호가 일치하지 않습니다."
         )
+        SignInErrorConst.NULL_OR_EMPTY_INPUT_EXCEPTION -> SignInErrorText(
+            text = "입력한 내용을 다시 확인 해주세요."
+        )
         else -> SignInErrorText(
             text = "알 수 없는 오류"
         )

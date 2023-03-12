@@ -1,5 +1,8 @@
 package com.mediaproject.domain.repository
 
+import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.domain.model.User
+
 interface UserRepository {
 
     suspend fun signIn(
@@ -23,5 +26,15 @@ interface UserRepository {
     )
 
     suspend fun clearToken()
+
+    suspend fun isAlreadyLogin()
+
+    suspend fun getUserInfo(): User
+
+    suspend fun getUserRentingBagsList(): List<BagInfo>
+
+    suspend fun getUserReturningBagsList(): List<BagInfo>
+
+    suspend fun getUserReturnedBagsList(): List<BagInfo>
 
 }

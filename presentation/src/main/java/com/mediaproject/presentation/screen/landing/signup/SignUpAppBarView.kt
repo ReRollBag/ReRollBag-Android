@@ -3,6 +3,7 @@ package com.mediaproject.presentation.screen.landing.signup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,6 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mediaproject.presentation.R
+import com.mediaproject.presentation.common.component.icons.IconPack
+import com.mediaproject.presentation.common.component.icons.iconpack.IconArrowBack
 import com.mediaproject.presentation.common.theme.notoSansFamily
 
 @Composable
@@ -27,11 +30,11 @@ fun SignUpAppBarView(
         .heightIn(min = 56.dp),
     contentAlignment = Alignment.CenterStart
 ) {
-    Image(
+    Icon(
+        IconPack.IconArrowBack,
         modifier = Modifier.padding(
             start = 16.dp
         ).clickable(onClick = onBackPress),
-        painter = painterResource(id = R.drawable.ic_back),
         contentDescription = "back",
     )
     Text(

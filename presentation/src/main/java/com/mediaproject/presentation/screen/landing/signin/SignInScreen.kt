@@ -261,18 +261,21 @@ fun SignInContentView(
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_google_logo),
-                                contentDescription = "google",
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .size(64.dp)
-                                    .clip(CircleShape)
-                                    .clickable {
-                                        Log.d("google", "google Login Click")
-                                        onGoogleSignIn()
-                                    }
-                            )
+                            Button(
+                                modifier = Modifier.size(64.dp),
+                                onClick = {
+                                    Log.d("google", "google Login Click")
+                                    onGoogleSignIn()
+                                },
+                                shape = CircleShape,
+                                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_google_logo),
+                                    contentDescription = "google",
+                                    contentScale = ContentScale.Fit,
+                                )
+                            }
                             Spacer(modifier = Modifier.height(5.dp))
                             Text(
                                 text = "구글 로그인",

@@ -87,6 +87,6 @@ dependencies {
     debugImplementation(Dependencies.Compose.COMPOSE_TEST_MANIFEST)
 
     implementation(Dependencies.Kakao.ALL)
-//    implementation(Dependencies.Kakao.LOGIN)
-//    implementation(Dependencies.Kakao.TALK)
+
+    implementation(Dependencies.Zxing.QR)
 }

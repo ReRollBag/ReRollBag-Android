@@ -3,8 +3,10 @@ package com.mediaproject.data.repository
 import android.util.Log
 import com.mediaproject.data.local.datasource.LocalUserDataSource
 import com.mediaproject.data.remote.datasource.UserRemoteDataSource
+import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.domain.model.User
 import com.mediaproject.domain.repository.UserRepository
-import okhttp3.internal.wait
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class UserRepositoryImpl
@@ -66,5 +68,21 @@ constructor(
     override suspend fun clearToken() {
         localUserDataSource.clearToken()
     }
+
+    override suspend fun isAlreadyLogin() {
+        val accessToken = localUserDataSource.fetchAccessToken().first()
+        val refreshToken = localUserDataSource.fetchRefreshToken().first()
+        if (accessToken.isEmpty() && refreshToken.isEmpty()) {
+            throw Exception()
+        }
+    }
+
+    override suspend fun getUserInfo(): User = remoteUserDataSource.getUserInfoByToken()
+
+    override suspend fun getUserRentingBagsList(): List<BagInfo> = remoteUserDataSource.getRentingBagsListWithUserToken()
+
+    override suspend fun getUserReturningBagsList(): List<BagInfo> = remoteUserDataSource.getReturningBagsListWithUserToken()
+
+    override suspend fun getUserReturnedBagsList(): List<BagInfo> = remoteUserDataSource.getReturningBagsListWithUserToken()
 
 }

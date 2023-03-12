@@ -1,10 +1,7 @@
 package com.mediaproject.data.remote.api
 
 import com.mediaproject.data.remote.model.request.SignUpRequest
-import com.mediaproject.data.remote.model.response.IsExistNicknameResponse
-import com.mediaproject.data.remote.model.response.IsExistUserResponse
-import com.mediaproject.data.remote.model.response.SignInResponse
-import com.mediaproject.data.remote.model.response.SignUpResponse
+import com.mediaproject.data.remote.model.response.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -37,5 +34,17 @@ interface UserAPI {
     suspend fun isExistNickname(
         @Path("nickname") nickname: String
     ): IsExistNicknameResponse
+
+    @GET("/api/v1/users/getUsersInfo")
+    suspend fun getUserInfo(): GetUserInfoResponse
+
+    @GET("/api/v1/users/getRentingBagsList")
+    suspend fun getRentingBagsList(): GetRentingBagsListResponse
+
+    @GET("/api/v1/users/getReturningBagsList")
+    suspend fun getReturningBagsList(): GetReturningBagsListResponse
+
+    @GET("/api/v1/users/getReturnedBagsList")
+    suspend fun getReturnedBagsList(): GetReturnedBagsListResponse
 
 }

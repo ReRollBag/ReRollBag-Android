@@ -25,12 +25,12 @@ internal val robotoFamily = FontFamily(
 )
 
 internal val notoSansFamily = FontFamily(
-    Font(R.font.notosans_kr_black, FontWeight.Black),
-    Font(R.font.notosans_kr_bold, FontWeight.Bold),
-    Font(R.font.notosans_kr_medium, FontWeight.Medium),
-    Font(R.font.notosans_kr_regular, FontWeight.Normal),
-    Font(R.font.notosans_kr_light, FontWeight.Light),
-    Font(R.font.notosans_kr_thin, FontWeight.Thin),
+    Font(R.font.notosans_kr_black, FontWeight.Black, FontStyle.Normal),
+    Font(R.font.notosans_kr_bold, FontWeight.Bold, FontStyle.Normal),
+    Font(R.font.notosans_kr_medium, FontWeight.Medium, FontStyle.Normal),
+    Font(R.font.notosans_kr_regular, FontWeight.Normal, FontStyle.Normal),
+    Font(R.font.notosans_kr_light, FontWeight.Light, FontStyle.Normal),
+    Font(R.font.notosans_kr_thin, FontWeight.Thin, FontStyle.Normal),
 )
 
 internal val abhayaLibreFamily = FontFamily(

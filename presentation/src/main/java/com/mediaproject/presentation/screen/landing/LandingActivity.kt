@@ -28,11 +28,10 @@ class LandingActivity : ComponentActivity() {
 
     private val viewModel: SignInViewModel by viewModels()
 
-
     lateinit var getResult: ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        viewModel.isAlreadyLogin()
         getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             when(it.resultCode) {
                 AppCompatActivity.RESULT_OK -> {

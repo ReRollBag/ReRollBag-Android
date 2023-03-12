@@ -1,10 +1,7 @@
 package com.mediaproject.data.mapper
 
 import com.mediaproject.data.remote.model.response.*
-import com.mediaproject.domain.model.AccessToken
-import com.mediaproject.domain.model.BaseCondition
-import com.mediaproject.domain.model.User
-import com.mediaproject.domain.model.UserToken
+import com.mediaproject.domain.model.*
 
 internal fun SignInResponse.toModel() = UserToken(
     accessToken = accessToken,
@@ -27,3 +24,47 @@ internal fun IsExistNicknameResponse.toModel() = BaseCondition(
 internal fun ReIssueResponse.toModel() = AccessToken(
     accessToken = accessToken
 )
+
+internal fun GetUserInfoResponse.toModel() = User(
+    userId = userId,
+    userName = userName
+)
+
+@JvmName("GetRentingBagsResponseToModel")
+internal fun GetRentingBagsResponse.toModel() = BagInfo(
+    bagsId = bagsId,
+    whenIsRented = whenIsRented,
+    rentingUsersId = rentingUsersId,
+    rented = rented,
+)
+
+@JvmName("GetRentingBagsListResponseToModel")
+internal fun GetRentingBagsListResponse.toModel() = this.map {
+    it.toModel()
+}
+
+@JvmName("GetReturningBagsResponseToModel")
+internal fun GetReturningBagsResponse.toModel() = BagInfo(
+    bagsId = bagsId,
+    whenIsRented = whenIsRented,
+    rentingUsersId = rentingUsersId,
+    rented = rented,
+)
+
+@JvmName("GetReturningBagsListResponseToModel")
+internal fun GetReturningBagsListResponse.toModel() = this.map {
+    it.toModel()
+}
+
+@JvmName("GetReturnedBagsResponseToModel")
+internal fun GetReturnedBagsResponse.toModel() = BagInfo(
+    bagsId = bagsId,
+    whenIsRented = whenIsRented,
+    rentingUsersId = rentingUsersId,
+    rented = rented,
+)
+
+@JvmName("GetReturnedBagsListResponseToModel")
+internal fun GetReturnedBagsListResponse.toModel() = this.map {
+    it.toModel()
+}

@@ -39,7 +39,8 @@ constructor(
         _signUpState.value = SignUpState.UpdateData(
             state = SignUpData(
                 userId = userId,
-                isExistUserId = this.isCheckDuplication,
+                isCheckDuplication = this.isCheckDuplication,
+                isErrorDuplication = this.isErrorDuplication,
                 password = this.password,
                 passwordCheckStr = this.passwordCheckStr,
                 name = this.name
@@ -53,7 +54,8 @@ constructor(
         _signUpState.value = SignUpState.UpdateData(
             state = SignUpData(
                 userId = this.userId,
-                isExistUserId = this.isCheckDuplication,
+                isCheckDuplication = this.isCheckDuplication,
+                isErrorDuplication = this.isErrorDuplication,
                 password = password,
                 passwordCheckStr = this.passwordCheckStr,
                 name = this.name
@@ -67,7 +69,8 @@ constructor(
         _signUpState.value = SignUpState.UpdateData(
             state = SignUpData(
                 userId = this.userId,
-                isExistUserId = this.isCheckDuplication,
+                isCheckDuplication = this.isCheckDuplication,
+                isErrorDuplication = this.isErrorDuplication,
                 password = this.password,
                 passwordCheckStr = passwordChecker,
                 name = this.name
@@ -81,7 +84,8 @@ constructor(
         _signUpState.value = SignUpState.UpdateData(
             state = SignUpData(
                 userId = this.userId,
-                isExistUserId = this.isCheckDuplication,
+                isCheckDuplication = this.isCheckDuplication,
+                isErrorDuplication = this.isErrorDuplication,
                 password = this.password,
                 passwordCheckStr = this.passwordCheckStr,
                 name = name
@@ -166,28 +170,38 @@ constructor(
         data: SignUpData
     ) = viewModelScope.launch {
         postLoading()
-        isExistUserIdUseCase(
-            params = IsExistUserIdUseCase.Params(
-                userId = data.userId
-            )
-        ).onSuccess {
-            Log.d(TAG, "Success")
-            _signUpState.postValue(
-                SignUpState.UpdateData(
-                    state = SignUpData(
-                        data,
-                        isExistUserId = true,
-                    ),
-                )
-            )
-        }.onFailure {
-            Log.d(TAG, it.message ?: "")
-            _signUpState.postValue(
-                SignUpState.SignUpError(
-                    state = data,
-                    errorMessage = SignUpErrorConst.DUPLICATE_EMAIL
-                )
-            )
+        when (data.userId.isEmpty()) {
+            true -> _signUpState.postValue(SignUpState.UpdateData(state = data))
+            false -> {
+                isExistUserIdUseCase(
+                    params = IsExistUserIdUseCase.Params(
+                        userId = data.userId
+                    )
+                ).onSuccess {
+                    Log.d(TAG, "Success")
+                    _signUpState.postValue(
+                        SignUpState.UpdateData(
+                            state = SignUpData(
+                                data,
+                                isExistUserId = true,
+                                isErrorDuplication = false
+                            ),
+                        )
+                    )
+                }.onFailure {
+                    Log.d(TAG, it.message ?: "")
+                    _signUpState.postValue(
+                        SignUpState.SignUpError(
+                            state = SignUpData(
+                                data,
+                                isExistUserId = false,
+                                isErrorDuplication = true
+                            ),
+                            errorMessage = SignUpErrorConst.DUPLICATE_EMAIL
+                        )
+                    )
+                }
+            }
         }
     }
 

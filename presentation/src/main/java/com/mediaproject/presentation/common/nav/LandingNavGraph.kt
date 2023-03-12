@@ -28,11 +28,21 @@ fun LandingNavGraph(
     ) {
         composable(route = LandingScreenRoute.Landing.route) {
             AnimatedSplashScreenTheme {
-                LandingScreen {
-                    navController.navigate(LandingScreenRoute.SignIn.route) {
-                        popUpTo(0)
+                LandingScreen(
+                    viewModel = viewModel,
+                    onTimeoutHome = {
+                        context.startActivity(
+                            Intent(context, HomeActivity::class.java).apply {
+                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            }
+                        )
+                    },
+                    onTimeoutSignIn = {
+                        navController.navigate(LandingScreenRoute.SignIn.route) {
+                            popUpTo(0)
+                        }
                     }
-                }
+                )
             }
         }
         composable(route = LandingScreenRoute.SignIn.route) {
