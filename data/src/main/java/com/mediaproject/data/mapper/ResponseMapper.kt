@@ -30,16 +30,20 @@ internal fun GetUserInfoResponse.toModel() = User(
     userName = userName
 )
 
+@JvmName("GetRentingBagsResponseToModel")
 internal fun GetRentingBagsResponse.toModel() = BagInfo(
     bagsId = bagsId,
     whenIsRented = whenIsRented,
     rentingUsersId = rentingUsersId,
     rented = rented,
 )
-internal fun GetRentingBagsListResponse.toModel(): List<BagInfo> = this.map {
-    it.toModel()
-}.toList()
 
+@JvmName("GetRentingBagsListResponseToModel")
+internal fun GetRentingBagsListResponse.toModel() = this.map {
+    it.toModel()
+}
+
+@JvmName("GetReturningBagsResponseToModel")
 internal fun GetReturningBagsResponse.toModel() = BagInfo(
     bagsId = bagsId,
     whenIsRented = whenIsRented,
@@ -47,10 +51,12 @@ internal fun GetReturningBagsResponse.toModel() = BagInfo(
     rented = rented,
 )
 
-internal fun GetReturningBagsListResponse.toModel(): List<BagInfo> = this.map {
+@JvmName("GetReturningBagsListResponseToModel")
+internal fun GetReturningBagsListResponse.toModel() = this.map {
     it.toModel()
-}.toList()
+}
 
+@JvmName("GetReturnedBagsResponseToModel")
 internal fun GetReturnedBagsResponse.toModel() = BagInfo(
     bagsId = bagsId,
     whenIsRented = whenIsRented,
@@ -58,6 +64,7 @@ internal fun GetReturnedBagsResponse.toModel() = BagInfo(
     rented = rented,
 )
 
-internal fun GetReturnedBagsListResponse.toModel(): List<BagInfo> = this.map {
+@JvmName("GetReturnedBagsListResponseToModel")
+internal fun GetReturnedBagsListResponse.toModel() = this.map {
     it.toModel()
-}.toList()
+}
