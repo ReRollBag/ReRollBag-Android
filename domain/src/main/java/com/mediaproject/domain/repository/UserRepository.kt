@@ -27,6 +27,8 @@ interface UserRepository {
 
     suspend fun clearToken()
 
+    suspend fun reIssueToken()
+
     suspend fun isAlreadyLogin()
 
     suspend fun getUserInfo(): User

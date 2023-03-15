@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import retrofit2.Response
+import javax.inject.Inject
 
 private const val UnknownErrorMessage: String = "Unknown Error"
 
@@ -33,6 +34,9 @@ suspend inline fun <T> baseApiCall(
     throw when (e.code()) {
         202 -> when (response.errorCode) {
             1002 -> NicknameAlreadyException(code = response.errorCode, message = response.message)
+            else -> UnknownHttpException(code = response.errorCode, message = response.message)
+        }
+        401 -> when (response.errorCode) {
             2000 -> ExpiredJwtException(code = response.errorCode, message = "ExpiredJwtException")
             2002 -> TokenIsNullException(code = response.errorCode, message = response.message)
             else -> UnknownHttpException(code = response.errorCode, message = response.message)
@@ -57,4 +61,18 @@ fun getErrorMessage(exception: HttpException): ErrorResponse {
     )
     Log.d("TAG", "errorString: ${errorDto.message}, errorCode:${errorDto.errorCode}")
     return errorDto
+}
+
+//@Inject
+//private lateinit var useCase
+
+suspend inline fun <T> reIssueApiCall(
+    crossinline function: suspend () -> T,
+): T = try {
+    withContext(Dispatchers.IO) {
+        function.invoke()
+    }
+} catch (e: Exception) {
+    Log.d("BaseApi", e.message ?: "")
+    throw UnknownException(e.message)
 }

@@ -23,11 +23,18 @@ fun HomeScreen(
     },
 ) { padding ->
     val locationState = mapViewModel.locationState.observeAsState()
+    val qrScanState = mapViewModel.qrScanState.observeAsState()
+
     HomeScreenBody(
         modifier = modifier.padding(padding),
         locationState = locationState.value,
-        onClickQrScan = onClickQrScan,
-    )
+        qrScanState = qrScanState.value,
+        clearQrScanState = {
+            mapViewModel.clearQrScan()
+        }
+    ) {
+        onClickQrScan()
+    }
 }
 
 @Preview(showBackground = true)

@@ -1,6 +1,7 @@
 package com.mediaproject.presentation.common.component.icons
 
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.mediaproject.presentation.common.component.icons.iconpack.IconArrow
 import com.mediaproject.presentation.common.component.icons.iconpack.IconArrowBack
 import com.mediaproject.presentation.common.component.icons.iconpack.IconEyeHide
 import com.mediaproject.presentation.common.component.icons.iconpack.IconEyeShow
@@ -12,14 +13,14 @@ import kotlin.collections.List as ____KtList
 
 object IconPack
 
-private var __AllCustomIcons: ____KtList<ImageVector>? = null
+private var __AlIcons: ____KtList<ImageVector>? = null
 
-val IconPack.AllCustomIcons: ____KtList<ImageVector>
+public val IconPack.AlIcons: ____KtList<ImageVector>
   get() {
-    if (__AllCustomIcons != null) {
-      return __AllCustomIcons!!
+    if (__AlIcons != null) {
+      return __AlIcons!!
     }
-    __AllCustomIcons= listOf(IconEyeShow, IconRefresh, IconArrowBack, IconMenuHamburger, IconQrScan,
-        IconEyeHide, IconLocation)
-    return __AllCustomIcons!!
+    __AlIcons= listOf(IconEyeShow, IconRefresh, IconArrowBack, IconMenuHamburger, IconQrScan,
+        IconEyeHide, IconLocation, IconArrow)
+    return __AlIcons!!
   }

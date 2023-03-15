@@ -19,8 +19,20 @@ constructor(
     val locationState: LiveData<LocationState>
         get() = _locationState
 
+    private val _qrScanState = MutableLiveData("")
+    val qrScanState: LiveData<String>
+        get() = _qrScanState
+
     fun updateLocation(location: Location) {
         _locationState.value = LocationState.Update(updateData = location)
+    }
+
+    fun updateQrScanUrl(url: String) {
+        _qrScanState.value = url
+    }
+
+    fun clearQrScan() {
+        _qrScanState.value = ""
     }
 
 }

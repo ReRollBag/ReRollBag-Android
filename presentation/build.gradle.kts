@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -6,6 +8,10 @@ plugins {
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("com.google.gms.google-services")
 }
+
+fun getApiKey(propertyKey: String): String = gradleLocalProperties(
+    rootDir
+).getProperty(propertyKey)
 
 android {
     namespace = "com.mediaproject.presentation"
@@ -20,6 +26,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        manifestPlaceholders["KAKAO_KEY"] = getApiKey("KAKAO_KEY")
+        manifestPlaceholders["KAKAO_REDIRECTION_KEY"] = getApiKey("KAKAO_REDIRECTION_KEY")
     }
 
     buildTypes {

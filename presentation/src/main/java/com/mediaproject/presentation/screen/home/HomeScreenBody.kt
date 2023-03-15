@@ -32,6 +32,8 @@ import com.mediaproject.presentation.widgets.states.LocationState
 fun HomeScreenBody(
     modifier: Modifier = Modifier,
     locationState: LocationState? = LocationState.Init,
+    qrScanState: String? = "",
+    clearQrScanState: () -> Unit = {},
     onClickQrScan: () -> Unit = {},
 ) = Box(
     modifier = modifier
@@ -71,102 +73,16 @@ fun HomeScreenBody(
             )
         )
     }
-    Box(
-        modifier = Modifier.fillMaxSize()
+
+    MapScreen(
+        qrScanState = if ((qrScanState ?: "").isEmpty()) "" else qrScanState!!,
+        clearQrScanState = clearQrScanState,
+        currentLatLng = currentLatLng,
+        cameraPositionState = cameraPositionState,
+        uiSettings = uiSettings,
+        properties = properties,
     ) {
-        GoogleMap(
-            modifier = Modifier.fillMaxSize(),
-            cameraPositionState = cameraPositionState,
-            uiSettings = uiSettings,
-            properties = properties,
-        ) {
-//            Marker(
-//                state = MarkerState(position = currentLatLng),
-//                title = "현재 위치",
-//                snippet = "current set up"
-//            )
-
-            Marker()
-        }
-
-        Column(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(horizontal = 20.dp)
-                .padding(bottom = 24.dp),
-            verticalArrangement = Arrangement.Bottom,
-        ) {
-            Button(
-                modifier = Modifier.size(50.dp),
-                onClick = {
-                    cameraPositionState.position = CameraPosition.fromLatLngZoom(currentLatLng, 15f)
-                },
-                shape = CircleShape,
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
-            ) {
-                Icon(IconPack.IconLocation, contentDescription = "Location")
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Button(
-                    modifier = Modifier.size(50.dp),
-                    onClick = {
-
-                    },
-                    shape = CircleShape,
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
-                ) {
-//                    Icon(IconPack.IconLocation, contentDescription = "Location")
-                }
-                Button(
-                    modifier = Modifier.size(50.dp),
-                    onClick = {
-
-                    },
-                    shape = CircleShape,
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
-                ) {
-                    Icon(IconPack.IconRefresh, contentDescription = "refresh")
-                }
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(min = 46.dp),
-                onClick = {
-                    onClickQrScan()
-//                    cameraPositionState.position = CameraPosition.fromLatLngZoom(latLng, 15f)
-                },
-                shape = RoundedCornerShape(30),
-                colors = ButtonDefaults.buttonColors(backgroundColor = green1)
-            ) {
-                Row(
-                    modifier = Modifier.align(Alignment.CenterVertically),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        IconPack.IconQrScan,
-                        contentDescription = "qr_scan",
-                        tint = Color.White
-                    )
-                    Spacer(modifier = Modifier.widthIn(7.dp))
-                    Text(
-                        text = "가방 대여하기",
-                        style = TextStyle(
-//                    fontFamily = notoSansFamily,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp,
-                            color = Color.White,
-                        ),
-                    )
-                }
-
-            }
-        }
+        onClickQrScan()
     }
 }
 

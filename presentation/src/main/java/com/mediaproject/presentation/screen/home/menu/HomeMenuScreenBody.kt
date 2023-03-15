@@ -1,9 +1,11 @@
 package com.mediaproject.presentation.screen.home.menu
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -13,11 +15,18 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.Switch
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
@@ -27,6 +36,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mediaproject.domain.model.BagInfo
 import com.mediaproject.presentation.R
+import com.mediaproject.presentation.common.component.icons.IconPack
+import com.mediaproject.presentation.common.component.icons.iconpack.IconArrow
 import com.mediaproject.presentation.common.theme.*
 import com.mediaproject.presentation.widgets.states.HomeMenuState
 
@@ -35,6 +46,7 @@ fun HomeMenuScreenBody(
     modifier: Modifier = Modifier,
     userState: HomeMenuState = HomeMenuState.Init
 ) {
+    val context = LocalContext.current
 
     Column(
         modifier = modifier
@@ -108,6 +120,191 @@ fun HomeMenuScreenBody(
         }
         //endregion
 
+
+        Spacer(modifier = Modifier.height(40.dp))
+
+    //region feature
+        Text(
+            text = "기능",
+            style = TextStyle(
+                fontSize = 10.sp,
+                color = gray2
+            )
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(width = 1.dp, color = gray1, shape = RoundedCornerShape(8.dp))
+                .background(color = gray1, shape = RoundedCornerShape(8.dp))
+                .padding(all = 10.dp),
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+
+                    },
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(
+                    text = "대여목록",
+                    style = TextStyle(
+                        fontSize = 13.sp
+                    )
+                )
+                Icon(IconPack.IconArrow, contentDescription = "")
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Divider(color = Color(0xFFEFF1F5))
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+
+                    },
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(
+                    text = "공지사항",
+                    style = TextStyle(
+                        fontSize = 13.sp
+                    )
+                )
+                Icon(IconPack.IconArrow, contentDescription = "")
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Divider(color = Color(0xFFEFF1F5))
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        Toast.makeText(context, "현재 관리자 신청이 불가합니다.", Toast.LENGTH_SHORT).show()
+                    },
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(
+                    text = "관리자 신청",
+                    style = TextStyle(
+                        fontSize = 13.sp
+                    )
+                )
+                Icon(IconPack.IconArrow, contentDescription = "")
+            }
+        }
+
+        //endregion
+
+        Spacer(modifier = Modifier.height(40.dp))
+
+        //region feature
+        Text(
+            text = "어플리케이션 설정",
+            style = TextStyle(
+                fontSize = 10.sp,
+                color = gray2
+            )
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(width = 1.dp, color = gray1, shape = RoundedCornerShape(8.dp))
+                .background(color = gray1, shape = RoundedCornerShape(8.dp))
+                .padding(all = 10.dp),
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(
+                    text = "알림 설정",
+                    style = TextStyle(
+                        fontSize = 13.sp
+                    )
+                )
+//                Switch(
+//                    modifier = Modifier.scale(0.9f),
+//                    checked = false,
+//                    onCheckedChange = { condition ->
+//
+//                    }
+//                )
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Divider(color = Color(0xFFEFF1F5))
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+
+                    },
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(
+                    text = "이용약관",
+                    style = TextStyle(
+                        fontSize = 13.sp
+                    )
+                )
+                Icon(IconPack.IconArrow, contentDescription = "")
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Divider(color = Color(0xFFEFF1F5))
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+
+                    },
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(
+                    text = "개인정보 처리방침",
+                    style = TextStyle(
+                        fontSize = 13.sp
+                    )
+                )
+                Icon(IconPack.IconArrow, contentDescription = "")
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Divider(color = Color(0xFFEFF1F5))
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+
+                    },
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(
+                    text = "로그아웃",
+                    style = TextStyle(
+                        fontSize = 13.sp
+                    )
+                )
+                Icon(IconPack.IconArrow, contentDescription = "")
+            }
+        }
+
+        //endregion
+
         Spacer(modifier = Modifier.height(30.dp))
 
         //region bag list
@@ -137,92 +334,6 @@ fun HomeMenuScreenBody(
         }
         //endregion
 
-        Spacer(modifier = Modifier.height(40.dp))
-
-        //region my page
-
-        Text(
-            text = "마이페이지",
-            style = TextStyle(
-                fontSize = 10.sp,
-                color = gray2
-            )
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        val numbers = (0 until 6).toList()
-
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            userScrollEnabled = false,
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            items(
-                count = numbers.size,
-
-            ) {
-                Column(horizontalAlignment = Alignment.Start) {
-                    when (it) {
-                        0 -> ClickableText(
-                            text = AnnotatedString("회원 탈퇴"),
-                            style = TextStyle(
-                                fontSize = 13.sp
-                            ),
-                            onClick = {
-                                Log.d("TAG", "회원 탈퇴")
-                            }
-                        )
-                        1 -> ClickableText(
-                            text = AnnotatedString("대여 목록"),
-                            style = TextStyle(
-                                fontSize = 13.sp
-                            ),
-                            onClick = {
-                                Log.d("TAG", "대여 목록")
-                            }
-                        )
-                        2 -> ClickableText(
-                            text = AnnotatedString("관리자 신청"),
-                            style = TextStyle(
-                                fontSize = 13.sp
-                            ),
-                            onClick = {
-                                Log.d("TAG", "관리자 신청")
-                            }
-                        )
-                        3 -> ClickableText(
-                            text = AnnotatedString("공지사항"),
-                            style = TextStyle(
-                                fontSize = 13.sp
-                            ),
-                            onClick = {
-                                Log.d("TAG", "공지사항")
-                            }
-                        )
-                        4 -> ClickableText(
-                            text = AnnotatedString("이용약관"),
-                            style = TextStyle(
-                                fontSize = 13.sp
-                            ),
-                            onClick = {
-                                Log.d("TAG", "이용약관")
-                            }
-                        )
-                        5 -> ClickableText(
-                            text = AnnotatedString("라이센스 확인"),
-                            style = TextStyle(
-                                fontSize = 13.sp
-                            ),
-                            onClick = {
-                                Log.d("TAG", "라이센스 확인")
-                            }
-                        )
-                    }
-                }
-            }
-        }
-        //endregion
     }
 }
 

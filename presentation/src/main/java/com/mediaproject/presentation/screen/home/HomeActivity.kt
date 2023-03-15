@@ -49,7 +49,16 @@ class HomeActivity : ComponentActivity() {
     private val barcodeLauncher: ActivityResultLauncher<ScanOptions> = registerForActivityResult(
         ScanContract()
     ) { result ->
-        Log.d("TAG", result.contents)
+        when (result.contents != null) {
+            true -> {
+                Log.d("TAG", result.contents)
+                mapViewModel.updateQrScanUrl("test")
+            }
+            false -> {
+                Log.d("TAG", "Qr Scan Null")
+                mapViewModel.updateQrScanUrl("test")
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +71,11 @@ class HomeActivity : ComponentActivity() {
                     navController = navController,
                     context = applicationContext,
                 ) {
-                    barcodeLauncher.launch(ScanOptions())
+                    val option = ScanOptions().apply {
+                        setBeepEnabled(false)
+                        setOrientationLocked(false)
+                    }
+                    barcodeLauncher.launch(option)
                 }
             }
         }

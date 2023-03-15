@@ -22,8 +22,13 @@ fun HomeMenuScreen(
     }
 ) { padding ->
     val userState = menuViewModel.homeMenuState.observeAsState()
-    menuViewModel.getUserInfo()
-    menuViewModel.getUserRentingBagsList()
+
+    menuViewModel.getUserInfo().invokeOnCompletion {
+        when (it) {
+            null -> menuViewModel.getUserRentingBagsList()
+        }
+    }
+
     HomeMenuScreenBody(
         modifier = modifier.padding(padding),
         userState = userState.value!!

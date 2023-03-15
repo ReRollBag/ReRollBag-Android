@@ -1,7 +1,12 @@
 package com.mediaproject.data.remote.datasourceimpl
 
+import com.mediaproject.data.mapper.toModel
 import com.mediaproject.data.remote.api.BagAPI
 import com.mediaproject.data.remote.datasource.BagRemoteDataSource
+import com.mediaproject.data.remote.model.request.RentBagRequest
+import com.mediaproject.data.remote.model.request.RequestReturningBagRequest
+import com.mediaproject.data.utils.baseApiCall
+import com.mediaproject.domain.model.BaseCondition
 import javax.inject.Inject
 
 class BagRemoteDataSourceImpl
@@ -20,21 +25,33 @@ constructor(
     override suspend fun rentBag(
         userId: String,
         bagId: String
-    ) {
-        TODO("Not yet implemented")
+    ): BaseCondition = baseApiCall {
+        bagAPI.rentBag(
+            RentBagRequest(
+                userId = userId,
+                bagId = bagId
+            )
+        ).toModel()
     }
 
     override suspend fun requestReturningBag(
         userId: String,
         bagId: String
-    ) {
-        TODO("Not yet implemented")
+    ): BaseCondition = baseApiCall {
+        bagAPI.requestReturningBag(
+            RequestReturningBagRequest(
+                userId = userId,
+                bagId = bagId,
+            )
+        ).toModel()
     }
 
     override suspend fun returningBag(
         bagId: String
-    ) {
-        TODO("Not yet implemented")
+    ): BaseCondition = baseApiCall {
+        bagAPI.returningBag(
+            bagId = bagId
+        ).toModel()
     }
 
 }

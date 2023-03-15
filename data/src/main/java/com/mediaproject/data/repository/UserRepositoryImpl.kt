@@ -2,6 +2,7 @@ package com.mediaproject.data.repository
 
 import android.util.Log
 import com.mediaproject.data.local.datasource.LocalUserDataSource
+import com.mediaproject.data.remote.datasource.AuthRemoteDataSource
 import com.mediaproject.data.remote.datasource.UserRemoteDataSource
 import com.mediaproject.domain.model.BagInfo
 import com.mediaproject.domain.model.User
@@ -13,6 +14,7 @@ class UserRepositoryImpl
 @Inject
 constructor(
     private val remoteUserDataSource: UserRemoteDataSource,
+    private val remoteAuthDataSource: AuthRemoteDataSource,
     private val localUserDataSource: LocalUserDataSource,
 ) : UserRepository {
     companion object {
@@ -67,6 +69,12 @@ constructor(
 
     override suspend fun clearToken() {
         localUserDataSource.clearToken()
+    }
+
+    override suspend fun reIssueToken() {
+        remoteAuthDataSource.reIssue().also {
+            localUserDataSource.saveAccessToken(accessToken = it.accessToken)
+        }
     }
 
     override suspend fun isAlreadyLogin() {

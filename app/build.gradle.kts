@@ -28,8 +28,6 @@ android {
         }
 
         manifestPlaceholders["MAPS_API_KEY"] = getApiKey("MAPS_API_KEY")
-        manifestPlaceholders["KAKAO_KEY"] = getApiKey("KAKAO_KEY")
-        manifestPlaceholders["KAKAO_REDIRECTION_KEY"] = getApiKey("KAKAO_REDIRECTION_KEY")
         manifestPlaceholders["GOOGLE_CLIENT_KEY"] = getApiKey("GOOGLE_CLIENT_KEY")
     }
 

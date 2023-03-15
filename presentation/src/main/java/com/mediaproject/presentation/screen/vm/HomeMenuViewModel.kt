@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mediaproject.domain.usecase.GetUserInfoUseCase
 import com.mediaproject.domain.usecase.GetUserRentingBagsListUseCase
+import com.mediaproject.domain.usecase.ReIssueTokenUseCase
 import com.mediaproject.presentation.widgets.states.HomeMenuState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class HomeMenuViewModel
 @Inject
 constructor(
+    private val reIssueTokenUseCase: ReIssueTokenUseCase,
     private val getUserInfoUseCase: GetUserInfoUseCase,
     private val getUserRentingBagsListUseCase: GetUserRentingBagsListUseCase,
 ) : ViewModel() {
@@ -28,30 +30,50 @@ constructor(
         get() = _homeMenuState
 
     fun getUserInfo() = viewModelScope.launch {
-        getUserInfoUseCase().onSuccess {
-            Log.d(TAG, "Success Get User Info")
-
-            _homeMenuState.postValue(
-                HomeMenuState.Update(
-                    updateUserId = it.userId,
-                    updateUserName = it.userName,
-                    updateListRentingBag = _homeMenuState.value?.listRentingBag ?: listOf()
-                )
-            )
+        sideEffectGetUserInfo().onFailure {
+            when (it.message) {
+                "ExpiredJwtException" -> {
+                    reIssueTokenUseCase().onSuccess {
+                        sideEffectGetUserInfo()
+                    }
+                }
+            }
         }
     }
 
-    fun getUserRentingBagsList() = viewModelScope.launch {
-        getUserRentingBagsListUseCase().onSuccess {
-            Log.d("TAG", "Success getUserRentingBagsList")
-            _homeMenuState.postValue(
-                HomeMenuState.Update(
-                    updateUserId = _homeMenuState.value?.userId ?: "",
-                    updateUserName = _homeMenuState.value?.userName ?: "",
-                    updateListRentingBag = it,
-                )
+    private suspend fun sideEffectGetUserInfo() = getUserInfoUseCase().onSuccess {
+        Log.d(TAG, "Success Get User Info")
+
+        _homeMenuState.postValue(
+            HomeMenuState.Update(
+                updateUserId = it.userId,
+                updateUserName = it.userName,
+                updateListRentingBag = _homeMenuState.value?.listRentingBag ?: listOf()
             )
+        )
+    }
+
+    fun getUserRentingBagsList() = viewModelScope.launch {
+        sideEffectGetUserRentingBagsList().onFailure {
+            when (it.message) {
+                "ExpiredJwtException" -> {
+                    reIssueTokenUseCase().onSuccess {
+                        sideEffectGetUserRentingBagsList()
+                    }
+                }
+            }
         }
+    }
+
+    private suspend fun sideEffectGetUserRentingBagsList() = getUserRentingBagsListUseCase().onSuccess {
+        Log.d("TAG", "Success getUserRentingBagsList")
+        _homeMenuState.postValue(
+            HomeMenuState.Update(
+                updateUserId = _homeMenuState.value?.userId ?: "",
+                updateUserName = _homeMenuState.value?.userName ?: "",
+                updateListRentingBag = it,
+            )
+        )
     }
 
 }

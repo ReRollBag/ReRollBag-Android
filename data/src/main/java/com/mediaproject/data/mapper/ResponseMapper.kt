@@ -68,3 +68,15 @@ internal fun GetReturnedBagsResponse.toModel() = BagInfo(
 internal fun GetReturnedBagsListResponse.toModel() = this.map {
     it.toModel()
 }
+
+internal fun RentBagResponse.toModel() = BaseCondition(
+    condition = isSuccess
+)
+
+internal fun RequestReturningBagResponse.toModel() = BaseCondition(
+    condition = isSuccess
+)
+
+internal fun ReturningBagResponse.toModel() = BaseCondition(
+    condition = isSuccess
+)
