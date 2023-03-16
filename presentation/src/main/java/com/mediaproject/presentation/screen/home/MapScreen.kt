@@ -9,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -131,7 +132,12 @@ fun MapScreen(
                     shape = CircleShape,
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
                 ) {
-                    Icon(IconPack.IconLocation, contentDescription = "Location")
+                    Icon(
+                        IconPack.IconLocation,
+                        contentDescription = "Location",
+                        tint = Color(0xFFFFA338),
+                        modifier = Modifier.scale(1.2f)
+                    )
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 Row(
@@ -172,7 +178,6 @@ fun MapScreen(
                     colors = ButtonDefaults.buttonColors(backgroundColor = green1)
                 ) {
                     Row(
-                        modifier = Modifier.align(Alignment.CenterVertically),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
@@ -182,7 +187,7 @@ fun MapScreen(
                         )
                         Spacer(modifier = Modifier.widthIn(7.dp))
                         Text(
-                            text = "가방 대여하기",
+                            text = "QR코드 촬영",
                             style = TextStyle(
 //                    fontFamily = notoSansFamily,
                                 fontWeight = FontWeight.Bold,

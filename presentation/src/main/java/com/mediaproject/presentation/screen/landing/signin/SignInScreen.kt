@@ -193,17 +193,24 @@ fun SignInContentView(
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_naver_logo),
-                                contentDescription = "naver",
-                                contentScale = ContentScale.Crop,
+                            Surface(
                                 modifier = Modifier
-                                    .size(64.dp)
-                                    .clip(CircleShape)
-                                    .clickable {
-                                        Log.d("Naver", "Naver Login Click")
-                                    }
-                            )
+                                    .size(64.dp),
+                                shape = CircleShape,
+                                elevation = 4.dp
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_naver_logo),
+                                    contentDescription = "naver",
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier
+                                        .size(64.dp)
+                                        .clip(CircleShape)
+                                        .clickable {
+                                            Log.d("Naver", "Naver Login Click")
+                                        }
+                                )
+                            }
                             Spacer(modifier = Modifier.height(5.dp))
                             Text(
                                 text = "네이버 로그인",
@@ -214,43 +221,55 @@ fun SignInContentView(
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_kakao_logo),
-                                contentDescription = "kakao",
-                                contentScale = ContentScale.Crop,
+                            Surface(
                                 modifier = Modifier
-                                    .size(64.dp)
-                                    .clip(CircleShape)
-                                    .clickable {
-                                        Log.d("kakao", "kakao Login Click")
-                                        try {
-                                            val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-                                                Log.d("kakao", "TEST")
-                                                if (error != null) {
-                                                    Log.d("SignIn", "로그인 실패 $error")
-                                                    onErrorSignIn(error)
-                                                } else if (token != null) {
-                                                    Log.d("SignIn", "로그인 성공 ${token.idToken}")
-                                                    onSocialSignIn(token.idToken!!)
-                                                }
-                                            }
+                                    .size(64.dp),
+                                shape = CircleShape,
+                                elevation = 4.dp
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_kakao_logo),
+                                    contentDescription = "kakao",
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier
+                                        .size(64.dp)
+                                        .clip(CircleShape)
+                                        .clickable {
+                                            Log.d("kakao", "kakao Login Click")
+                                            try {
+                                                val callback: (OAuthToken?, Throwable?) -> Unit =
+                                                    { token, error ->
+                                                        Log.d("kakao", "TEST")
+                                                        if (error != null) {
+                                                            Log.d("SignIn", "로그인 실패 $error")
+                                                            onErrorSignIn(error)
+                                                        } else if (token != null) {
+                                                            Log.d("SignIn", "로그인 성공 ${token.idToken}")
+                                                            onSocialSignIn(token.idToken!!)
+                                                        }
+                                                    }
 
-                                            if (UserApiClient.instance.isKakaoTalkLoginAvailable(context = context)) {
-                                                UserApiClient.instance.loginWithKakaoTalk(
-                                                    context = context,
-                                                    callback = callback
-                                                )
-                                            } else {
-                                                UserApiClient.instance.loginWithKakaoAccount(
-                                                    context = context,
-                                                    callback = callback
-                                                )
+                                                if (UserApiClient.instance.isKakaoTalkLoginAvailable(
+                                                        context = context
+                                                    )
+                                                ) {
+                                                    UserApiClient.instance.loginWithKakaoTalk(
+                                                        context = context,
+                                                        callback = callback
+                                                    )
+                                                } else {
+                                                    UserApiClient.instance.loginWithKakaoAccount(
+                                                        context = context,
+                                                        callback = callback
+                                                    )
+                                                }
+                                            } catch (e: Exception) {
+                                                onErrorSignIn(e)
                                             }
-                                        } catch (e: Exception) {
-                                            onErrorSignIn(e)
                                         }
-                                    }
-                            )
+                                )
+                            }
+
                             Spacer(modifier = Modifier.height(5.dp))
                             Text(
                                 text = "카카오 로그인",

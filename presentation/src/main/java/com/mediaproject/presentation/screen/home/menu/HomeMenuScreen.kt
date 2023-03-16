@@ -13,6 +13,7 @@ import com.mediaproject.presentation.screen.vm.HomeMenuViewModel
 fun HomeMenuScreen(
     modifier: Modifier = Modifier,
     menuViewModel: HomeMenuViewModel = hiltViewModel(),
+    onClickRentList: () -> Unit = {},
     onBackPressed: () -> Unit = {},
 ) = Scaffold(
     topBar = {
@@ -31,6 +32,7 @@ fun HomeMenuScreen(
 
     HomeMenuScreenBody(
         modifier = modifier.padding(padding),
-        userState = userState.value!!
+        userState = userState.value!!,
+        onClickRentList = onClickRentList
     )
 }

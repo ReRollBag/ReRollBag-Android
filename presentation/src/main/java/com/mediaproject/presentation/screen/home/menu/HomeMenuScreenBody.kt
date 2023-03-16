@@ -1,6 +1,5 @@
 package com.mediaproject.presentation.screen.home.menu
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,27 +7,19 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
-import androidx.compose.material.Switch
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,7 +35,8 @@ import com.mediaproject.presentation.widgets.states.HomeMenuState
 @Composable
 fun HomeMenuScreenBody(
     modifier: Modifier = Modifier,
-    userState: HomeMenuState = HomeMenuState.Init
+    userState: HomeMenuState = HomeMenuState.Init,
+    onClickRentList: () -> Unit = {},
 ) {
     val context = LocalContext.current
 
@@ -144,9 +136,7 @@ fun HomeMenuScreenBody(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable {
-
-                    },
+                    .clickable { onClickRentList() },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {

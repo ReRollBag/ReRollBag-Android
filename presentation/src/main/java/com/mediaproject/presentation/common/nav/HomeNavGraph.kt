@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import com.mediaproject.presentation.common.route.HomeScreenRoute
 import com.mediaproject.presentation.screen.home.menu.HomeMenuScreen
 import com.mediaproject.presentation.screen.home.HomeScreen
+import com.mediaproject.presentation.screen.rent.RentListScreen
 import com.mediaproject.presentation.screen.vm.MapViewModel
 
 @Composable
@@ -32,7 +33,16 @@ fun HomeNavGraph(
             }
         }
         composable(route = HomeScreenRoute.HomeMenu.route) {
-            HomeMenuScreen {
+            HomeMenuScreen(
+                onClickRentList = {
+                    navController.navigate(HomeScreenRoute.RentList.route)
+                }
+            ) {
+                navController.popBackStack()
+            }
+        }
+        composable(route = HomeScreenRoute.RentList.route) {
+            RentListScreen {
                 navController.popBackStack()
             }
         }
