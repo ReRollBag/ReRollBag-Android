@@ -23,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -115,11 +116,16 @@ fun ItemView(
     ) {
         Spacer(modifier = Modifier.width(18.dp))
         Divider(
-            color = Color.Red,
+            color = when (item.whenIsReturned.isEmpty()) {
+                true -> Color.Red
+                false -> Color.Gray
+            },
             modifier = Modifier
                 .height(30.dp)
                 .width(3.dp)
-                .alpha(0.0f)
+                .alpha(
+                    if (item.whenIsReturned.isNotEmpty()) 1.0f else 0.0f
+                )
         )
         Spacer(modifier = Modifier.width(14.dp))
         Box(
@@ -180,24 +186,82 @@ fun ItemView(
                         fontSize = 13.sp,
                     )
                 )
-
             }
         }
+        if (item.whenIsReturned.isNotEmpty()) {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(end = 18.dp),
+                horizontalArrangement = Arrangement.End,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .background(gray2, shape = RoundedCornerShape(19.dp))
+                        .padding(all = 4.dp),
+                ) {
+                    Text(
+                        text = "반납완료",
+                        style = TextStyle(
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                    )
+                }
+            }
+        }
+
+//        if (item.whenIsReturned.isEmpty()) {
+//            Row(
+//                modifier = Modifier.fillMaxWidth()
+//                    .padding(end = 18.dp),
+//                horizontalArrangement = Arrangement.End,
+//            ) {
+//                Box(
+//                    modifier = Modifier
+//                        .background(gray2, shape = RoundedCornerShape(19.dp))
+//                        .padding(all = 4.dp),
+//                ) {
+//                    Text(
+//                        text = "반납완료",
+//                        style = TextStyle(
+//                            fontSize = 10.sp,
+//                            fontWeight = FontWeight.Bold,
+//                            color = Color.White
+//                        )
+//                    )
+//                }
+//            }
+//        }
+
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun TestItemViewPreview() {
-    ItemView(
-        item = BagInfo(
-            bagsId = "KOR_SUWON_1",
-            whenIsRented = "2023-03-09T08:02:38.278",
-            rentingUsersId = "testUsersId",
-            rented = true,
-            isReturning = false
+    Column {
+        ItemView(
+            item = BagInfo(
+                bagsId = "KOR_SUWON_1",
+                whenIsRented = "2023-03-09T08:02:38.278",
+                rentingUsersId = "testUsersId",
+                rented = true,
+                whenIsReturned = "",
+                isReturning = false
+            )
         )
-    )
+        ItemView(
+            item = BagInfo(
+                bagsId = "KOR_SUWON_1",
+                whenIsRented = "2023-03-09T08:02:38.278",
+                rentingUsersId = "testUsersId",
+                rented = true,
+                whenIsReturned = "2023-03-09T08:02:38.278",
+                isReturning = false
+            )
+        )
+    }
 }
 
 @Preview(showBackground = true)

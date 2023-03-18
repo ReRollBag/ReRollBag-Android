@@ -36,6 +36,7 @@ internal fun GetRentingBagsResponse.toModel() = BagInfo(
     whenIsRented = whenIsRented,
     rentingUsersId = rentingUsersId,
     rented = rented,
+    whenIsReturned = "",
     isReturning = false
 )
 
@@ -50,6 +51,7 @@ internal fun GetReturningBagsResponse.toModel() = BagInfo(
     whenIsRented = whenIsRented,
     rentingUsersId = rentingUsersId,
     rented = rented,
+    whenIsReturned = "",
     isReturning = true
 )
 
@@ -62,8 +64,9 @@ internal fun GetReturningBagsListResponse.toModel() = this.map {
 internal fun GetReturnedBagsResponse.toModel() = BagInfo(
     bagsId = bagsId,
     whenIsRented = whenIsRented,
-    rentingUsersId = rentingUsersId,
-    rented = rented,
+    rentingUsersId = "",
+    rented = false,
+    whenIsReturned = whenIsReturned,
     isReturning = false,
 )
 
@@ -77,6 +80,7 @@ internal fun SaveBagResponse.toModel() = BagInfo(
     whenIsRented = whenIsRented,
     rentingUsersId = rentingUsersId,
     rented = rented,
+    whenIsReturned = "",
     isReturning = false,
 )
 

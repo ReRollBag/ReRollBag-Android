@@ -5,5 +5,6 @@ data class BagInfo(
     val whenIsRented: String,
     val rentingUsersId: String,
     val rented: Boolean,
+    val whenIsReturned: String,
     val isReturning: Boolean,
 )

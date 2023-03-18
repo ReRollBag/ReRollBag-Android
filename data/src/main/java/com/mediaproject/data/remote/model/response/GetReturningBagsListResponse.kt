@@ -2,7 +2,7 @@ package com.mediaproject.data.remote.model.response
 
 import com.google.gson.annotations.SerializedName
 
-typealias GetReturningBagsListResponse = List<GetReturningBagsResponse>;
+typealias GetReturningBagsListResponse = List<GetReturningBagsResponse>
 
 data class GetReturningBagsResponse(
     @SerializedName("bagsId")

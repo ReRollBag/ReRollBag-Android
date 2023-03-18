@@ -273,6 +273,7 @@ fun HomeMenuScreenBodyPreview() {
                         whenIsRented = "2023-03-09T08:02:38.278",
                         rentingUsersId = "testUsersId",
                         rented = true,
+                        whenIsReturned = "",
                         isReturning = false
                     ),
                     BagInfo(
@@ -280,6 +281,7 @@ fun HomeMenuScreenBodyPreview() {
                         whenIsRented = "2023-03-09T08:02:38.278",
                         rentingUsersId = "testUsersId",
                         rented = true,
+                        whenIsReturned = "",
                         isReturning = false
                     ),
                     BagInfo(
@@ -287,6 +289,7 @@ fun HomeMenuScreenBodyPreview() {
                         whenIsRented = "2023-03-09T08:02:38.278",
                         rentingUsersId = "testUsersId",
                         rented = true,
+                        whenIsReturned = "",
                         isReturning = false
                     )
                 )
