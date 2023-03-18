@@ -22,23 +22,22 @@ fun HomeScreen(
         }
     },
 ) { padding ->
-    val locationState = mapViewModel.locationState.observeAsState()
-    val qrScanState = mapViewModel.qrScanState.observeAsState()
+    val uiState = mapViewModel.uiState.observeAsState()
 
-    HomeScreenBody(
-        modifier = modifier.padding(padding),
-        locationState = locationState.value,
-        qrScanState = qrScanState.value,
-        clearQrScanState = {
-            mapViewModel.clearQrScan()
+    uiState.value?.let {
+        HomeScreenBody(
+            modifier = modifier.padding(padding),
+            locationState = it.locationState,
+            qrScanState = it.qrScanState,
+            isRent = it.isRentState,
+            onChangeRent = { value ->
+                mapViewModel.updateIsRent(isRent = value)
+            },
+            clearQrScanState = {
+                mapViewModel.clearQrScan()
+            }
+        ) {
+            onClickQrScan()
         }
-    ) {
-        onClickQrScan()
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen()
 }

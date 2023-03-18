@@ -9,18 +9,20 @@ import com.mediaproject.presentation.common.component.icons.iconpack.IconLocatio
 import com.mediaproject.presentation.common.component.icons.iconpack.IconMenuHamburger
 import com.mediaproject.presentation.common.component.icons.iconpack.IconQrScan
 import com.mediaproject.presentation.common.component.icons.iconpack.IconRefresh
+import com.mediaproject.presentation.common.component.icons.iconpack.IconRent
+import com.mediaproject.presentation.common.component.icons.iconpack.IconReturn
 import kotlin.collections.List as ____KtList
 
-object IconPack
+public object IconPack
 
-private var __AlIcons: ____KtList<ImageVector>? = null
+private var __AllIcons: ____KtList<ImageVector>? = null
 
-public val IconPack.AlIcons: ____KtList<ImageVector>
+public val IconPack.AllIcons: ____KtList<ImageVector>
   get() {
-    if (__AlIcons != null) {
-      return __AlIcons!!
+    if (__AllIcons != null) {
+      return __AllIcons!!
     }
-    __AlIcons= listOf(IconEyeShow, IconRefresh, IconArrowBack, IconMenuHamburger, IconQrScan,
-        IconEyeHide, IconLocation, IconArrow)
-    return __AlIcons!!
+    __AllIcons= listOf(IconReturn, IconEyeShow, IconRefresh, IconArrowBack, IconMenuHamburger,
+        IconQrScan, IconEyeHide, IconLocation, IconRent, IconArrow)
+    return __AllIcons!!
   }

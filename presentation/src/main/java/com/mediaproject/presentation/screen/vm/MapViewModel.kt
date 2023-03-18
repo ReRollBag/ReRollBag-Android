@@ -4,6 +4,7 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mediaproject.presentation.widgets.states.HomeUIState
 import com.mediaproject.presentation.widgets.states.LocationState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -15,24 +16,40 @@ constructor(
 
 ) : ViewModel() {
 
-    private val _locationState = MutableLiveData<LocationState>(LocationState.Init)
-    val locationState: LiveData<LocationState>
-        get() = _locationState
+    private val _uiState = MutableLiveData<HomeUIState>(HomeUIState.Init)
+    val uiState: LiveData<HomeUIState>
+        get() = _uiState
 
-    private val _qrScanState = MutableLiveData("")
-    val qrScanState: LiveData<String>
-        get() = _qrScanState
-
-    fun updateLocation(location: Location) {
-        _locationState.value = LocationState.Update(updateData = location)
+    fun updateLocation(location: Location) = _uiState.value?.let {
+        _uiState.value = HomeUIState.Update(
+            updateQrScan = it.qrScanState,
+            updateLocation = LocationState.Update(updateData = location),
+            updateIsRent = it.isRentState
+        )
     }
 
-    fun updateQrScanUrl(url: String) {
-        _qrScanState.value = url
+    fun updateQrScanUrl(url: String) = _uiState.value?.let {
+        _uiState.value = HomeUIState.Update(
+            updateQrScan = url,
+            updateLocation = it.locationState,
+            updateIsRent = it.isRentState
+        )
     }
 
-    fun clearQrScan() {
-        _qrScanState.value = ""
+    fun updateIsRent(isRent: Boolean) = _uiState.value?.let {
+        _uiState.value = HomeUIState.Update(
+            updateQrScan = it.qrScanState,
+            updateLocation = it.locationState,
+            updateIsRent = isRent
+        )
+    }
+
+    fun clearQrScan() = _uiState.value?.let {
+        _uiState.value = HomeUIState.Update(
+            updateQrScan = "",
+            updateLocation = it.locationState,
+            updateIsRent = it.isRentState
+        )
     }
 
 }

@@ -23,9 +23,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.mediaproject.presentation.common.component.icons.IconPack
-import com.mediaproject.presentation.common.component.icons.iconpack.IconLocation
-import com.mediaproject.presentation.common.component.icons.iconpack.IconQrScan
-import com.mediaproject.presentation.common.component.icons.iconpack.IconRefresh
+import com.mediaproject.presentation.common.component.icons.iconpack.*
 import com.mediaproject.presentation.common.theme.green1
 import kotlinx.coroutines.launch
 
@@ -37,6 +35,8 @@ fun MapScreen(
     qrScanState: String = "",
     clearQrScanState: () -> Unit = {},
     currentLatLng: LatLng = LatLng(0.0, 0.0),
+    isRent: Boolean = true,
+    onChangeRent: (value: Boolean) -> Unit = {},
     cameraPositionState: CameraPositionState = CameraPositionState(),
     uiSettings: MapUiSettings = MapUiSettings(),
     properties: MapProperties = MapProperties(),
@@ -147,12 +147,15 @@ fun MapScreen(
                     Button(
                         modifier = Modifier.size(50.dp),
                         onClick = {
-
+                            onChangeRent(!isRent)
                         },
                         shape = CircleShape,
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
                     ) {
-//                    Icon(IconPack.IconLocation, contentDescription = "Location")
+                        when (isRent) {
+                            true -> Icon(IconPack.IconRent, contentDescription = "rent")
+                            false -> Icon(IconPack.IconReturn, contentDescription = "rent")
+                        }
                     }
                     Button(
                         modifier = Modifier.size(50.dp),

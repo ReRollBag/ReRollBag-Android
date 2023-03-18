@@ -52,11 +52,31 @@ class HomeActivity : ComponentActivity() {
         when (result.contents != null) {
             true -> {
                 Log.d("TAG", result.contents)
-                mapViewModel.updateQrScanUrl("test")
+                if (result.contents.isNotEmpty()) {
+                    try {
+                        if (result.contents.startsWith("ReRollBag")) {
+                            val list = result.contents.split("_")
+                            Log.d("ReRollBag", "Get BagId: ${"${list[1]}_${list[2]}_${list[3]}"}")
+                            mapViewModel.updateQrScanUrl("${list[1]}_${list[2]}_${list[3]}")
+                        }
+                    } catch (e: Exception) { }
+
+                }
             }
             false -> {
                 Log.d("TAG", "Qr Scan Null")
-                mapViewModel.updateQrScanUrl("test")
+
+                val str = "RRB_KOR_SUWON_1"
+                if (str.isNotEmpty()) {
+                    try {
+                        if (str.startsWith("RRB")) {
+                            val list = str.split("_")
+                            Log.d("ReRollBag", "Get BagId: ${"${list[1]}_${list[2]}_${list[3]}"}")
+                            mapViewModel.updateQrScanUrl("${list[1]}_${list[2]}_${list[3]}")
+                        }
+                    } catch (e: Exception) { }
+
+                }
             }
         }
     }
