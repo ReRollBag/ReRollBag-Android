@@ -27,13 +27,18 @@ import com.mediaproject.presentation.common.component.icons.iconpack.*
 import com.mediaproject.presentation.common.theme.green1
 import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@SuppressLint(
+    "UnusedMaterialScaffoldPaddingParameter",
+    "CoroutineCreationDuringComposition"
+)
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MapScreen(
     modifier: Modifier = Modifier,
     qrScanState: String = "",
     clearQrScanState: () -> Unit = {},
+    onClickRentBag: (bagId: String) -> Unit = {},
+    onClickRequestRenting: (bagId: String) -> Unit = {},
     currentLatLng: LatLng = LatLng(0.0, 0.0),
     isRent: Boolean = true,
     onChangeRent: (value: Boolean) -> Unit = {},
@@ -59,147 +64,167 @@ fun MapScreen(
         skipHalfExpanded = true
     )
 
-    var isSheetFullScreen by remember { mutableStateOf(false) }
-    val roundedCornerRadius = if (isSheetFullScreen) 0.dp else 12.dp
-    val modalModifier = if (isSheetFullScreen)
-        Modifier.fillMaxSize()
-    else
-        Modifier.fillMaxWidth()
-
     BackHandler(modalSheetState.isVisible) {
         coroutineScope.launch { modalSheetState.hide() }
     }
 
-    LaunchedEffect(qrScanState.isNotEmpty()) {
-        if (qrScanState.isNotEmpty()) {
-            coroutineScope.launch { modalSheetState.show() }
+    if (qrScanState.isNotEmpty()) {
+        when (isRent) {
+            true -> {
+                RentItemView(
+                    bagId = qrScanState,
+                    clearQrScanState = clearQrScanState,
+                    onClickRentBag = onClickRentBag
+                )
+            }
+            false -> coroutineScope.launch { modalSheetState.show() }
         }
     }
 
     ModalBottomSheetLayout(
         sheetState = modalSheetState,
-        sheetShape = RoundedCornerShape(topStart = roundedCornerRadius, topEnd = roundedCornerRadius),
+        sheetShape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
         sheetContent = {
             Column(
-                modifier = modalModifier,
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
-                Button(
-                    onClick = {
-                        isSheetFullScreen = !isSheetFullScreen
-                    }
-                ) {
-                    Text(text = "Toggle Sheet Fullscreen")
-                }
-
-                Button(
-                    onClick = { coroutineScope.launch { modalSheetState.hide() } }
-                ) {
-                    Text(text = "Hide Sheet")
-                }
+                ReturningItemView(
+                    bagId = qrScanState,
+                    onClickRequestRenting = onClickRequestRenting
+                )
             }
         }
     ) {
-        Box(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            GoogleMap(
-                modifier = Modifier.fillMaxSize(),
-                cameraPositionState = cameraPositionState,
-                uiSettings = uiSettings,
-                properties = properties,
-            ) {
+        InnerMapView(
+            onChangeRent = onChangeRent,
+            isRent = isRent,
+            currentLatLng = currentLatLng,
+            cameraPositionState = cameraPositionState,
+            uiSettings = uiSettings,
+            properties = properties,
+            onClickQrScan = onClickQrScan,
+        )
+    }
+}
+
+@Composable
+fun InnerMapView(
+    modifier: Modifier = Modifier,
+    currentLatLng: LatLng = LatLng(0.0, 0.0),
+    isRent: Boolean = true,
+    onChangeRent: (value: Boolean) -> Unit = {},
+    cameraPositionState: CameraPositionState = CameraPositionState(),
+    uiSettings: MapUiSettings = MapUiSettings(),
+    properties: MapProperties = MapProperties(),
+    onClickQrScan: () -> Unit = {},
+) = Box(
+    modifier = modifier.fillMaxSize()
+) {
+    GoogleMap(
+        modifier = modifier,
+        cameraPositionState = cameraPositionState,
+        uiSettings = uiSettings,
+        properties = properties,
+    ) {
 //            Marker(
 //                state = MarkerState(position = currentLatLng),
 //                title = "현재 위치",
 //                snippet = "current set up"
 //            )
-            }
+    }
 
-            Column(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(horizontal = 20.dp)
-                    .padding(bottom = 24.dp),
-                verticalArrangement = Arrangement.Bottom,
+    Column(
+        modifier = Modifier
+            .align(Alignment.BottomCenter)
+            .padding(horizontal = 20.dp)
+            .padding(bottom = 24.dp),
+        verticalArrangement = Arrangement.Bottom,
+    ) {
+        Button(
+            modifier = Modifier.size(50.dp),
+            onClick = {
+                cameraPositionState.position = CameraPosition.fromLatLngZoom(currentLatLng, 15f)
+            },
+            shape = CircleShape,
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+        ) {
+            Icon(
+                IconPack.IconLocation,
+                contentDescription = "Location",
+                tint = Color(0xFFFFA338),
+                modifier = Modifier.scale(1.2f)
+            )
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Button(
+                modifier = Modifier.size(50.dp),
+                onClick = {
+                    onChangeRent(!isRent)
+                },
+                shape = CircleShape,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = when (isRent) {
+                        true -> Color.White
+                        false -> Color(0xFF3CA5FF)
+                    }
+                )
             ) {
-                Button(
-                    modifier = Modifier.size(50.dp),
-                    onClick = {
-                        cameraPositionState.position = CameraPosition.fromLatLngZoom(currentLatLng, 15f)
-                    },
-                    shape = CircleShape,
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
-                ) {
-                    Icon(
-                        IconPack.IconLocation,
-                        contentDescription = "Location",
-                        tint = Color(0xFFFFA338),
-                        modifier = Modifier.scale(1.2f)
+                when (isRent) {
+                    true -> Icon(IconPack.IconRent, contentDescription = "rent")
+                    false -> Icon(
+                        IconPack.IconReturn,
+                        contentDescription = "rent",
+                        modifier = Modifier.scale(1.4f),
+                        tint = Color.White
                     )
                 }
-                Spacer(modifier = Modifier.height(10.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Button(
-                        modifier = Modifier.size(50.dp),
-                        onClick = {
-                            onChangeRent(!isRent)
-                        },
-                        shape = CircleShape,
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
-                    ) {
-                        when (isRent) {
-                            true -> Icon(IconPack.IconRent, contentDescription = "rent")
-                            false -> Icon(IconPack.IconReturn, contentDescription = "rent")
-                        }
-                    }
-                    Button(
-                        modifier = Modifier.size(50.dp),
-                        onClick = {
+            }
+            Button(
+                modifier = Modifier.size(50.dp),
+                onClick = {
 
-                        },
-                        shape = CircleShape,
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
-                    ) {
-                        Icon(IconPack.IconRefresh, contentDescription = "refresh")
-                    }
-                }
-                Spacer(modifier = Modifier.height(10.dp))
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 46.dp),
-                    onClick = {
-                        onClickQrScan()
-//                    cameraPositionState.position = CameraPosition.fromLatLngZoom(latLng, 15f)
-                    },
-                    shape = RoundedCornerShape(30),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = green1)
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            IconPack.IconQrScan,
-                            contentDescription = "qr_scan",
-                            tint = Color.White
-                        )
-                        Spacer(modifier = Modifier.widthIn(7.dp))
-                        Text(
-                            text = "QR코드 촬영",
-                            style = TextStyle(
+                },
+                shape = CircleShape,
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+            ) {
+                Icon(IconPack.IconRefresh, contentDescription = "refresh")
+            }
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 46.dp),
+            onClick = {
+                onClickQrScan()
+            },
+            shape = RoundedCornerShape(30),
+            colors = ButtonDefaults.buttonColors(backgroundColor = green1)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    IconPack.IconQrScan,
+                    contentDescription = "qr_scan",
+                    tint = Color.White
+                )
+                Spacer(modifier = Modifier.widthIn(7.dp))
+                Text(
+                    text = "QR코드 촬영",
+                    style = TextStyle(
 //                    fontFamily = notoSansFamily,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 16.sp,
-                                color = Color.White,
-                            ),
-                        )
-                    }
-                }
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
+                        color = Color.White,
+                    ),
+                )
             }
         }
     }
@@ -208,5 +233,7 @@ fun MapScreen(
 @Preview(showBackground = true)
 @Composable
 fun MapScreenPreview() {
-    MapScreen()
+    Column {
+        InnerMapView(isRent = false)
+    }
 }

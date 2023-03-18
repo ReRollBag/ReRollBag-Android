@@ -95,6 +95,6 @@ constructor(
 
     override suspend fun getUserReturningBagsList(): List<BagInfo> = remoteUserDataSource.getReturningBagsListWithUserToken()
 
-    override suspend fun getUserReturnedBagsList(): List<BagInfo> = remoteUserDataSource.getReturningBagsListWithUserToken()
+    override suspend fun getUserReturnedBagsList(): List<BagInfo> = remoteUserDataSource.getReturnedBagsListWithUserToken()
 
 }

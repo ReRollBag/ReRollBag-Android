@@ -44,35 +44,47 @@ constructor(
     }
 
     private suspend fun sideEffectAllData(): List<BagInfo> = withContext(Dispatchers.IO) {
-        val list = mutableListOf<BagInfo>()
-        getUserRentingBagsListUseCase().onSuccess {
-            list.addAll(it)
+        val map = hashMapOf<String, BagInfo>()
+        getUserRentingBagsListUseCase().onSuccess { list ->
+            list.forEach {
+                map[it.bagsId] = it
+            }
         }
-        getUserReturningBagsListUseCase().onSuccess {
-            list.addAll(it)
+        getUserReturningBagsListUseCase().onSuccess { list ->
+            list.forEach {
+                map[it.bagsId] = it
+            }
         }
-        getUserReturnedBagsListUseCase().onSuccess {
-            list.addAll(it)
+        getUserReturnedBagsListUseCase().onSuccess { list ->
+            list.forEach {
+                map[it.bagsId] = it
+            }
         }
-        return@withContext list
+        return@withContext map.values.toList()
     }
 
     private suspend fun sideEffectReturnedData(): List<BagInfo> = withContext(Dispatchers.IO) {
-        val list = mutableListOf<BagInfo>()
-        getUserReturnedBagsListUseCase().onSuccess {
-            list.addAll(it)
+        val map = hashMapOf<String, BagInfo>()
+        getUserReturnedBagsListUseCase().onSuccess { list ->
+            list.forEach {
+                map[it.bagsId] = it
+            }
         }
-        return@withContext list
+        return@withContext map.values.toList()
     }
 
     private suspend fun sideEffectRentingAndReturningData() = withContext(Dispatchers.IO) {
-        val list = mutableListOf<BagInfo>()
-        getUserRentingBagsListUseCase().onSuccess {
-            list.addAll(it)
+        val map = hashMapOf<String, BagInfo>()
+        getUserRentingBagsListUseCase().onSuccess { list ->
+            list.forEach {
+                map[it.bagsId] = it
+            }
         }
-        getUserReturningBagsListUseCase().onSuccess {
-            list.addAll(it)
+        getUserReturningBagsListUseCase().onSuccess { list ->
+            list.forEach {
+                map[it.bagsId] = it
+            }
         }
-        return@withContext list
+        return@withContext map.values.toList()
     }
 }

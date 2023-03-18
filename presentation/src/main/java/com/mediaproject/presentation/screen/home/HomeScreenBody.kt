@@ -22,6 +22,8 @@ fun HomeScreenBody(
     qrScanState: String? = "",
     isRent: Boolean = true,
     onChangeRent: (value: Boolean) -> Unit = {},
+    onClickRentBag: (bagId: String) -> Unit = {},
+    onClickRequestRenting: (bagId: String) -> Unit = {},
     clearQrScanState: () -> Unit = {},
     onClickQrScan: () -> Unit = {},
 ) = Box(
@@ -66,6 +68,8 @@ fun HomeScreenBody(
     MapScreen(
         qrScanState = if ((qrScanState ?: "").isEmpty()) "" else qrScanState!!,
         clearQrScanState = clearQrScanState,
+        onClickRentBag = onClickRentBag,
+        onClickRequestRenting = onClickRequestRenting,
         currentLatLng = currentLatLng,
         isRent = isRent,
         onChangeRent = onChangeRent,

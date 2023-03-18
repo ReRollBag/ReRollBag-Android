@@ -5,7 +5,9 @@ import com.mediaproject.data.remote.api.BagAPI
 import com.mediaproject.data.remote.datasource.BagRemoteDataSource
 import com.mediaproject.data.remote.model.request.RentBagRequest
 import com.mediaproject.data.remote.model.request.RequestReturningBagRequest
+import com.mediaproject.data.remote.model.request.SaveBagRequest
 import com.mediaproject.data.utils.baseApiCall
+import com.mediaproject.domain.model.BagInfo
 import com.mediaproject.domain.model.BaseCondition
 import javax.inject.Inject
 
@@ -18,8 +20,13 @@ constructor(
     override suspend fun saveBag(
         countryCode: String,
         regionCode: String
-    ) {
-        TODO("Not yet implemented")
+    ): BagInfo = baseApiCall {
+        bagAPI.saveBag(
+            SaveBagRequest(
+                countryCode = countryCode,
+                regionCode = regionCode
+            )
+        ).toModel()
     }
 
     override suspend fun rentBag(

@@ -7,12 +7,14 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mediaproject.presentation.screen.vm.BagViewModel
 import com.mediaproject.presentation.screen.vm.MapViewModel
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     mapViewModel: MapViewModel = hiltViewModel(),
+    bagViewModel: BagViewModel = hiltViewModel(),
     onClickQrScan: () -> Unit = {},
     onClickMenu: () -> Unit = {},
 ) = Scaffold(
@@ -32,6 +34,13 @@ fun HomeScreen(
             isRent = it.isRentState,
             onChangeRent = { value ->
                 mapViewModel.updateIsRent(isRent = value)
+            },
+            onClickRentBag = { value ->
+                bagViewModel.rentBagWithBagId(bagId = value)
+                mapViewModel.clearQrScan()
+            },
+            onClickRequestRenting = { value ->
+                bagViewModel.requestReturningBagWithBagId(bagId = value)
             },
             clearQrScanState = {
                 mapViewModel.clearQrScan()

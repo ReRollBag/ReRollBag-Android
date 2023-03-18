@@ -1,9 +1,9 @@
-package com.mediaproject.data.remote.datasource
+package com.mediaproject.domain.repository
 
 import com.mediaproject.domain.model.BagInfo
 import com.mediaproject.domain.model.BaseCondition
 
-interface BagRemoteDataSource {
+interface BagRepository {
 
     suspend fun saveBag(
         countryCode: String,
@@ -14,7 +14,7 @@ interface BagRemoteDataSource {
         userId: String,
         bagId: String,
     ): BaseCondition
-    
+
     suspend fun requestReturningBag(
         userId: String,
         bagId: String,

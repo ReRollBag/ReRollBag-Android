@@ -66,7 +66,7 @@ class HomeActivity : ComponentActivity() {
             false -> {
                 Log.d("TAG", "Qr Scan Null")
 
-                val str = "RRB_KOR_SUWON_1"
+                val str = "RRB_KOR_SUWON_2"
                 if (str.isNotEmpty()) {
                     try {
                         if (str.startsWith("RRB")) {

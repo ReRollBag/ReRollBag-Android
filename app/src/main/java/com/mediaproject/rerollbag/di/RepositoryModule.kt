@@ -1,6 +1,8 @@
 package com.mediaproject.rerollbag.di
 
+import com.mediaproject.data.repository.BagRepositoryImpl
 import com.mediaproject.data.repository.UserRepositoryImpl
+import com.mediaproject.domain.repository.BagRepository
 import com.mediaproject.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -14,8 +16,14 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun providerUserRepository(
+    abstract fun provideUserRepository(
         userRepositoryImpl: UserRepositoryImpl
     ): UserRepository
+
+    @Singleton
+    @Binds
+    abstract fun provideBagRepository(
+        bagRepositoryImpl: BagRepositoryImpl
+    ): BagRepository
 
 }
