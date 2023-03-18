@@ -5,16 +5,14 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,8 +50,13 @@ fun SignInScreen(
 ) {
     val signInState = viewModel.signInState.observeAsState()
     val focusManager = LocalFocusManager.current
+    val interactionSource = remember { MutableInteractionSource() }
+
     SignInContentView(
-        modifier = modifier.clickable {
+        modifier = modifier.clickable(
+            interactionSource = interactionSource,
+            indication = null,
+        ) {
             focusManager.clearFocus()
         },
         uiState = signInState.value,
@@ -89,6 +92,7 @@ fun SignInContentView(
     val context = LocalContext.current
     var userId by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
+    val interactionSource = remember { MutableInteractionSource() }
 
     Box(
         modifier = modifier
@@ -206,7 +210,10 @@ fun SignInContentView(
                                     modifier = Modifier
                                         .size(64.dp)
                                         .clip(CircleShape)
-                                        .clickable {
+                                        .clickable(
+                                            interactionSource = interactionSource,
+                                            indication = null
+                                        ) {
                                             Log.d("Naver", "Naver Login Click")
                                         }
                                 )
@@ -234,7 +241,10 @@ fun SignInContentView(
                                     modifier = Modifier
                                         .size(64.dp)
                                         .clip(CircleShape)
-                                        .clickable {
+                                        .clickable(
+                                            interactionSource = interactionSource,
+                                            indication = null
+                                        ) {
                                             Log.d("kakao", "kakao Login Click")
                                             try {
                                                 val callback: (OAuthToken?, Throwable?) -> Unit =

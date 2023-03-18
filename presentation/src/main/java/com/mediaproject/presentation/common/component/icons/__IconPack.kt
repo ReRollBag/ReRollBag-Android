@@ -9,6 +9,7 @@ import com.mediaproject.presentation.common.component.icons.iconpack.IconLocatio
 import com.mediaproject.presentation.common.component.icons.iconpack.IconMenuHamburger
 import com.mediaproject.presentation.common.component.icons.iconpack.IconQrScan
 import com.mediaproject.presentation.common.component.icons.iconpack.IconRefresh
+import com.mediaproject.presentation.common.component.icons.iconpack.IconRefreshList
 import com.mediaproject.presentation.common.component.icons.iconpack.IconRent
 import com.mediaproject.presentation.common.component.icons.iconpack.IconReturn
 import kotlin.collections.List as ____KtList
@@ -23,6 +24,6 @@ public val IconPack.AllIcons: ____KtList<ImageVector>
       return __AllIcons!!
     }
     __AllIcons= listOf(IconReturn, IconEyeShow, IconRefresh, IconArrowBack, IconMenuHamburger,
-        IconQrScan, IconEyeHide, IconLocation, IconRent, IconArrow)
+        IconRefreshList, IconQrScan, IconEyeHide, IconLocation, IconRent, IconArrow)
     return __AllIcons!!
   }

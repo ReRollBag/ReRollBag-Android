@@ -1,10 +1,13 @@
 package com.mediaproject.presentation.screen.home.menu
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mediaproject.presentation.screen.vm.HomeMenuViewModel
@@ -29,9 +32,11 @@ fun HomeMenuScreen(
     when (userState.value) {
         is HomeMenuState.SignOut -> onSignOut()
         else -> {
-            menuViewModel.getUserInfo().invokeOnCompletion {
-                when (it) {
-                    null -> menuViewModel.getUserRentingBagsList()
+            LaunchedEffect(true) {
+                menuViewModel.getUserInfo().invokeOnCompletion {
+                    when (it) {
+                        null -> menuViewModel.getUserRentingBagsList()
+                    }
                 }
             }
 
@@ -39,6 +44,7 @@ fun HomeMenuScreen(
                 modifier = modifier.padding(padding),
                 userState = userState.value!!,
                 onClickSignOut = { menuViewModel.signOut() },
+                onClickRefreshList = { menuViewModel.getUserRentingBagsList() },
                 onClickRentList = onClickRentList
             )
         }

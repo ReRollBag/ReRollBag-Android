@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.navigation.compose.rememberNavController
+import com.google.android.gms.maps.MapsInitializer
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import com.mediaproject.presentation.common.nav.HomeNavGraph
@@ -83,6 +84,7 @@ class HomeActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MapsInitializer.initialize(applicationContext)
         getMyLocation()
         setContent {
             ReRollBagTheme {

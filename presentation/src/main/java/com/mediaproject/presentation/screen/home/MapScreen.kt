@@ -1,6 +1,8 @@
 package com.mediaproject.presentation.screen.home
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Bitmap
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -11,17 +13,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.maps.android.compose.CameraPositionState
-import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.MapProperties
-import com.google.maps.android.compose.MapUiSettings
+import com.google.maps.android.compose.*
+import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.icons.IconPack
 import com.mediaproject.presentation.common.component.icons.iconpack.*
 import com.mediaproject.presentation.common.theme.green1
@@ -122,17 +126,27 @@ fun InnerMapView(
 ) = Box(
     modifier = modifier.fillMaxSize()
 ) {
+    val context = LocalContext.current
+    val icon = when (isRent) {
+        true -> bitmapDescriptorFromVector(
+            context = context,
+            vectorResId = R.drawable.icon_marker_bag
+        )
+        false -> bitmapDescriptorFromVector(
+            context = context,
+            vectorResId = R.drawable.icon_marker_return
+        )
+    }
     GoogleMap(
         modifier = modifier,
         cameraPositionState = cameraPositionState,
         uiSettings = uiSettings,
         properties = properties,
     ) {
-//            Marker(
-//                state = MarkerState(position = currentLatLng),
-//                title = "현재 위치",
-//                snippet = "current set up"
-//            )
+        Marker(
+            state = MarkerState(position = currentLatLng),
+            icon = icon
+        )
     }
 
     Column(
@@ -170,18 +184,21 @@ fun InnerMapView(
                 shape = CircleShape,
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = when (isRent) {
-                        true -> Color.White
-                        false -> Color(0xFF3CA5FF)
+                        true -> Color(0xFF3CA5FF)
+                        false -> Color.White
                     }
                 )
             ) {
                 when (isRent) {
-                    true -> Icon(IconPack.IconRent, contentDescription = "rent")
-                    false -> Icon(
+                    true -> Icon(
                         IconPack.IconReturn,
                         contentDescription = "rent",
                         modifier = Modifier.scale(1.4f),
                         tint = Color.White
+                    )
+                    false -> Icon(
+                        IconPack.IconRent,
+                        contentDescription = "rent"
                     )
                 }
             }
@@ -228,6 +245,24 @@ fun InnerMapView(
             }
         }
     }
+}
+
+private fun bitmapDescriptorFromVector(
+    context: Context,
+    vectorResId: Int
+): BitmapDescriptor? {
+    val drawable = ContextCompat.getDrawable(context, vectorResId) ?: return null
+    drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+
+    val bm = Bitmap.createBitmap(
+        drawable.intrinsicWidth,
+        drawable.intrinsicHeight,
+        Bitmap.Config.ARGB_8888
+    )
+
+    val canvas = android.graphics.Canvas(bm)
+    drawable.draw(canvas)
+    return BitmapDescriptorFactory.fromBitmap(bm)
 }
 
 @Preview(showBackground = true)

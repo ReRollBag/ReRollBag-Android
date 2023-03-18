@@ -13,6 +13,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,7 +35,8 @@ fun LandingScreen(
     modifier = modifier
         .fillMaxSize()
         .background(
-            color = ivory1
+//            color = ivory1
+            color = Color.White
         ),
     contentAlignment = Alignment.Center
 ) {
@@ -68,9 +70,7 @@ fun LandingScreen(
 @Composable
 fun LandingScreenBody() {
     Image(
-        modifier = Modifier
-            .height(40.dp)
-            .fillMaxWidth(),
+        modifier = Modifier,
         painter = painterResource(
             id = R.drawable.logo_rerollbag
         ),
@@ -85,7 +85,8 @@ fun LandingScreenPreview() {
         modifier = Modifier
             .fillMaxSize()
             .background(
-                color = ivory1
+//                color = ivory1,
+                color = Color.White
             ),
         contentAlignment = Alignment.Center
     ) {

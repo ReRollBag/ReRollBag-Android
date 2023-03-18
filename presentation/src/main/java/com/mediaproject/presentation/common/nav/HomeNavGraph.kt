@@ -3,7 +3,10 @@ package com.mediaproject.presentation.common.nav
 import android.content.Context
 import android.content.Intent
 import androidx.activity.OnBackPressedDispatcher
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -38,6 +41,7 @@ fun HomeNavGraph(
         }
         composable(route = HomeScreenRoute.HomeMenu.route) {
             HomeMenuScreen(
+                modifier = Modifier.background(color = Color.White),
                 onSignOut = {
                     context.startActivity(
                         Intent(context, LandingActivity::class.java).apply {

@@ -3,6 +3,7 @@ package com.mediaproject.presentation.screen.landing.signup
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -30,6 +31,8 @@ fun SignUpScreen(
 ) {
     val signUpState = viewModel.signUpState.observeAsState()
     val focusManager = LocalFocusManager.current
+    val interactionSource = remember { MutableInteractionSource() }
+
     when (signUpState.value) {
         is SignUpState.SignUpLoading -> {
             Box(
@@ -48,7 +51,12 @@ fun SignUpScreen(
             SignUpScreenContent(
                 modifier = modifier
                     .background(color = Color.White)
-                    .clickable { focusManager.clearFocus() },
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null
+                    ) {
+                        focusManager.clearFocus()
+                    },
                 uiState = signUpState.value,
                 isSocial = isSocial,
                 onBackPress = onBackPress,

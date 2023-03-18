@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -14,6 +15,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,6 +31,8 @@ import com.mediaproject.domain.model.BagInfo
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.icons.IconPack
 import com.mediaproject.presentation.common.component.icons.iconpack.IconArrow
+import com.mediaproject.presentation.common.component.icons.iconpack.IconRefresh
+import com.mediaproject.presentation.common.component.icons.iconpack.IconRefreshList
 import com.mediaproject.presentation.common.theme.*
 import com.mediaproject.presentation.widgets.states.HomeMenuState
 
@@ -37,14 +41,17 @@ fun HomeMenuScreenBody(
     modifier: Modifier = Modifier,
     userState: HomeMenuState = HomeMenuState.Init,
     onClickSignOut: () -> Unit = {},
+    onClickRefreshList: () -> Unit = {},
     onClickRentList: () -> Unit = {},
 ) {
     val context = LocalContext.current
+    val interactionSource = remember { MutableInteractionSource() }
 
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp)
+            .background(color = Color.White)
     ) {
         HomeMenuBodyUserInfoWidget(userState = userState)
         Spacer(modifier = Modifier.height(40.dp))
@@ -62,14 +69,23 @@ fun HomeMenuScreenBody(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .border(width = 1.dp, color = gray1, shape = RoundedCornerShape(8.dp))
-                .background(color = gray1, shape = RoundedCornerShape(8.dp))
+//                .border(width = 1.dp, color = gray1, shape = RoundedCornerShape(8.dp))
+                .background(
+//                    color = gray1,
+                    color = Color(0xFFF6F7F8),
+                    shape = RoundedCornerShape(8.dp)
+                )
                 .padding(all = 10.dp),
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onClickRentList() },
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null
+                    ) {
+                        onClickRentList()
+                    },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
@@ -87,7 +103,10 @@ fun HomeMenuScreenBody(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable {
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null
+                    ) {
 
                     },
                 verticalAlignment = Alignment.CenterVertically,
@@ -107,7 +126,10 @@ fun HomeMenuScreenBody(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable {
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null
+                    ) {
                         Toast
                             .makeText(context, "현재 관리자 신청이 불가합니다.", Toast.LENGTH_SHORT)
                             .show()
@@ -172,7 +194,10 @@ fun HomeMenuScreenBody(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable {
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null
+                    ) {
 
                     },
                 verticalAlignment = Alignment.CenterVertically,
@@ -192,7 +217,10 @@ fun HomeMenuScreenBody(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable {
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null
+                    ) {
 
                     },
                 verticalAlignment = Alignment.CenterVertically,
@@ -212,7 +240,11 @@ fun HomeMenuScreenBody(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable(onClick = onClickSignOut),
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClick = onClickSignOut
+                    ),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
@@ -231,13 +263,30 @@ fun HomeMenuScreenBody(
         Spacer(modifier = Modifier.height(30.dp))
 
         //region bag list
-        Text(
-            text = "대여 중인 가방",
-            style = TextStyle(
-                fontSize = 10.sp,
-                color = gray2
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "대여 중인 가방",
+                style = TextStyle(
+                    fontSize = 10.sp,
+                    color = gray2
+                )
             )
-        )
+            Box(
+                modifier = Modifier.padding(end = 12.dp)
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClick = onClickRefreshList
+                    )
+            ) {
+                Icon(IconPack.IconRefreshList, contentDescription = "")
+            }
+        }
+
         
         Spacer(modifier = Modifier.height(16.dp))
 
