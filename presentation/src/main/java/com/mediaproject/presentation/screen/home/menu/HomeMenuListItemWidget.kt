@@ -130,7 +130,8 @@ fun HomeMenuListItemWidgetPreview() {
             bagsId = "KOR_SUWON_1",
             whenIsRented = "2023-03-09T08:02:38.278",
             rentingUsersId = "testUsersId",
-            rented = true
+            rented = true,
+            isReturning = false
         )
     )
 }

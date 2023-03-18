@@ -15,6 +15,7 @@ import com.mediaproject.presentation.screen.home.HomeScreen
 import com.mediaproject.presentation.screen.landing.LandingActivity
 import com.mediaproject.presentation.screen.rent.RentListScreen
 import com.mediaproject.presentation.screen.vm.MapViewModel
+import com.mediaproject.presentation.screen.vm.RentListViewModel
 
 @Composable
 fun HomeNavGraph(
@@ -52,7 +53,7 @@ fun HomeNavGraph(
             }
         }
         composable(route = HomeScreenRoute.RentList.route) {
-            RentListScreen {
+            RentListScreen() {
                 navController.popBackStack()
             }
         }

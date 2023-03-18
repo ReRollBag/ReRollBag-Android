@@ -147,17 +147,17 @@ fun HomeMenuScreenBody(
                 .background(color = gray1, shape = RoundedCornerShape(8.dp))
                 .padding(all = 10.dp),
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Text(
-                    text = "알림 설정",
-                    style = TextStyle(
-                        fontSize = 13.sp
-                    )
-                )
+//            Row(
+//                modifier = Modifier.fillMaxWidth(),
+//                verticalAlignment = Alignment.CenterVertically,
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//            ) {
+//                Text(
+//                    text = "알림 설정",
+//                    style = TextStyle(
+//                        fontSize = 13.sp
+//                    )
+//                )
 //                Switch(
 //                    modifier = Modifier.scale(0.9f),
 //                    checked = false,
@@ -165,10 +165,10 @@ fun HomeMenuScreenBody(
 //
 //                    }
 //                )
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Divider(color = Color(0xFFEFF1F5))
-            Spacer(modifier = Modifier.height(10.dp))
+//            }
+//            Spacer(modifier = Modifier.height(10.dp))
+//            Divider(color = Color(0xFFEFF1F5))
+//            Spacer(modifier = Modifier.height(10.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -272,19 +272,22 @@ fun HomeMenuScreenBodyPreview() {
                         bagsId = "KOR_SUWON_1",
                         whenIsRented = "2023-03-09T08:02:38.278",
                         rentingUsersId = "testUsersId",
-                        rented = true
+                        rented = true,
+                        isReturning = false
                     ),
                     BagInfo(
                         bagsId = "KOR_SUWON_2",
                         whenIsRented = "2023-03-09T08:02:38.278",
                         rentingUsersId = "testUsersId",
-                        rented = true
+                        rented = true,
+                        isReturning = false
                     ),
                     BagInfo(
                         bagsId = "KOR_SUWON_3",
                         whenIsRented = "2023-03-09T08:02:38.278",
                         rentingUsersId = "testUsersId",
-                        rented = true
+                        rented = true,
+                        isReturning = false
                     )
                 )
             )

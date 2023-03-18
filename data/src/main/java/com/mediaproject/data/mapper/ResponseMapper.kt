@@ -36,6 +36,7 @@ internal fun GetRentingBagsResponse.toModel() = BagInfo(
     whenIsRented = whenIsRented,
     rentingUsersId = rentingUsersId,
     rented = rented,
+    isReturning = false
 )
 
 @JvmName("GetRentingBagsListResponseToModel")
@@ -49,6 +50,7 @@ internal fun GetReturningBagsResponse.toModel() = BagInfo(
     whenIsRented = whenIsRented,
     rentingUsersId = rentingUsersId,
     rented = rented,
+    isReturning = true
 )
 
 @JvmName("GetReturningBagsListResponseToModel")
@@ -62,6 +64,7 @@ internal fun GetReturnedBagsResponse.toModel() = BagInfo(
     whenIsRented = whenIsRented,
     rentingUsersId = rentingUsersId,
     rented = rented,
+    isReturning = false,
 )
 
 @JvmName("GetReturnedBagsListResponseToModel")

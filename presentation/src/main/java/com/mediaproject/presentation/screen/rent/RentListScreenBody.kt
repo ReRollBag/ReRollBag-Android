@@ -32,35 +32,26 @@ import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.gray2
 import com.mediaproject.presentation.common.theme.green1
 import com.mediaproject.presentation.common.theme.green2
+import com.mediaproject.presentation.widgets.states.RentListState
 
 @Composable
 fun RentListScreenBody(
     modifier: Modifier = Modifier,
+    dataState: RentListState = RentListState.Init,
+    onClickKind: (kind: String) -> Unit = {},
 ) = Column(
     modifier = modifier.fillMaxSize()
 ) {
     Divider(color = gray1, thickness = 1.dp)
-    RentListMenuBar()
-    val list = mutableListOf<BagInfo>().apply {
-        repeat(10) {
-            this.add(
-                BagInfo(
-                    bagsId = "KOR_SUWON_$it",
-                    whenIsRented = "2023-03-09T08:02:38.278",
-                    rentingUsersId = "testUsersId",
-                    rented = true
-                )
-            )
-        }
-    }
+    RentListMenuBar(onClickKind = onClickKind)
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .border(width = 1.dp, color = gray1),
     ) {
-        itemsIndexed(list) { index, item ->
+        itemsIndexed(dataState.list) { index, item ->
             ItemView(item = item)
-            if (index < list.lastIndex)
+            if (index < dataState.list.lastIndex)
                 Divider(color = gray1, thickness = 1.dp)
         }
     }
@@ -68,18 +59,20 @@ fun RentListScreenBody(
 
 @Composable
 fun RentListMenuBar(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClickKind: (kind: String) -> Unit = {},
 ) = Row(
     modifier = modifier
         .fillMaxWidth()
         .padding(horizontal = 18.dp),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    val kinds = listOf("전체", "반납", "대기중")
+    val kinds = listOf("전체", "반납", "대여중")
     val (selected, setSelected) = remember { mutableStateOf("") }
 
     LaunchedEffect(true) {
         setSelected(kinds[0])
+        onClickKind(kinds[0])
     }
 
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
@@ -88,6 +81,7 @@ fun RentListMenuBar(
             OutlinedButton(
                 onClick = {
                     setSelected(item)
+                    onClickKind(item)
                 },
                 shape = RoundedCornerShape(80.dp),
                 border = BorderStroke(
@@ -200,7 +194,8 @@ fun TestItemViewPreview() {
             bagsId = "KOR_SUWON_1",
             whenIsRented = "2023-03-09T08:02:38.278",
             rentingUsersId = "testUsersId",
-            rented = true
+            rented = true,
+            isReturning = false
         )
     )
 }
