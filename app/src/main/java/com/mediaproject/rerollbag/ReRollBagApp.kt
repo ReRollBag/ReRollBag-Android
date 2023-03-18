@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
 
@@ -21,6 +22,7 @@ class ReRollBagApp : Application() {
     override fun onCreate(){
         super.onCreate()
         application = this
+        AndroidThreeTen.init(this)
         val applicationInfo = packageManager.getApplicationInfoCompat(packageName, PackageManager.GET_META_DATA)
         val metaData = applicationInfo.metaData
         val kakaoKey = metaData.getString("com.kakao.sdk.AppKey")

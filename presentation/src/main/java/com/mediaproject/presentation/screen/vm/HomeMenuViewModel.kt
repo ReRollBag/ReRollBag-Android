@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.mediaproject.domain.usecase.GetUserInfoUseCase
 import com.mediaproject.domain.usecase.GetUserRentingBagsListUseCase
 import com.mediaproject.domain.usecase.ReIssueTokenUseCase
+import com.mediaproject.domain.usecase.SignOutUseCase
 import com.mediaproject.presentation.widgets.states.HomeMenuState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,6 +22,8 @@ constructor(
     private val reIssueTokenUseCase: ReIssueTokenUseCase,
     private val getUserInfoUseCase: GetUserInfoUseCase,
     private val getUserRentingBagsListUseCase: GetUserRentingBagsListUseCase,
+    private val signOutUseCase: SignOutUseCase,
+    private val firebaseAuth: FirebaseAuth,
 ) : ViewModel() {
     companion object {
         private const val TAG = "[HMenuVM]"
@@ -74,6 +78,13 @@ constructor(
                 updateListRentingBag = it,
             )
         )
+    }
+
+    fun signOut() = viewModelScope.launch {
+        signOutUseCase().onSuccess {
+            firebaseAuth.signOut()
+            _homeMenuState.postValue(HomeMenuState.SignOut)
+        }
     }
 
 }

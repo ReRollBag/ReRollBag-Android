@@ -92,4 +92,6 @@ dependencies {
     debugImplementation(Dependencies.Compose.COMPOSE_TEST_MANIFEST)
 
     implementation(Dependencies.Kakao.ALL)
+
+    implementation(Dependencies.ThreeTenabp.THREETENABP)
 }

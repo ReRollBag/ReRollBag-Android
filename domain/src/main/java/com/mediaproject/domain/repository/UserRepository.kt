@@ -16,6 +16,8 @@ interface UserRepository {
         userRole: String,
     )
 
+    suspend fun signOut()
+
     suspend fun isExistUserId(
         userId: String
     )

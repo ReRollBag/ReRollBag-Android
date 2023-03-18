@@ -106,4 +106,8 @@ object Dependencies {
         const val QR = "com.journeyapps:zxing-android-embedded:4.3.0"
     }
 
+    object ThreeTenabp {
+        const val THREETENABP = "com.jakewharton.threetenabp:threetenabp:1.3.0"
+    }
+
 }

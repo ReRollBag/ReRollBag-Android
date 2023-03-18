@@ -41,6 +41,7 @@ constructor(
 
     override suspend fun clearToken() {
         dataStoreDataSource.run {
+            clearIdToken()
             clearAccessToken()
             clearRefreshToken()
         }

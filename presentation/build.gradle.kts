@@ -98,4 +98,5 @@ dependencies {
     implementation(Dependencies.Kakao.ALL)
 
     implementation(Dependencies.Zxing.QR)
+    implementation(Dependencies.ThreeTenabp.THREETENABP)
 }

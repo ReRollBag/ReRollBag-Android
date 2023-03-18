@@ -8,11 +8,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mediaproject.presentation.screen.vm.HomeMenuViewModel
+import com.mediaproject.presentation.widgets.states.HomeMenuState
 
 @Composable
 fun HomeMenuScreen(
     modifier: Modifier = Modifier,
     menuViewModel: HomeMenuViewModel = hiltViewModel(),
+    onSignOut: () -> Unit = {},
     onClickRentList: () -> Unit = {},
     onBackPressed: () -> Unit = {},
 ) = Scaffold(
@@ -24,15 +26,21 @@ fun HomeMenuScreen(
 ) { padding ->
     val userState = menuViewModel.homeMenuState.observeAsState()
 
-    menuViewModel.getUserInfo().invokeOnCompletion {
-        when (it) {
-            null -> menuViewModel.getUserRentingBagsList()
+    when (userState.value) {
+        is HomeMenuState.SignOut -> onSignOut()
+        else -> {
+            menuViewModel.getUserInfo().invokeOnCompletion {
+                when (it) {
+                    null -> menuViewModel.getUserRentingBagsList()
+                }
+            }
+
+            HomeMenuScreenBody(
+                modifier = modifier.padding(padding),
+                userState = userState.value!!,
+                onClickSignOut = { menuViewModel.signOut() },
+                onClickRentList = onClickRentList
+            )
         }
     }
-
-    HomeMenuScreenBody(
-        modifier = modifier.padding(padding),
-        userState = userState.value!!,
-        onClickRentList = onClickRentList
-    )
 }

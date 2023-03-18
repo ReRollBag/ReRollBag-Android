@@ -23,4 +23,10 @@ sealed class HomeMenuState(
         listRentingBag = updateListRentingBag
     )
 
+    object SignOut : HomeMenuState(
+        userId = "",
+        userName = "",
+        listRentingBag = listOf()
+    )
+
 }
