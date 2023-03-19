@@ -1,20 +1,25 @@
 package com.mediaproject.presentation.screen.home.menu
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Divider
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,7 +52,7 @@ fun HomeMenuListItemWidget(
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = 60.dp)
-            .padding(vertical = 10.dp),
+            .padding(vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Divider(
@@ -58,19 +63,32 @@ fun HomeMenuListItemWidget(
                 .alpha(0.0f)
         )
         Spacer(modifier = Modifier.width(12.dp))
-        Box(
+
+        Surface(
             modifier = Modifier
-                .size(64.dp)
-                .border(width = 0.dp, color = gray2, shape = CircleShape)
-                .background(color = green1, shape = CircleShape),
-            contentAlignment = Alignment.Center
+                .size(64.dp),
+            shape = CircleShape,
+            elevation = 1.dp
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_bag),
                 contentDescription = "bag",
-                contentScale = ContentScale.Fit,
+                contentScale = ContentScale.None,
             )
         }
+//        Box(
+//            modifier = Modifier
+//                .size(64.dp)
+////                .border(width = 0.dp, color = gray2, shape = CircleShape)
+//                .background(color = green1, shape = CircleShape),
+//            contentAlignment = Alignment.Center
+//        ) {
+//            Image(
+//                painter = painterResource(id = R.drawable.ic_bag),
+//                contentDescription = "bag",
+//                contentScale = ContentScale.Fit,
+//            )
+//        }
         Spacer(modifier = Modifier.width(12.dp))
         Column {
             Text(
@@ -97,6 +115,7 @@ fun HomeMenuListItemWidget(
                     text = "$startDate ~ $endDate",
                     style = TextStyle(
                         fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
                     )
                 )
             }
@@ -111,9 +130,10 @@ fun HomeMenuListItemWidget(
                 )
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
-                    text = "03.17 ~ 03.31",
+                    text = "CU편의점 우만점",
                     style = TextStyle(
                         fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
                     )
                 )
 

@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -48,12 +49,12 @@ fun RentListScreenBody(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .border(width = 1.dp, color = gray1),
+//            .border(width = 1.dp, color = gray1),
     ) {
         itemsIndexed(dataState.list) { index, item ->
             ItemView(item = item)
             if (index < dataState.list.lastIndex)
-                Divider(color = gray1, thickness = 1.dp)
+                Divider(color = Color(0xFFF8F9FC), thickness = 1.dp)
         }
     }
 }
@@ -111,7 +112,7 @@ fun ItemView(
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = 60.dp)
-            .padding(vertical = 10.dp),
+            .padding(vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Spacer(modifier = Modifier.width(18.dp))
@@ -128,20 +129,32 @@ fun ItemView(
                 )
         )
         Spacer(modifier = Modifier.width(14.dp))
-        Box(
+        Surface(
             modifier = Modifier
-                .size(64.dp)
-                .border(width = 0.dp, color = gray2, shape = CircleShape)
-                .background(color = green1, shape = CircleShape),
-            contentAlignment = Alignment.Center
+                .size(64.dp),
+            shape = CircleShape,
+            elevation = 1.dp
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_bag),
                 contentDescription = "bag",
-                contentScale = ContentScale.Fit,
+                contentScale = ContentScale.None,
             )
         }
-        Spacer(modifier = Modifier.width(12.dp))
+//        Box(
+//            modifier = Modifier
+//                .size(64.dp)
+//                .border(width = 0.dp, color = gray2, shape = CircleShape)
+//                .background(color = green1, shape = CircleShape),
+//            contentAlignment = Alignment.Center
+//        ) {
+//            Image(
+//                painter = painterResource(id = R.drawable.ic_bag),
+//                contentDescription = "bag",
+//                contentScale = ContentScale.Fit,
+//            )
+//        }
+        Spacer(modifier = Modifier.width(20.dp))
         Column {
             Text(
                 text = when (item.bagsId.isEmpty()) {
@@ -167,10 +180,11 @@ fun ItemView(
                     text = "03.17 ~ 03.31",
                     style = TextStyle(
                         fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
                     )
                 )
             }
-            Spacer(modifier = Modifier.height(4.dp))
+//            Spacer(modifier = Modifier.height(2.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = "대여 장소",
@@ -184,6 +198,7 @@ fun ItemView(
                     text = "GS편의점 우만점",
                     style = TextStyle(
                         fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
                     )
                 )
             }

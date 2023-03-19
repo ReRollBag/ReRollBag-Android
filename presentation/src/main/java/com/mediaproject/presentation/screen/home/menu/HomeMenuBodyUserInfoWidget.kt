@@ -72,6 +72,7 @@ fun HomeMenuBodyUserInfoWidget(
             text = "${userState.listRentingBag.size}번째 비닐 격퇴 성공!",
             style = TextStyle(
                 fontSize = 16.sp,
+                fontWeight = FontWeight.Medium,
                 color = ivory3
             )
         )

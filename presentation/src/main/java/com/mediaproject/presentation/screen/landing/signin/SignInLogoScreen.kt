@@ -13,7 +13,7 @@ import com.mediaproject.presentation.R
 @Composable
 fun SignInLogoScreen() = Image(
     modifier = Modifier
-        .heightIn(min = 42.dp)
+        .heightIn(max = 42.dp)
         .fillMaxWidth(),
     painter = painterResource(id = R.drawable.logo_rerollbag),
     contentDescription = "ReRollBag"

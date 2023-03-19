@@ -52,6 +52,7 @@ fun LandingScreen(
 //        )
 //        if (logoAnimationState.isAtEnd && logoAnimationState.isPlaying) {
 //        }
+
     if (isAlreadyLogin.value != null) {
         when (isAlreadyLogin.value!!) {
             true -> LaunchedEffect(onTimeoutHome) {
@@ -64,6 +65,7 @@ fun LandingScreen(
             }
         }
     }
+
     LandingScreenBody()
 }
 

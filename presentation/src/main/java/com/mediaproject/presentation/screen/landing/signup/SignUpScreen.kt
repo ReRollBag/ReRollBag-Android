@@ -12,7 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.green1
@@ -104,7 +106,13 @@ fun SignUpScreenContent(
                 colors = if (isEnable) ButtonDefaults.buttonColors(backgroundColor = green1) else ButtonDefaults.buttonColors(backgroundColor = gray1),
                 enabled = isEnable,
             ) {
-                Text("가입")
+                Text(
+                    text = "가입하기",
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        color = Color.White,
+                    )
+                )
             }
         }
     }

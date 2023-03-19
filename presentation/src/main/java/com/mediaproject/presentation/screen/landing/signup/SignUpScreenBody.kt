@@ -102,7 +102,7 @@ fun SignUpScreenBody(
                             },
                             enable = !(uiState!!.data.isCheckDuplication),
                         )
-                        Divider(color = if (uiState.data.isCheckDuplication) green1 else gray2, thickness = 1.dp)
+                        Divider(color = if (uiState.data.isCheckDuplication) green1 else gray1, thickness = 1.dp)
                     }
                     Spacer(modifier = Modifier.width(40.dp))
                     Button(
@@ -213,7 +213,7 @@ fun SignUpScreenBody(
                             Divider(
                                 color = when (checkEnglish(password) && checkNumber(password) && password.length in 8..20) {
                                     true -> green2
-                                    false -> gray2
+                                    false -> gray1
                                 },
                                 thickness = 1.dp
                             )
@@ -295,7 +295,7 @@ fun SignUpScreenBody(
                             Divider(
                                 color = when (password == passwordCheckStr && passwordCheckStr.isNotEmpty()) {
                                     true -> green2
-                                    false -> gray2
+                                    false -> gray1
                                 },
                                 thickness = 1.dp
                             )
@@ -342,7 +342,7 @@ fun SignUpScreenBody(
                             },
                         )
                         Divider(
-                            color = if (name.isEmpty()) gray2 else green2,
+                            color = if (name.isEmpty()) gray1 else green2,
                             thickness = 1.dp
                         )
                     }

@@ -47,12 +47,15 @@ fun RentItemView(
 
         val interactionSourceFail = remember { MutableInteractionSource() }
         val isPressedFail by interactionSourceFail.collectIsPressedAsState()
-
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(bottom = 20.dp),
             horizontalArrangement = Arrangement.Center,
         ) {
+            Column {
+
+            }
             Button(
                 modifier = Modifier.widthIn(min = 100.dp),
                 border = BorderStroke(
@@ -100,6 +103,7 @@ fun RentItemView(
                     )
                 )
             }
+            Spacer(modifier = Modifier.height(10.dp))
         }
     },
     title = {
@@ -115,7 +119,6 @@ fun RentItemView(
                 )
             )
         }
-
     },
     text = {
 //        val rentTime = LocalDateTime.now();
@@ -124,65 +127,86 @@ fun RentItemView(
 
         val startDate = "03.17"
         val endDate = "03.24"
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Box(
-                modifier = Modifier
-                    .size(64.dp)
-                    .border(width = 0.dp, color = gray2, shape = CircleShape)
-                    .background(color = green1, shape = CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_bag),
-                    contentDescription = "bag",
-                    contentScale = ContentScale.Fit,
-                )
-            }
-            Spacer(modifier = Modifier.width(12.dp))
-            Column {
-                Text(
-                    text = bagId,
-                    style = TextStyle(
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Bold,
-                    )
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = "대여 기간",
-                        style = TextStyle(
-                            fontSize = 10.sp,
-                            color = gray2
-                        )
-                    )
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Text(
-                        text = "$startDate ~ $endDate",
-                        style = TextStyle(
-                            fontSize = 13.sp,
-                        )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Row {
+                Surface(
+                    modifier = Modifier
+                        .size(64.dp),
+                    shape = CircleShape,
+                    elevation = 1.dp
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_bag),
+                        contentDescription = "bag",
+                        contentScale = ContentScale.None,
                     )
                 }
-                Spacer(modifier = Modifier.height(4.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) {
+//            Box(
+//                modifier = Modifier
+//                    .size(64.dp)
+//                    .border(width = 0.dp, color = gray2, shape = CircleShape)
+//                    .background(color = green1, shape = CircleShape),
+//                contentAlignment = Alignment.Center
+//            ) {
+//                Image(
+//                    painter = painterResource(id = R.drawable.ic_bag),
+//                    contentDescription = "bag",
+//                    contentScale = ContentScale.Fit,
+//                )
+//            }
+                Spacer(modifier = Modifier.width(12.dp))
+                Column {
                     Text(
-                        text = "대여 장소",
-                        style = TextStyle(
-                            fontSize = 10.sp,
-                            color = gray2
-                        )
-                    )
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Text(
-                        text = "GS편의점 우만점",
+                        text = bagId,
                         style = TextStyle(
                             fontSize = 13.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black
                         )
                     )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "대여 기간",
+                            style = TextStyle(
+                                fontSize = 10.sp,
+                                color = gray2
+                            )
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "$startDate ~ $endDate",
+                            style = TextStyle(
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.Black
+                            )
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "대여 장소",
+                            style = TextStyle(
+                                fontSize = 10.sp,
+                                color = gray2
+                            )
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "GS편의점 우만점",
+                            style = TextStyle(
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.Black
+                            )
+                        )
+                    }
                 }
             }
-            Spacer(modifier = Modifier.width(20.dp))
         }
     },
     modifier = Modifier.fillMaxWidth(),
@@ -223,20 +247,32 @@ fun ReturningItemView(
             .alpha(0.0f)
     )
     Spacer(modifier = Modifier.width(14.dp))
-    Box(
+    Surface(
         modifier = Modifier
-            .size(64.dp)
-            .border(width = 0.dp, color = gray2, shape = CircleShape)
-            .background(color = green1, shape = CircleShape),
-        contentAlignment = Alignment.Center
+            .size(64.dp),
+        shape = CircleShape,
+        elevation = 1.dp
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_bag),
             contentDescription = "bag",
-            contentScale = ContentScale.Fit,
+            contentScale = ContentScale.None,
         )
     }
-    Spacer(modifier = Modifier.width(12.dp))
+//    Box(
+//        modifier = Modifier
+//            .size(64.dp)
+//            .border(width = 0.dp, color = gray2, shape = CircleShape)
+//            .background(color = green1, shape = CircleShape),
+//        contentAlignment = Alignment.Center
+//    ) {
+//        Image(
+//            painter = painterResource(id = R.drawable.ic_bag),
+//            contentDescription = "bag",
+//            contentScale = ContentScale.Fit,
+//        )
+//    }
+    Spacer(modifier = Modifier.width(20.dp))
     Column {
         Text(
             text = bagId,
@@ -259,10 +295,11 @@ fun ReturningItemView(
                 text = "03.17 ~ 03.31",
                 style = TextStyle(
                     fontSize = 13.sp,
+                    fontWeight = FontWeight.Medium,
                 )
             )
         }
-        Spacer(modifier = Modifier.height(4.dp))
+//        Spacer(modifier = Modifier.height(4.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = "대여 장소",
@@ -276,6 +313,7 @@ fun ReturningItemView(
                 text = "GS편의점 우만점",
                 style = TextStyle(
                     fontSize = 13.sp,
+                    fontWeight = FontWeight.Medium,
                 )
             )
         }

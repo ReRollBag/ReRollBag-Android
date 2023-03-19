@@ -92,7 +92,8 @@ fun HomeMenuScreenBody(
                 Text(
                     text = "대여목록",
                     style = TextStyle(
-                        fontSize = 13.sp
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
                     )
                 )
                 Icon(IconPack.IconArrow, contentDescription = "")
@@ -115,7 +116,8 @@ fun HomeMenuScreenBody(
                 Text(
                     text = "공지사항",
                     style = TextStyle(
-                        fontSize = 13.sp
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
                     )
                 )
                 Icon(IconPack.IconArrow, contentDescription = "")
@@ -140,7 +142,8 @@ fun HomeMenuScreenBody(
                 Text(
                     text = "관리자 신청",
                     style = TextStyle(
-                        fontSize = 13.sp
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
                     )
                 )
                 Icon(IconPack.IconArrow, contentDescription = "")
@@ -165,8 +168,13 @@ fun HomeMenuScreenBody(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .border(width = 1.dp, color = gray1, shape = RoundedCornerShape(8.dp))
-                .background(color = gray1, shape = RoundedCornerShape(8.dp))
+//                .border(width = 1.dp, color = gray1, shape = RoundedCornerShape(8.dp))
+//                .background(color = gray1, shape = RoundedCornerShape(8.dp))
+                .background(
+//                    color = gray1,
+                    color = Color(0xFFF6F7F8),
+                    shape = RoundedCornerShape(8.dp)
+                )
                 .padding(all = 10.dp),
         ) {
 //            Row(
@@ -206,7 +214,8 @@ fun HomeMenuScreenBody(
                 Text(
                     text = "이용약관",
                     style = TextStyle(
-                        fontSize = 13.sp
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
                     )
                 )
                 Icon(IconPack.IconArrow, contentDescription = "")
@@ -229,7 +238,8 @@ fun HomeMenuScreenBody(
                 Text(
                     text = "개인정보 처리방침",
                     style = TextStyle(
-                        fontSize = 13.sp
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
                     )
                 )
                 Icon(IconPack.IconArrow, contentDescription = "")
@@ -251,7 +261,8 @@ fun HomeMenuScreenBody(
                 Text(
                     text = "로그아웃",
                     style = TextStyle(
-                        fontSize = 13.sp
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
                     )
                 )
                 Icon(IconPack.IconArrow, contentDescription = "")
@@ -295,7 +306,10 @@ fun HomeMenuScreenBody(
                 .heightIn(min = 120.dp, max = 190.dp)
                 .fillMaxWidth()
                 .border(width = 1.dp, color = gray1, shape = RoundedCornerShape(20.dp)),
-            contentPadding = PaddingValues(horizontal = 25.dp, vertical = 16.dp)
+            contentPadding = PaddingValues(
+                horizontal = 20.dp,
+//                vertical = 8.dp
+            )
         ) {
             itemsIndexed(userState.listRentingBag) { index, item ->
                 HomeMenuListItemWidget(item = item)

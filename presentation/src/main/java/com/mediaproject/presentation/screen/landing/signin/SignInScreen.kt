@@ -1,10 +1,7 @@
 package com.mediaproject.presentation.screen.landing.signin
 
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -22,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,6 +33,7 @@ import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.ReRollBagTextField
 import com.mediaproject.presentation.common.theme.ReRollBagTypography
 import com.mediaproject.presentation.common.theme.gray1
+import com.mediaproject.presentation.common.theme.gray2
 import com.mediaproject.presentation.common.theme.green1
 import com.mediaproject.presentation.screen.vm.SignInViewModel
 import com.mediaproject.presentation.widgets.states.SignInState
@@ -77,6 +76,7 @@ fun SignInScreen(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SignInContentView(
     modifier: Modifier = Modifier,
@@ -141,58 +141,74 @@ fun SignInContentView(
                         )
                     }
                     Spacer(modifier = Modifier.height(40.dp))
-                    Button(
+                    Card(
+                        shape = RoundedCornerShape(25.dp),
                         modifier = modifier
                             .height(44.dp)
-                            .fillMaxWidth(),
-                        shape = RoundedCornerShape(25.dp),
-                        onClick = { onSignInClick(userId, password) },
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = green1,
-                            contentColor = Color.White
-                        )
+                            .fillMaxWidth()
+                            .clip(shape = RoundedCornerShape(25.dp))
+                            .combinedClickable(
+                                onLongClick = {},
+                                onClick = {
+                                    onSignInClick(userId, password)
+                                }
+                            ),
+                        backgroundColor = green1,
+                        elevation = 0.dp
                     ) {
-                        Text(
-                            text = "로그인",
-                            style = TextStyle(
-                                fontWeight = FontWeight(700),
-                                fontSize = 13.sp,
-                                lineHeight = 17.sp
+                        Box(contentAlignment = Alignment.Center) {
+                            Text(
+                                text = "로그인",
+                                style = TextStyle(
+                                    fontWeight = FontWeight(700),
+                                    fontSize = 13.sp,
+                                    lineHeight = 17.sp,
+                                    color = Color.White
+                                )
                             )
-                        )
+                        }
                     }
                     Spacer(modifier = Modifier.height(10.dp))
-                    Button(
+                    Card(
+                        shape = RoundedCornerShape(25.dp),
                         modifier = modifier
                             .height(44.dp)
-                            .fillMaxWidth(),
-                        shape = RoundedCornerShape(25.dp),
-                        border = BorderStroke(2.dp, green1),
-                        onClick = onSignUpBtnClick,
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = Color.White,
-                            contentColor = green1
-                        ),
-                    ) {
-                        Text(
-                            text = "회원가입",
-                            style = TextStyle(
-                                fontWeight = FontWeight(700),
-                                fontSize = 13.sp,
-                                lineHeight = 17.sp
+                            .fillMaxWidth()
+                            .clip(shape = RoundedCornerShape(25.dp))
+                            .combinedClickable(
+                                onLongClick = {},
+                                onClick = onSignUpBtnClick
+                            )
+                            .border(
+                                border = BorderStroke(2.dp, green1),
+                                shape = RoundedCornerShape(25.dp)
                             ),
-                        )
+                        backgroundColor = Color.White,
+                        elevation = 0.dp
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Text(
+                                text = "회원가입",
+                                style = TextStyle(
+                                    fontWeight = FontWeight(700),
+                                    fontSize = 13.sp,
+                                    lineHeight = 17.sp,
+                                    color = green1
+                                )
+                            )
+                        }
                     }
                     Spacer(modifier = Modifier.height(40.dp))
                     Text(
                         text = "SNS 계정으로 로그인",
                         style = TextStyle(
-                            fontWeight = FontWeight(700),
+                            fontWeight = FontWeight(400),
+                            fontStyle = FontStyle.Normal,
                             fontSize = 13.sp,
                             lineHeight = 19.sp
                         ),
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
                     Row {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally
@@ -201,7 +217,7 @@ fun SignInContentView(
                                 modifier = Modifier
                                     .size(64.dp),
                                 shape = CircleShape,
-                                elevation = 4.dp
+                                elevation = 1.dp
                             ) {
                                 Image(
                                     painter = painterResource(id = R.drawable.ic_naver_logo),
@@ -221,10 +237,17 @@ fun SignInContentView(
                             Spacer(modifier = Modifier.height(5.dp))
                             Text(
                                 text = "네이버 로그인",
-                                style = ReRollBagTypography.title3,
+//                                style = ReRollBagTypography.title3,
+                                style = TextStyle(
+                                    fontWeight = FontWeight(400),
+                                    fontStyle = FontStyle.Normal,
+                                    fontSize = 10.sp,
+                                    lineHeight = 15.sp,
+                                    color = gray2
+                                )
                             )
                         }
-                        Spacer(modifier = Modifier.width(20.dp))
+                        Spacer(modifier = Modifier.width(30.dp))
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
@@ -232,7 +255,7 @@ fun SignInContentView(
                                 modifier = Modifier
                                     .size(64.dp),
                                 shape = CircleShape,
-                                elevation = 4.dp
+                                elevation = 1.dp
                             ) {
                                 Image(
                                     painter = painterResource(id = R.drawable.ic_kakao_logo),
@@ -283,21 +306,32 @@ fun SignInContentView(
                             Spacer(modifier = Modifier.height(5.dp))
                             Text(
                                 text = "카카오 로그인",
-                                style = ReRollBagTypography.title3,
+//                                style = ReRollBagTypography.title3,
+                                style = TextStyle(
+                                    fontWeight = FontWeight(400),
+                                    fontStyle = FontStyle.Normal,
+                                    fontSize = 10.sp,
+                                    lineHeight = 15.sp,
+                                    color = gray2
+                                )
                             )
                         }
-                        Spacer(modifier = Modifier.width(20.dp))
+                        Spacer(modifier = Modifier.width(30.dp))
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Button(
-                                modifier = Modifier.size(64.dp),
-                                onClick = {
-                                    Log.d("google", "google Login Click")
-                                    onGoogleSignIn()
-                                },
+                            Surface(
+                                modifier = Modifier
+                                    .size(64.dp)
+                                    .clickable(
+                                        interactionSource = interactionSource,
+                                        indication = null
+                                    ) {
+                                        Log.d("google", "google Login Click")
+                                        onGoogleSignIn()
+                                    },
                                 shape = CircleShape,
-                                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+                                elevation = 1.dp
                             ) {
                                 Image(
                                     painter = painterResource(id = R.drawable.ic_google_logo),
@@ -308,7 +342,14 @@ fun SignInContentView(
                             Spacer(modifier = Modifier.height(5.dp))
                             Text(
                                 text = "구글 로그인",
-                                style = ReRollBagTypography.title3,
+//                                style = ReRollBagTypography.title3,
+                                style = TextStyle(
+                                    fontWeight = FontWeight(400),
+                                    fontStyle = FontStyle.Normal,
+                                    fontSize = 10.sp,
+                                    lineHeight = 15.sp,
+                                    color = gray2
+                                )
                             )
                         }
                     }
