@@ -31,6 +31,7 @@ fun HomeScreen(
             modifier = modifier.padding(padding),
             locationState = it.locationState,
             qrScanState = it.qrScanState,
+            markerList = it.markerList,
             isRent = it.isRentState,
             onChangeRent = { value ->
                 mapViewModel.updateIsRent(isRent = value)
@@ -41,6 +42,12 @@ fun HomeScreen(
             },
             onClickRequestRenting = { value ->
                 bagViewModel.requestReturningBagWithBagId(bagId = value)
+            },
+            onRefreshRentingMarker = {
+                mapViewModel.findAllRentingMarkers()
+            },
+            onRefreshReturningMarker = {
+                mapViewModel.findAllReturningMarkers()
             },
             clearQrScanState = {
                 mapViewModel.clearQrScan()

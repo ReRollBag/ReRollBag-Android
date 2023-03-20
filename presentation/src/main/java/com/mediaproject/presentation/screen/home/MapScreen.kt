@@ -25,6 +25,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
+import com.mediaproject.domain.model.ReRollBagMarker
+import com.mediaproject.domain.model.RentingMarker
+import com.mediaproject.domain.model.ReturningMarker
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.icons.IconPack
 import com.mediaproject.presentation.common.component.icons.iconpack.*
@@ -44,11 +47,14 @@ fun MapScreen(
     onClickRentBag: (bagId: String) -> Unit = {},
     onClickRequestRenting: (bagId: String) -> Unit = {},
     currentLatLng: LatLng = LatLng(0.0, 0.0),
+    markerList: List<ReRollBagMarker> = listOf(),
     isRent: Boolean = true,
     onChangeRent: (value: Boolean) -> Unit = {},
     cameraPositionState: CameraPositionState = CameraPositionState(),
     uiSettings: MapUiSettings = MapUiSettings(),
     properties: MapProperties = MapProperties(),
+    onRefreshRentingMarker: () -> Unit = {},
+    onRefreshReturningMarker: () -> Unit = {},
     onClickQrScan: () -> Unit = {},
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -108,6 +114,12 @@ fun MapScreen(
             cameraPositionState = cameraPositionState,
             uiSettings = uiSettings,
             properties = properties,
+            markerList = markerList,
+            onClickMarker = {
+                coroutineScope.launch { modalSheetState.show() }
+            },
+            onRefreshRentingMarker = onRefreshRentingMarker,
+            onRefreshReturningMarker = onRefreshReturningMarker,
             onClickQrScan = onClickQrScan,
         )
     }
@@ -122,6 +134,10 @@ fun InnerMapView(
     cameraPositionState: CameraPositionState = CameraPositionState(),
     uiSettings: MapUiSettings = MapUiSettings(),
     properties: MapProperties = MapProperties(),
+    markerList: List<ReRollBagMarker> = listOf(),
+    onClickMarker: () -> Unit = {},
+    onRefreshRentingMarker: () -> Unit = {},
+    onRefreshReturningMarker: () -> Unit = {},
     onClickQrScan: () -> Unit = {},
 ) = Box(
     modifier = modifier.fillMaxSize()
@@ -137,16 +153,30 @@ fun InnerMapView(
             vectorResId = R.drawable.icon_marker_return
         )
     }
+
+    LaunchedEffect(isRent) {
+        when (isRent) {
+            true -> onRefreshRentingMarker()
+            false -> onRefreshReturningMarker()
+        }
+    }
+
     GoogleMap(
         modifier = modifier,
         cameraPositionState = cameraPositionState,
         uiSettings = uiSettings,
         properties = properties,
     ) {
-        Marker(
-            state = MarkerState(position = currentLatLng),
-            icon = icon
-        )
+        markerList.forEach { info ->
+            Marker(
+                state = MarkerState(position = LatLng(info.latitude, info.longitude)),
+                icon = icon,
+                onClick = {
+                    onClickMarker()
+                    false
+                }
+            )
+        }
     }
 
     Column(
@@ -205,7 +235,10 @@ fun InnerMapView(
             Button(
                 modifier = Modifier.size(50.dp),
                 onClick = {
-
+                    when (isRent) {
+                        true -> onRefreshRentingMarker()
+                        false -> onRefreshReturningMarker()
+                    }
                 },
                 shape = CircleShape,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)

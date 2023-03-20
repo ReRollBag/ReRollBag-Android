@@ -95,3 +95,31 @@ internal fun RequestReturningBagResponse.toModel() = BaseCondition(
 internal fun ReturningBagResponse.toModel() = BaseCondition(
     condition = isSuccess
 )
+
+@JvmName("FindAllRentingMarkersResponseListToModel")
+internal fun FindAllRentingMarkersResponseList.toModel() = this.map {
+    it.toModel()
+}
+
+@JvmName("FindAllRentingMarkersResponseToModel")
+internal fun FindAllRentingMarkersResponse.toModel() = RentingMarker(
+    latitude = latitude,
+    longitude = longitude,
+    name = name,
+    maxBagsNum = maxBagsNum,
+    currentBagsNum = currentBagsNum,
+    imageUrl = imageUrl
+)
+
+@JvmName("FindAllReturningMarkersResponseListToModel")
+internal fun FindAllReturningMarkersResponseList.toModel() = this.map {
+    it.toModel()
+}
+
+@JvmName("FindAllReturningMarkersResponseToModel")
+internal fun FindAllReturningMarkersResponse.toModel() = ReturningMarker(
+    latitude = latitude,
+    longitude = longitude,
+    name = name,
+    imageUrl = imageUrl
+)

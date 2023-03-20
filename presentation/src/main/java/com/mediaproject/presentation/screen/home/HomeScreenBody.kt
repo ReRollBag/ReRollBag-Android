@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions.loadRawResourceStyle
 import com.google.maps.android.compose.*
+import com.mediaproject.domain.model.ReRollBagMarker
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.widgets.states.LocationState
 
@@ -20,10 +21,13 @@ fun HomeScreenBody(
     modifier: Modifier = Modifier,
     locationState: LocationState? = LocationState.Init,
     qrScanState: String? = "",
+    markerList: List<ReRollBagMarker> = listOf(),
     isRent: Boolean = true,
     onChangeRent: (value: Boolean) -> Unit = {},
     onClickRentBag: (bagId: String) -> Unit = {},
     onClickRequestRenting: (bagId: String) -> Unit = {},
+    onRefreshRentingMarker: () -> Unit = {},
+    onRefreshReturningMarker: () -> Unit = {},
     clearQrScanState: () -> Unit = {},
     onClickQrScan: () -> Unit = {},
 ) = Box(
@@ -71,11 +75,14 @@ fun HomeScreenBody(
         onClickRentBag = onClickRentBag,
         onClickRequestRenting = onClickRequestRenting,
         currentLatLng = currentLatLng,
+        markerList = markerList,
         isRent = isRent,
         onChangeRent = onChangeRent,
         cameraPositionState = cameraPositionState,
         uiSettings = uiSettings,
         properties = properties,
+        onRefreshRentingMarker = onRefreshRentingMarker,
+        onRefreshReturningMarker = onRefreshReturningMarker
     ) {
         onClickQrScan()
     }
