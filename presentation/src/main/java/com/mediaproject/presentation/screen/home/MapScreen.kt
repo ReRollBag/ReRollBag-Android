@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -45,7 +46,7 @@ fun MapScreen(
     qrScanState: String = "",
     clearQrScanState: () -> Unit = {},
     onClickRentBag: (bagId: String) -> Unit = {},
-    onClickRequestRenting: (bagId: String) -> Unit = {},
+    onClickRequestReturning: (bagId: String) -> Unit = {},
     currentLatLng: LatLng = LatLng(0.0, 0.0),
     markerList: List<ReRollBagMarker> = listOf(),
     isRent: Boolean = true,
@@ -58,6 +59,7 @@ fun MapScreen(
     onClickQrScan: () -> Unit = {},
 ) {
     val coroutineScope = rememberCoroutineScope()
+    val selectedMarker: MutableState<ReRollBagMarker?> = remember{ mutableStateOf(null) }
     val modalSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
         confirmStateChange = {
@@ -81,13 +83,19 @@ fun MapScreen(
     if (qrScanState.isNotEmpty()) {
         when (isRent) {
             true -> {
-                RentItemView(
+                RentBagItemDialog(
                     bagId = qrScanState,
                     clearQrScanState = clearQrScanState,
                     onClickRentBag = onClickRentBag
                 )
             }
-            false -> coroutineScope.launch { modalSheetState.show() }
+            false -> {
+                ReturningBagItemDialog(
+                    bagId = qrScanState,
+                    clearQrScanState = clearQrScanState,
+                    onClickReturnBag = onClickRequestReturning
+                )
+            }
         }
     }
 
@@ -100,10 +108,27 @@ fun MapScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
-                ReturningItemView(
-                    bagId = qrScanState,
-                    onClickRequestRenting = onClickRequestRenting
-                )
+                if (selectedMarker.value == null) {
+                    Spacer(modifier = modifier.height(10.dp))
+                }
+                selectedMarker.value?.let {
+                    when (it) {
+                        is ReturningMarker -> {
+                            ReturningModalItemView(
+                                marker = it,
+                                onClickQrScan = onClickQrScan,
+                            )
+                            Spacer(modifier = modifier.height(10.dp))
+                        }
+                        is RentingMarker -> {
+                            RentModalItemView(
+                                marker = it,
+                                onClickQrScan = onClickQrScan
+                            )
+                            Spacer(modifier = modifier.height(10.dp))
+                        }
+                    }
+                }
             }
         }
     ) {
@@ -115,7 +140,8 @@ fun MapScreen(
             uiSettings = uiSettings,
             properties = properties,
             markerList = markerList,
-            onClickMarker = {
+            onClickMarker = { marker ->
+                selectedMarker.value = marker
                 coroutineScope.launch { modalSheetState.show() }
             },
             onRefreshRentingMarker = onRefreshRentingMarker,
@@ -135,7 +161,7 @@ fun InnerMapView(
     uiSettings: MapUiSettings = MapUiSettings(),
     properties: MapProperties = MapProperties(),
     markerList: List<ReRollBagMarker> = listOf(),
-    onClickMarker: () -> Unit = {},
+    onClickMarker: (marker: ReRollBagMarker) -> Unit = {},
     onRefreshRentingMarker: () -> Unit = {},
     onRefreshReturningMarker: () -> Unit = {},
     onClickQrScan: () -> Unit = {},
@@ -172,7 +198,7 @@ fun InnerMapView(
                 state = MarkerState(position = LatLng(info.latitude, info.longitude)),
                 icon = icon,
                 onClick = {
-                    onClickMarker()
+                    onClickMarker(info)
                     false
                 }
             )
@@ -222,7 +248,7 @@ fun InnerMapView(
                 when (isRent) {
                     true -> Icon(
                         IconPack.IconReturn,
-                        contentDescription = "rent",
+                        contentDescription = "return",
                         modifier = Modifier.scale(1.4f),
                         tint = Color.White
                     )
@@ -247,27 +273,46 @@ fun InnerMapView(
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
-        Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 46.dp),
-            onClick = {
-                onClickQrScan()
-            },
-            shape = RoundedCornerShape(30),
-            colors = ButtonDefaults.buttonColors(backgroundColor = green1)
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
+        when (isRent) {
+            true -> Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 46.dp),
+                onClick = {
+                    onClickQrScan()
+                },
+                shape = RoundedCornerShape(30),
+                colors = ButtonDefaults.buttonColors(backgroundColor = green1)
             ) {
-                Icon(
-                    IconPack.IconQrScan,
-                    contentDescription = "qr_scan",
-                    tint = Color.White
-                )
-                Spacer(modifier = Modifier.widthIn(7.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        IconPack.IconQrScan,
+                        contentDescription = "qr_scan",
+                        tint = Color.White
+                    )
+                    Spacer(modifier = Modifier.widthIn(7.dp))
+                    Text(
+                        text = "QR코드 촬영",
+                        style = TextStyle(
+//                    fontFamily = notoSansFamily,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                            color = Color.White,
+                        ),
+                    )
+                }
+            }
+            false -> Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 46.dp)
+                    .background(color = green1, shape = RoundedCornerShape(30)),
+                contentAlignment = Alignment.Center
+            ) {
                 Text(
-                    text = "QR코드 촬영",
+                    text = "반납할 장소를 선택주세요.",
                     style = TextStyle(
 //                    fontFamily = notoSansFamily,
                         fontWeight = FontWeight.Bold,
@@ -277,6 +322,7 @@ fun InnerMapView(
                 )
             }
         }
+
     }
 }
 

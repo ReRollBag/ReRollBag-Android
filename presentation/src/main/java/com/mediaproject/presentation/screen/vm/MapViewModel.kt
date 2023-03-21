@@ -62,6 +62,14 @@ constructor(
     }
 
     fun findAllRentingMarkers() = viewModelScope.launch {
+        _uiState.value?.let {
+            _uiState.value = HomeUIState.Update(
+                updateQrScan = it.qrScanState,
+                updateLocation = it.locationState,
+                updateIsRent = it.isRentState,
+                updateMarkerList = listOf(),
+            )
+        }
         findAllRentingMarkersUseCase().onSuccess { list ->
             _uiState.value?.let {
                 _uiState.postValue(
@@ -77,6 +85,14 @@ constructor(
     }
 
     fun findAllReturningMarkers() = viewModelScope.launch {
+        _uiState.value?.let {
+            _uiState.value = HomeUIState.Update(
+                updateQrScan = it.qrScanState,
+                updateLocation = it.locationState,
+                updateIsRent = it.isRentState,
+                updateMarkerList = listOf(),
+            )
+        }
         findAllReturningMarkersUseCase().onSuccess { list ->
             _uiState.value?.let {
                 _uiState.postValue(

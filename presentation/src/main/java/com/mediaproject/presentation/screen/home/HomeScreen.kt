@@ -5,7 +5,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mediaproject.presentation.screen.vm.BagViewModel
 import com.mediaproject.presentation.screen.vm.MapViewModel
@@ -40,7 +39,7 @@ fun HomeScreen(
                 bagViewModel.rentBagWithBagId(bagId = value)
                 mapViewModel.clearQrScan()
             },
-            onClickRequestRenting = { value ->
+            onClickRequestReturning = { value ->
                 bagViewModel.requestReturningBagWithBagId(bagId = value)
             },
             onRefreshRentingMarker = {
