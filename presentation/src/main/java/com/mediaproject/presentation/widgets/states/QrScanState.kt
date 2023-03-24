@@ -19,4 +19,9 @@ sealed class QrScanState(
         bagInfo = bagInfo
     )
 
+    object Success : QrScanState(
+        qrScanUrl = "",
+        bagInfo = null
+    )
+
 }

@@ -25,6 +25,8 @@ import com.mediaproject.domain.model.BagInfo
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.theme.gray2
 import com.mediaproject.presentation.common.theme.green1
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
 
 @Composable
 fun RentBagItemDialog(
@@ -116,12 +118,12 @@ fun RentBagItemDialog(
         }
     },
     text = {
-//        val rentTime = LocalDateTime.now();
-//        val startDate = rentTime.format(DateTimeFormatter.ofPattern("MM.dd"))
-//        val endDate = rentTime.plusDays(7).format(DateTimeFormatter.ofPattern("MM.dd"))
+        val rentTime = LocalDateTime.now();
+        val startDate = rentTime.format(DateTimeFormatter.ofPattern("MM.dd"))
+        val endDate = rentTime.plusDays(7).format(DateTimeFormatter.ofPattern("MM.dd"))
 
-        val startDate = "03.17"
-        val endDate = "03.24"
+//        val startDate = "03.17"
+//        val endDate = "03.24"
         Box(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
@@ -286,12 +288,17 @@ fun ReturningBagItemDialog(
         }
     },
     text = {
-//        val rentTime = LocalDateTime.now();
+//
 //        val startDate = rentTime.format(DateTimeFormatter.ofPattern("MM.dd"))
 //        val endDate = rentTime.plusDays(7).format(DateTimeFormatter.ofPattern("MM.dd"))
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
+        val currentTime = LocalDateTime.now();
+        val startDate = LocalDateTime.parse(bagInfo.whenIsRented, formatter).format(DateTimeFormatter.ofPattern("MM.dd"))
+        val endDate = currentTime.format(DateTimeFormatter.ofPattern("MM.dd"))
 
-        val startDate = "03.17"
-        val endDate = "03.24"
+
+//        val startDate = "03.17"
+//        val endDate = "03.24"
         Box(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center

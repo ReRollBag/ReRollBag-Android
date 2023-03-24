@@ -19,7 +19,6 @@ import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import com.mediaproject.presentation.common.nav.HomeNavGraph
 import com.mediaproject.presentation.common.theme.ReRollBagTheme
-import com.mediaproject.presentation.screen.vm.BagViewModel
 import com.mediaproject.presentation.screen.vm.MapViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,7 +26,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
 
     private val mapViewModel: MapViewModel by viewModels()
-    private val bagViewModel: BagViewModel by viewModels()
 
     private lateinit var locationManager: LocationManager
     private lateinit var myLocationListener: MyLocationListener
@@ -54,7 +52,7 @@ class HomeActivity : ComponentActivity() {
     ) { result ->
         result.contents?.let { contents ->
             Log.d("TAG", result.contents)
-            mapViewModel.updateQrScanUrl("RRB_KOR_SUWON_2")
+            mapViewModel.updateQrScanUrl("RRB_KOR_SUWON_6")
 //            mapViewModel.updateQrScanUrl(contents)
         }
     }

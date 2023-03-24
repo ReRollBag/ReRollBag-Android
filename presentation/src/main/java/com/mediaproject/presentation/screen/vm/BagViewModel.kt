@@ -27,6 +27,10 @@ constructor(
     val selectedBagInfo: LiveData<BagInfo>
         get() = _selectedBagInfo
 
+    private val _hasSuccess = MutableLiveData("")
+    val hasSuccess: LiveData<String>
+        get() = _hasSuccess
+
     fun requestReturningBagWithBagId(
         bagId: String
     ) = viewModelScope.launch {
@@ -36,7 +40,9 @@ constructor(
                     userId = user.userId,
                     bagId = bagId
                 )
-            )
+            ).onSuccess {
+                _hasSuccess.postValue("return")
+            }
         }
     }
 
@@ -49,7 +55,9 @@ constructor(
                     userId = user.userId,
                     bagId = bagId
                 )
-            )
+            ).onSuccess {
+                _hasSuccess.postValue("rent")
+            }
         }
     }
 

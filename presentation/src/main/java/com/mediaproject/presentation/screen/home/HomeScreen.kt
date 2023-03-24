@@ -1,5 +1,6 @@
 package com.mediaproject.presentation.screen.home
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
@@ -24,6 +25,8 @@ import com.mediaproject.presentation.screen.vm.MapViewModel
 import com.mediaproject.presentation.widgets.states.LocationState
 import androidx.compose.runtime.*
 import com.google.maps.android.compose.*
+import com.mediaproject.presentation.screen.finish.FinishRentActivity
+import com.mediaproject.presentation.screen.finish.FinishReturnActivity
 
 @Composable
 fun HomeScreen(
@@ -41,6 +44,27 @@ fun HomeScreen(
 ) { padding ->
     val context = LocalContext.current
     val uiState = mapViewModel.uiState.observeAsState()
+    val qrState = bagViewModel.hasSuccess.observeAsState()
+
+    qrState.value?.let {
+        when (it) {
+            "rent" -> {
+                context.startActivity(
+                    Intent(context, FinishRentActivity::class.java).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    }
+                )
+            }
+            "return" -> {
+                context.startActivity(
+                    Intent(context, FinishReturnActivity::class.java).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    }
+                )
+            }
+            else -> {}
+        }
+    }
 
     uiState.value?.let { state ->
         val currentLatLng = when (state.locationState is LocationState.Update) {

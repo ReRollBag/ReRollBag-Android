@@ -35,6 +35,8 @@ import com.mediaproject.presentation.common.theme.gray2
 import com.mediaproject.presentation.common.theme.green1
 import com.mediaproject.presentation.common.theme.green2
 import com.mediaproject.presentation.widgets.states.RentListState
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
 
 @Composable
 fun RentListScreenBody(
@@ -141,19 +143,6 @@ fun ItemView(
                 contentScale = ContentScale.None,
             )
         }
-//        Box(
-//            modifier = Modifier
-//                .size(64.dp)
-//                .border(width = 0.dp, color = gray2, shape = CircleShape)
-//                .background(color = green1, shape = CircleShape),
-//            contentAlignment = Alignment.Center
-//        ) {
-//            Image(
-//                painter = painterResource(id = R.drawable.ic_bag),
-//                contentDescription = "bag",
-//                contentScale = ContentScale.Fit,
-//            )
-//        }
         Spacer(modifier = Modifier.width(20.dp))
         Column {
             Text(
@@ -176,8 +165,24 @@ fun ItemView(
                     )
                 )
                 Spacer(modifier = Modifier.width(12.dp))
+                val startDate: String
+                val endDate: String
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
+
+                when (item.whenIsReturned.isEmpty()) {
+                    true -> {
+                        val rentTime = LocalDateTime.parse(item.whenIsRented, formatter)
+                        startDate = rentTime.format(DateTimeFormatter.ofPattern("MM.dd"))
+                        endDate = rentTime.plusDays(7).format(DateTimeFormatter.ofPattern("MM.dd"))
+                    }
+                    false -> {
+                        startDate = LocalDateTime.parse(item.whenIsRented, formatter).format(DateTimeFormatter.ofPattern("MM.dd"))
+                        endDate = LocalDateTime.parse(item.whenIsReturned, formatter).format(DateTimeFormatter.ofPattern("MM.dd"))
+                    }
+                }
+
                 Text(
-                    text = "03.17 ~ 03.31",
+                    text = "$startDate ~ $endDate",
                     style = TextStyle(
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Medium,
@@ -225,30 +230,6 @@ fun ItemView(
                 }
             }
         }
-
-//        if (item.whenIsReturned.isEmpty()) {
-//            Row(
-//                modifier = Modifier.fillMaxWidth()
-//                    .padding(end = 18.dp),
-//                horizontalArrangement = Arrangement.End,
-//            ) {
-//                Box(
-//                    modifier = Modifier
-//                        .background(gray2, shape = RoundedCornerShape(19.dp))
-//                        .padding(all = 4.dp),
-//                ) {
-//                    Text(
-//                        text = "반납완료",
-//                        style = TextStyle(
-//                            fontSize = 10.sp,
-//                            fontWeight = FontWeight.Bold,
-//                            color = Color.White
-//                        )
-//                    )
-//                }
-//            }
-//        }
-
     }
 }
 
