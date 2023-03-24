@@ -24,4 +24,8 @@ interface BagRemoteDataSource {
         bagId: String
     ): BaseCondition
 
+    suspend fun findBagById(
+        bagId: String
+    ): BagInfo
+
 }

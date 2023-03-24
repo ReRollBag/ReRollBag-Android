@@ -1,7 +1,11 @@
 package com.mediaproject.presentation.screen.vm
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.domain.usecase.FindBagByIdUseCase
 import com.mediaproject.domain.usecase.GetUserInfoUseCase
 import com.mediaproject.domain.usecase.RentBagUseCase
 import com.mediaproject.domain.usecase.RequestReturningBagUseCase
@@ -16,7 +20,12 @@ constructor(
     private val requestReturningBagUseCase: RequestReturningBagUseCase,
     private val rentBagUseCase: RentBagUseCase,
     private val getUserInfoUseCase: GetUserInfoUseCase,
+    private val findBagByIdUseCase: FindBagByIdUseCase,
 ) : ViewModel() {
+
+    private val _selectedBagInfo = MutableLiveData<BagInfo>()
+    val selectedBagInfo: LiveData<BagInfo>
+        get() = _selectedBagInfo
 
     fun requestReturningBagWithBagId(
         bagId: String
@@ -41,6 +50,18 @@ constructor(
                     bagId = bagId
                 )
             )
+        }
+    }
+
+    fun findBagById(
+        bagId: String
+    ) = viewModelScope.launch {
+        findBagByIdUseCase(
+            params = FindBagByIdUseCase.Params(
+                bagId = bagId
+            )
+        ).onSuccess { bagInfo ->
+            _selectedBagInfo.postValue(bagInfo)
         }
     }
 

@@ -41,4 +41,8 @@ constructor(
         bagId: String
     ): BaseCondition = remoteBagDataSource.returningBag(bagId = bagId)
 
+    override suspend fun findBagById(
+        bagId: String
+    ): BagInfo = remoteBagDataSource.findBagById(bagId = bagId)
+
 }

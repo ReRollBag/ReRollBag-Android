@@ -33,6 +33,7 @@ import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.icons.IconPack
 import com.mediaproject.presentation.common.component.icons.iconpack.*
 import com.mediaproject.presentation.common.theme.green1
+import com.mediaproject.presentation.widgets.states.QrScanState
 import kotlinx.coroutines.launch
 
 @SuppressLint(
@@ -43,7 +44,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MapScreen(
     modifier: Modifier = Modifier,
-    qrScanState: String = "",
+    qrScanState: QrScanState = QrScanState.Init,
     clearQrScanState: () -> Unit = {},
     onClickRentBag: (bagId: String) -> Unit = {},
     onClickRequestReturning: (bagId: String) -> Unit = {},
@@ -80,18 +81,18 @@ fun MapScreen(
         coroutineScope.launch { modalSheetState.hide() }
     }
 
-    if (qrScanState.isNotEmpty()) {
+    qrScanState.bagInfo?.let { bagInfo ->
         when (isRent) {
             true -> {
                 RentBagItemDialog(
-                    bagId = qrScanState,
+                    bagInfo = bagInfo,
                     clearQrScanState = clearQrScanState,
                     onClickRentBag = onClickRentBag
                 )
             }
             false -> {
                 ReturningBagItemDialog(
-                    bagId = qrScanState,
+                    bagInfo = bagInfo,
                     clearQrScanState = clearQrScanState,
                     onClickReturnBag = onClickRequestReturning
                 )

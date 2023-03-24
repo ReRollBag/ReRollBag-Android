@@ -17,6 +17,7 @@ import com.mediaproject.presentation.screen.home.menu.HomeMenuScreen
 import com.mediaproject.presentation.screen.home.HomeScreen
 import com.mediaproject.presentation.screen.landing.LandingActivity
 import com.mediaproject.presentation.screen.rent.RentListScreen
+import com.mediaproject.presentation.screen.vm.BagViewModel
 import com.mediaproject.presentation.screen.vm.MapViewModel
 import com.mediaproject.presentation.screen.vm.RentListViewModel
 
@@ -25,6 +26,7 @@ fun HomeNavGraph(
     navController: NavHostController,
     context: Context,
     mapViewModel: MapViewModel = hiltViewModel(),
+    bagViewModel: BagViewModel = hiltViewModel(),
     onClickQrScan: () -> Unit = {},
 ) {
     NavHost(
@@ -34,7 +36,8 @@ fun HomeNavGraph(
         composable(route = HomeScreenRoute.Home.route) {
             HomeScreen(
                 onClickQrScan = onClickQrScan,
-                mapViewModel = mapViewModel
+                mapViewModel = mapViewModel,
+                bagViewModel = bagViewModel
             ) {
                 navController.navigate(HomeScreenRoute.HomeMenu.route)
             }

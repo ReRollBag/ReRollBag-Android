@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mediaproject.domain.model.BagInfo
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.theme.gray2
 import com.mediaproject.presentation.common.theme.green1
@@ -28,7 +29,7 @@ import com.mediaproject.presentation.common.theme.green1
 @Composable
 fun RentBagItemDialog(
     modifier: Modifier = Modifier,
-    bagId: String = "",
+    bagInfo: BagInfo,
     clearQrScanState: () -> Unit = {},
     onClickRentBag: (bagId: String) -> Unit = {},
 ) = AlertDialog(
@@ -62,7 +63,7 @@ fun RentBagItemDialog(
                     backgroundColor = if (isPressedSuccess) green1 else Color.White,
                 ),
                 onClick = {
-                    onClickRentBag(bagId)
+                    onClickRentBag(bagInfo.bagsId)
                 }
             ) {
                 Text(
@@ -141,7 +142,7 @@ fun RentBagItemDialog(
                 Spacer(modifier = Modifier.width(12.dp))
                 Column {
                     Text(
-                        text = bagId,
+                        text = bagInfo.bagsId,
                         style = TextStyle(
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Bold,
@@ -198,7 +199,7 @@ fun RentBagItemDialog(
 @Composable
 fun ReturningBagItemDialog(
     modifier: Modifier = Modifier,
-    bagId: String = "",
+    bagInfo: BagInfo,
     clearQrScanState: () -> Unit = {},
     onClickReturnBag: (bagId: String) -> Unit = {},
 ) = AlertDialog(
@@ -232,7 +233,7 @@ fun ReturningBagItemDialog(
                     backgroundColor = if (isPressedSuccess) green1 else Color.White,
                 ),
                 onClick = {
-                    onClickReturnBag(bagId)
+                    onClickReturnBag(bagInfo.bagsId)
                 }
             ) {
                 Text(
@@ -311,7 +312,7 @@ fun ReturningBagItemDialog(
                 Spacer(modifier = Modifier.width(12.dp))
                 Column {
                     Text(
-                        text = bagId,
+                        text = bagInfo.bagsId,
                         style = TextStyle(
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Bold,
@@ -368,11 +369,29 @@ fun ReturningBagItemDialog(
 @Preview(showBackground = true)
 @Composable
 fun RentBagItemDialogPreview() {
-    RentBagItemDialog(bagId = "KOR_SUWON_1")
+    RentBagItemDialog(
+        bagInfo = BagInfo(
+            bagsId = "KOR_SUWON_1",
+            whenIsRented = "2023-03-23T04:37:16.704",
+            rentingUsersId = "test@test.com",
+            rented = false,
+            whenIsReturned = "",
+            isReturning = false
+        ),
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ReturningBagItemDialogPreview() {
-    ReturningBagItemDialog(bagId = "KOR_SUWON_1")
+    ReturningBagItemDialog(
+        bagInfo = BagInfo(
+            bagsId = "KOR_SUWON_1",
+            whenIsRented = "2023-03-23T04:37:16.704",
+            rentingUsersId = "test@test.com",
+            rented = true,
+            whenIsReturned = "2023-03-31T04:37:16.704",
+            isReturning = false
+        )
+    )
 }

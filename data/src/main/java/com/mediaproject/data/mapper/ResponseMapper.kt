@@ -123,3 +123,12 @@ internal fun FindAllReturningMarkersResponse.toModel() = ReturningMarker(
     name = name,
     imageUrl = imageUrl
 )
+
+internal fun FindBagByIdResponse.toModel() = BagInfo(
+    bagsId = bagsId,
+    whenIsRented = whenIsRented,
+    rentingUsersId = rentingUsersId,
+    rented = rented,
+    whenIsReturned = "",
+    isReturning = false
+)

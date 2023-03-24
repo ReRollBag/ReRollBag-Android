@@ -19,6 +19,7 @@ import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import com.mediaproject.presentation.common.nav.HomeNavGraph
 import com.mediaproject.presentation.common.theme.ReRollBagTheme
+import com.mediaproject.presentation.screen.vm.BagViewModel
 import com.mediaproject.presentation.screen.vm.MapViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
 
     private val mapViewModel: MapViewModel by viewModels()
+    private val bagViewModel: BagViewModel by viewModels()
 
     private lateinit var locationManager: LocationManager
     private lateinit var myLocationListener: MyLocationListener
@@ -50,35 +52,10 @@ class HomeActivity : ComponentActivity() {
     private val barcodeLauncher: ActivityResultLauncher<ScanOptions> = registerForActivityResult(
         ScanContract()
     ) { result ->
-        when (result.contents != null) {
-            true -> {
-                Log.d("TAG", result.contents)
-                if (result.contents.isNotEmpty()) {
-                    try {
-                        if (result.contents.startsWith("ReRollBag")) {
-                            val list = result.contents.split("_")
-                            Log.d("ReRollBag", "Get BagId: ${"${list[1]}_${list[2]}_${list[3]}"}")
-                            mapViewModel.updateQrScanUrl("${list[1]}_${list[2]}_${list[3]}")
-                        }
-                    } catch (e: Exception) { }
-
-                }
-            }
-            false -> {
-                Log.d("TAG", "Qr Scan Null")
-
-                val str = "RRB_KOR_SUWON_2"
-                if (str.isNotEmpty()) {
-                    try {
-                        if (str.startsWith("RRB")) {
-                            val list = str.split("_")
-                            Log.d("ReRollBag", "Get BagId: ${"${list[1]}_${list[2]}_${list[3]}"}")
-                            mapViewModel.updateQrScanUrl("${list[1]}_${list[2]}_${list[3]}")
-                        }
-                    } catch (e: Exception) { }
-
-                }
-            }
+        result.contents?.let { contents ->
+            Log.d("TAG", result.contents)
+            mapViewModel.updateQrScanUrl("RRB_KOR_SUWON_2")
+//            mapViewModel.updateQrScanUrl(contents)
         }
     }
 

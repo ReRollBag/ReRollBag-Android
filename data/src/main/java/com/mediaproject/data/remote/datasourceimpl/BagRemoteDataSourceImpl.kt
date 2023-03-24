@@ -61,4 +61,12 @@ constructor(
         ).toModel()
     }
 
+    override suspend fun findBagById(
+        bagId: String
+    ): BagInfo = baseApiCall {
+        bagAPI.findBagById(
+            bagId = bagId
+        ).toModel()
+    }
+
 }

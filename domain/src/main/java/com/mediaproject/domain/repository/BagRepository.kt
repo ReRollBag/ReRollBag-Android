@@ -24,4 +24,8 @@ interface BagRepository {
         bagId: String
     ): BaseCondition
 
+    suspend fun findBagById(
+        bagId: String
+    ): BagInfo
+
 }

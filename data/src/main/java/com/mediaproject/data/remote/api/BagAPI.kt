@@ -3,11 +3,9 @@ package com.mediaproject.data.remote.api
 import com.mediaproject.data.remote.model.request.RentBagRequest
 import com.mediaproject.data.remote.model.request.RequestReturningBagRequest
 import com.mediaproject.data.remote.model.request.SaveBagRequest
-import com.mediaproject.data.remote.model.response.RentBagResponse
-import com.mediaproject.data.remote.model.response.RequestReturningBagResponse
-import com.mediaproject.data.remote.model.response.ReturningBagResponse
-import com.mediaproject.data.remote.model.response.SaveBagResponse
+import com.mediaproject.data.remote.model.response.*
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -32,5 +30,10 @@ interface BagAPI {
     suspend fun returningBag(
         @Path("bagsId") bagId: String
     ): ReturningBagResponse
+
+    @GET("/api/v1/bags/findById/{bagsId}")
+    suspend fun findBagById(
+        @Path("bagsId") bagId: String
+    ): FindBagByIdResponse
 
 }
