@@ -16,6 +16,7 @@ import com.mediaproject.presentation.screen.home.HomeActivity
 import com.mediaproject.presentation.screen.home.menu.HomeMenuScreen
 import com.mediaproject.presentation.screen.home.HomeScreen
 import com.mediaproject.presentation.screen.landing.LandingActivity
+import com.mediaproject.presentation.screen.notice.NoticeScreen
 import com.mediaproject.presentation.screen.rent.RentListScreen
 import com.mediaproject.presentation.screen.vm.BagViewModel
 import com.mediaproject.presentation.screen.vm.MapViewModel
@@ -37,7 +38,10 @@ fun HomeNavGraph(
             HomeScreen(
                 onClickQrScan = onClickQrScan,
                 mapViewModel = mapViewModel,
-                bagViewModel = bagViewModel
+                bagViewModel = bagViewModel,
+                onClickNotice = {
+                    navController.navigate(HomeScreenRoute.Notice.route)
+                },
             ) {
                 navController.navigate(HomeScreenRoute.HomeMenu.route)
             }
@@ -54,13 +58,21 @@ fun HomeNavGraph(
                 },
                 onClickRentList = {
                     navController.navigate(HomeScreenRoute.RentList.route)
+                },
+                onClickNotice = {
+                    navController.navigate(HomeScreenRoute.Notice.route)
                 }
             ) {
                 navController.popBackStack()
             }
         }
         composable(route = HomeScreenRoute.RentList.route) {
-            RentListScreen() {
+            RentListScreen {
+                navController.popBackStack()
+            }
+        }
+        composable(route = HomeScreenRoute.Notice.route) {
+            NoticeScreen {
                 navController.popBackStack()
             }
         }

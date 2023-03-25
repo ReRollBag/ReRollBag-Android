@@ -89,7 +89,8 @@ fun SignUpScreenBody(
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Column(
                         modifier = Modifier.widthIn(max = 200.dp)
@@ -104,7 +105,6 @@ fun SignUpScreenBody(
                         )
                         Divider(color = if (uiState.data.isCheckDuplication) green1 else gray1, thickness = 1.dp)
                     }
-                    Spacer(modifier = Modifier.width(40.dp))
                     Button(
                         modifier = Modifier.width(100.dp),
                         border = BorderStroke(

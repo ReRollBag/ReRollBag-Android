@@ -373,6 +373,83 @@ fun ReturningBagItemDialog(
     backgroundColor = Color.White
 )
 
+@Composable
+fun CancelDialog(
+    modifier: Modifier = Modifier,
+    clearQrScanState: () -> Unit = {},
+) = AlertDialog(
+    onDismissRequest = {
+        clearQrScanState()
+    },
+    buttons = {
+        val interactionSource = remember { MutableInteractionSource() }
+        val isPressed by interactionSource.collectIsPressedAsState()
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 20.dp),
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 25.dp),
+                border = BorderStroke(
+                    width = 1.dp,
+                    color = green1
+                ),
+                interactionSource = interactionSource,
+                shape = RoundedCornerShape(14.dp),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = if (isPressed) green1 else Color.White,
+                ),
+                onClick = {
+                    clearQrScanState()
+                }
+            ) {
+                Text(
+                    text = "확인",
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        color = if (isPressed) Color.White else Color.Black
+                    )
+                )
+            }
+        }
+    },
+    title = {
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "QR코드가 인식되지 않습니다.",
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            )
+        }
+    },
+    text = {
+        Column {
+            Text(
+                text = "ㆍ QR코드를 정면에서 촬영해주세요.\n" +
+                        "ㆍ 대여하신 가방의 QR코드가 맞는지 확인해주세요.",
+                style = TextStyle(
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Color.Black
+                )
+            )
+        }
+    },
+    modifier = Modifier.fillMaxWidth(),
+    shape = RoundedCornerShape(16.dp),
+    backgroundColor = Color.White
+)
+
 @Preview(showBackground = true)
 @Composable
 fun RentBagItemDialogPreview() {
@@ -401,4 +478,10 @@ fun ReturningBagItemDialogPreview() {
             isReturning = false
         )
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CancelDialogPreview() {
+    CancelDialog()
 }

@@ -6,10 +6,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.mediaproject.data.local.datasource.LocalUserDataSource
-import com.mediaproject.data.remote.api.AuthAPI
-import com.mediaproject.data.remote.api.BagAPI
-import com.mediaproject.data.remote.api.MarkerAPI
-import com.mediaproject.data.remote.api.UserAPI
+import com.mediaproject.data.remote.api.*
 import com.mediaproject.data.utils.interceptors.AuthInterceptor
 import com.mediaproject.data.utils.interceptors.NullOrEmptyConverterFactory
 import com.mediaproject.rerollbag.BuildConfig
@@ -119,5 +116,10 @@ object NetworkModule {
     fun providerMarkerAPI(
         retrofit: Retrofit
     ): MarkerAPI = retrofit.create(MarkerAPI::class.java)
+
+    @Provides
+    fun providerNoticeAPI(
+        retrofit: Retrofit
+    ): NoticeAPI = retrofit.create(NoticeAPI::class.java)
 
 }

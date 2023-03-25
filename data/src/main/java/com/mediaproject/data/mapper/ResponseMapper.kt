@@ -132,3 +132,28 @@ internal fun FindBagByIdResponse.toModel() = BagInfo(
     whenIsReturned = "",
     isReturning = false
 )
+
+internal fun SaveNoticeResponse.toModel() = NoticeInfo(
+    title = title,
+    content = content,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
+
+internal fun GetNoticeByLastUpdatedResponse.toModel() = NoticeInfo(
+    title = title,
+    content = content,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
+
+internal fun GetAllNoticesResponse.toModel() = NoticeInfo(
+    title = title,
+    content = content,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
+
+internal fun GetAllNoticesListResponse.toModel() = this.map {
+    it.toModel()
+}

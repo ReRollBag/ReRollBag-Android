@@ -1,13 +1,7 @@
 package com.mediaproject.rerollbag.di
 
-import com.mediaproject.data.remote.datasource.AuthRemoteDataSource
-import com.mediaproject.data.remote.datasource.BagRemoteDataSource
-import com.mediaproject.data.remote.datasource.MarkerRemoteDataSource
-import com.mediaproject.data.remote.datasource.UserRemoteDataSource
-import com.mediaproject.data.remote.datasourceimpl.AuthRemoteDataSourceImpl
-import com.mediaproject.data.remote.datasourceimpl.BagRemoteDataSourceImpl
-import com.mediaproject.data.remote.datasourceimpl.MarkerRemoteDataSourceImpl
-import com.mediaproject.data.remote.datasourceimpl.UserRemoteDataSourceImpl
+import com.mediaproject.data.remote.datasource.*
+import com.mediaproject.data.remote.datasourceimpl.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -41,5 +35,11 @@ abstract class RemoteDataSourceModule {
     abstract fun providerMarkerDataSource(
         remoteMarkerDataSourceImpl: MarkerRemoteDataSourceImpl
     ): MarkerRemoteDataSource
+
+    @Singleton
+    @Binds
+    abstract fun providerNoticeDataSource(
+        remoteNoticeDataSourceImpl: NoticeRemoteDataSourceImpl
+    ): NoticeRemoteDataSource
 
 }

@@ -50,10 +50,15 @@ class HomeActivity : ComponentActivity() {
     private val barcodeLauncher: ActivityResultLauncher<ScanOptions> = registerForActivityResult(
         ScanContract()
     ) { result ->
-        result.contents?.let { contents ->
-            Log.d("TAG", result.contents)
-            mapViewModel.updateQrScanUrl("RRB_KOR_SUWON_6")
-//            mapViewModel.updateQrScanUrl(contents)
+        when (result.contents) {
+            null -> {
+                Log.d("TAG", "contents is null")
+                mapViewModel.updateCanceledQr()
+            }
+            else -> {
+                Log.d("TAG", result.contents)
+                mapViewModel.updateQrScanUrl(result.contents)
+            }
         }
     }
 
@@ -71,6 +76,7 @@ class HomeActivity : ComponentActivity() {
                     val option = ScanOptions().apply {
                         setBeepEnabled(false)
                         setOrientationLocked(false)
+                        setPrompt("QR 코드를 찍어주세요.")
                     }
                     barcodeLauncher.launch(option)
                 }

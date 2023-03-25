@@ -82,20 +82,27 @@ fun MapScreen(
     }
 
     qrScanState.bagInfo?.let { bagInfo ->
-        when (isRent) {
-            true -> {
-                RentBagItemDialog(
-                    bagInfo = bagInfo,
-                    clearQrScanState = clearQrScanState,
-                    onClickRentBag = onClickRentBag
-                )
+        when (bagInfo.bagsId) {
+            "-1" -> {
+                CancelDialog(clearQrScanState = clearQrScanState)
             }
-            false -> {
-                ReturningBagItemDialog(
-                    bagInfo = bagInfo,
-                    clearQrScanState = clearQrScanState,
-                    onClickReturnBag = onClickRequestReturning
-                )
+            else -> {
+                when (isRent) {
+                    true -> {
+                        RentBagItemDialog(
+                            bagInfo = bagInfo,
+                            clearQrScanState = clearQrScanState,
+                            onClickRentBag = onClickRentBag
+                        )
+                    }
+                    false -> {
+                        ReturningBagItemDialog(
+                            bagInfo = bagInfo,
+                            clearQrScanState = clearQrScanState,
+                            onClickReturnBag = onClickRequestReturning
+                        )
+                    }
+                }
             }
         }
     }

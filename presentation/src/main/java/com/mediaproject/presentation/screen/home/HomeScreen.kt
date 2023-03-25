@@ -24,16 +24,21 @@ import com.mediaproject.presentation.screen.vm.BagViewModel
 import com.mediaproject.presentation.screen.vm.MapViewModel
 import com.mediaproject.presentation.widgets.states.LocationState
 import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
 import com.google.maps.android.compose.*
+import com.mediaproject.domain.model.NoticeInfo
 import com.mediaproject.presentation.screen.finish.FinishRentActivity
 import com.mediaproject.presentation.screen.finish.FinishReturnActivity
+import com.mediaproject.presentation.screen.vm.NoticeViewModel
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     mapViewModel: MapViewModel = hiltViewModel(),
     bagViewModel: BagViewModel = hiltViewModel(),
+    noticeViewModel: NoticeViewModel = hiltViewModel(),
     onClickQrScan: () -> Unit = {},
+    onClickNotice: () -> Unit = {},
     onClickMenu: () -> Unit = {},
 ) = Scaffold(
     topBar = {
@@ -45,6 +50,11 @@ fun HomeScreen(
     val context = LocalContext.current
     val uiState = mapViewModel.uiState.observeAsState()
     val qrState = bagViewModel.hasSuccess.observeAsState()
+    val noticeState = noticeViewModel.noticeState.observeAsState()
+
+    LaunchedEffect(true) {
+        noticeViewModel.getNoticeByLastUpdated()
+    }
 
     qrState.value?.let {
         when (it) {
@@ -103,7 +113,7 @@ fun HomeScreen(
                 .fillMaxSize()
                 .background(Color.White)
                 .padding(padding),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.TopCenter
         ) {
             MapScreen(
                 qrScanState = state.qrScanState,
@@ -135,6 +145,38 @@ fun HomeScreen(
             ) {
                 onClickQrScan()
             }
+
+            noticeState.value?.lastUpdatedNotice?.let { notice ->
+                HomeNoticeScreen(noticeInfo = notice) {
+                    onClickNotice()
+                }
+            }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenBodyPreview() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+        contentAlignment = Alignment.TopCenter
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+                .background(Color.Black)
+        ) {
+
+        }
+        HomeNoticeScreen(
+            noticeInfo = NoticeInfo(
+                title = "지구방위대가 된 걸 환영합니다! 함께 지구를 지켜가요.",
+                content = "testContent",
+                createdAt = "2023-03-25T09:02:31.516",
+                updatedAt = "2023-03-25T09:02:31.516",
+            )
+        )
     }
 }

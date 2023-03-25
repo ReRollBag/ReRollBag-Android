@@ -7,4 +7,15 @@ data class BagInfo(
     val rented: Boolean,
     val whenIsReturned: String,
     val isReturning: Boolean,
-)
+) {
+    constructor(
+        bagsId: String
+    ) : this(
+        bagsId = bagsId,
+        whenIsRented = "",
+        rentingUsersId = "",
+        rented = false,
+        whenIsReturned = "",
+        isReturning = false,
+    )
+}

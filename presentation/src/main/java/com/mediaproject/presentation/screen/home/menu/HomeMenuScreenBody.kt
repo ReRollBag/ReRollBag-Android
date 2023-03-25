@@ -43,6 +43,7 @@ fun HomeMenuScreenBody(
     onClickSignOut: () -> Unit = {},
     onClickRefreshList: () -> Unit = {},
     onClickRentList: () -> Unit = {},
+    onClickNotice: () -> Unit = {},
 ) {
     val context = LocalContext.current
     val interactionSource = remember { MutableInteractionSource() }
@@ -106,10 +107,9 @@ fun HomeMenuScreenBody(
                     .fillMaxWidth()
                     .clickable(
                         interactionSource = interactionSource,
-                        indication = null
-                    ) {
-
-                    },
+                        indication = null,
+                        onClick = onClickNotice
+                    ),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {

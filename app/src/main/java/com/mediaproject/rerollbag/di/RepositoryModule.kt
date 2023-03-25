@@ -2,9 +2,11 @@ package com.mediaproject.rerollbag.di
 
 import com.mediaproject.data.repository.BagRepositoryImpl
 import com.mediaproject.data.repository.MarkerRepositoryImpl
+import com.mediaproject.data.repository.NoticeRepositoryImpl
 import com.mediaproject.data.repository.UserRepositoryImpl
 import com.mediaproject.domain.repository.BagRepository
 import com.mediaproject.domain.repository.MarkerRepository
+import com.mediaproject.domain.repository.NoticeRepository
 import com.mediaproject.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -33,5 +35,11 @@ abstract class RepositoryModule {
     abstract fun provideMarkerRepository(
         markerRepositoryImpl: MarkerRepositoryImpl
     ): MarkerRepository
+
+    @Singleton
+    @Binds
+    abstract fun provideNoticeRepository(
+        noticeRepositoryImpl: NoticeRepositoryImpl
+    ): NoticeRepository
 
 }

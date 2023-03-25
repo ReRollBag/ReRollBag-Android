@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mediaproject.domain.model.BagInfo
 import com.mediaproject.domain.usecase.FindAllRentingMarkersUseCase
 import com.mediaproject.domain.usecase.FindAllReturningMarkersUseCase
 import com.mediaproject.domain.usecase.FindBagByIdUseCase
@@ -38,26 +39,35 @@ constructor(
         )
     }
 
+    fun updateCanceledQr() = _uiState.value?.let {
+        _uiState.value = HomeUIState.Update(
+            updateQrScan = QrScanState.Update(
+                qrScanUrl = "",
+                bagInfo = BagInfo(
+                    bagsId = "-1"
+                )
+            ),
+            updateLocation = it.locationState,
+            updateIsRent = it.isRentState,
+            updateMarkerList = it.markerList,
+        )
+
+    }
     fun updateQrScanUrl(url: String) = viewModelScope.launch {
-        if (url.isNotEmpty()) {
-            try {
-                if (url.startsWith("RRB")) {
-                    val list = url.split("_")
-                    Log.d("ReRollBag", "Get BagId: ${"${list[1]}_${list[2]}_${list[3]}"}")
-                    findBagById("${list[1]}_${list[2]}_${list[3]}")
+        when (url.isNotEmpty()) {
+            true -> try {
+                when (url.startsWith("RRB")) {
+                    true -> {
+                        val list = url.split("_")
+                        Log.d("ReRollBag", "Get BagId: ${"${list[1]}_${list[2]}_${list[3]}"}")
+                        findBagById("${list[1]}_${list[2]}_${list[3]}")
+                    }
+                    false -> updateCanceledQr()
                 }
             } catch (e: Exception) {
-                _uiState.value?.let {
-                    _uiState.postValue(
-                        HomeUIState.Update(
-                            updateQrScan = QrScanState.Init,
-                            updateLocation = it.locationState,
-                            updateIsRent = it.isRentState,
-                            updateMarkerList = it.markerList,
-                        )
-                    )
-                }
+                updateCanceledQr()
             }
+            false -> updateCanceledQr()
         }
     }
 

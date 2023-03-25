@@ -22,10 +22,11 @@ constructor(
     }
 
     override suspend fun signIn(idToken: String) {
-        localUserDataSource.saveIdToken(idToken = idToken)
-        remoteUserDataSource.signIn().also {
-            Log.d(TAG, "accessToken = ${it.accessToken}, refreshToken = ${it.refreshToken} ")
-            localUserDataSource.saveToken(userToken = it)
+        localUserDataSource.saveIdToken(idToken = idToken).also {
+            remoteUserDataSource.signIn().also {
+                Log.d(TAG, "accessToken = ${it.accessToken}, refreshToken = ${it.refreshToken} ")
+                localUserDataSource.saveToken(userToken = it)
+            }
         }
     }
 

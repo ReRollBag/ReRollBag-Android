@@ -19,6 +19,7 @@ fun HomeMenuScreen(
     menuViewModel: HomeMenuViewModel = hiltViewModel(),
     onSignOut: () -> Unit = {},
     onClickRentList: () -> Unit = {},
+    onClickNotice: () -> Unit = {},
     onBackPressed: () -> Unit = {},
 ) = Scaffold(
     topBar = {
@@ -45,7 +46,8 @@ fun HomeMenuScreen(
                 userState = userState.value!!,
                 onClickSignOut = { menuViewModel.signOut() },
                 onClickRefreshList = { menuViewModel.getUserRentingBagsList() },
-                onClickRentList = onClickRentList
+                onClickRentList = onClickRentList,
+                onClickNotice = onClickNotice,
             )
         }
     }

@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.mediaproject.domain.usecase.IsAlreadyLoginUseCase
 import com.mediaproject.domain.usecase.SignInUseCase
+import com.mediaproject.domain.usecase.SignUpUseCase
 import com.mediaproject.presentation.widgets.states.SignInState
 import com.mediaproject.presentation.widgets.utils.error.SignInErrorConst
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +23,7 @@ class SignInViewModel
 @Inject
 constructor(
     private val signInUseCase: SignInUseCase,
+    private val signUpUseCase: SignUpUseCase,
     private val isAlreadyLoginUseCase: IsAlreadyLoginUseCase,
     private val firebaseAuth: FirebaseAuth,
 ) : ViewModel() {
