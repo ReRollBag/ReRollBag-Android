@@ -1,89 +1,41 @@
 # ReRollBag
 
+---
 
-## 마지막 수정일
+The "ReRollBag" project is an Android application aimed at promoting sustainable consumption by encouraging the use of reusable bags instead of plastic bags.
 
----------------------------------------------------
-+ 2023/02/23
+## Features
 
-## 프로젝트 구분
+---
 
----------------------------------------------------
-    미디어프로젝트 및 GDSC 프로젝트를 위한 ReRollBag 프로젝트
+- Custom login and social media account login for "ReRollBag"
+- Renting of reusable bags through QR codes attached to the bags
+- Returning the rented bags to designated locations using QR codes before the one-week rental period ends
+- Promoting the use of reusable bags by allowing users to borrow and return bags without a deposit for rental.
+
+## Technologies Used
+
+---
+
+<img src="https://img.shields.io/badge/Kotlin-black?logo=Kotlin&logoColor=ColorName&style=ShieldStyle" /> <img src="https://img.shields.io/badge/AndroidStudio-black?logo=AndroidStudio&logoColor=ColorName&style=ShieldStyle" /> <img src="https://img.shields.io/badge/GitHub-black?logo=GitHub&logoColor=ColorName&style=ShieldStyle" /> <img src="https://img.shields.io/badge/JetpackCompose-black?logo=JetpackCompose&logoColor=ColorName&style=ShieldStyle" />
+
+## Restrictions
+
+---
+
+- To test the project, you must log in with the ID: test@test.com and password: test1234.
+- The rental and return location markers cannot be placed worldwide, so they currently exist at "latitude":37.2963, "longitude":127.0471 and "latitude":37.2753, "longitude":127.0413 near Ajou University.
+- A QR code is required to proceed with the test, and the code will be included in the presentation video's PPT.
+- Currently, the application has not applied localization, so the language is set to Korean only.
+- Additionally, not all key values have been uploaded to Github, which may cause problems when building. Therefore, an apk file for testing purposes exists in the submit folder of the Github project. [Firebase App Distribution](https://appdistribution.firebase.google.com/testerapps/1:1037483029667:android:67f9546ca4de9f235abb16/releases/01k9pgtdg33s0?utm_source=firebase-console)
+
+## Application Design
+
+---
+
+- The design work is currently being done through Figma.
+- [Figma Link](https://www.figma.com/file/wQyYTV6415CC2EetVwbDKi/Untitled?node-id=0-1)
 
 
-## Project 설명
-
----------------------------------------------------
-
-
-
-## Package 구성
-
----------------------------------------------------
-+ **module (:app)**
-  > DI
-+ **module (:data)**
-  > DB, Local, Mapper, Remote, Repository, Utils
-+ **module (:domain)**
-  > Model, Repository, UseCase, Utils
-+ **module (:presentation)**
-  > Common, Screen, Widgets
-
-## Work in
-
----------------------------------------------------
-<img src="https://img.shields.io/badge/Kotlin-black?logo=Kotlin&logoColor=ColorName&style=ShieldStyle" /> <img src="https://img.shields.io/badge/AndroidStudio-black?logo=AndroidStudio&logoColor=ColorName&style=ShieldStyle" /> <img src="https://img.shields.io/badge/GitHub-black?logo=GitHub&logoColor=ColorName&style=ShieldStyle" />
-
-## Version
-
----------------------------------------------------
-+ **buildSrc/main/java/Dependency.kt 에서 확인 가능**
-+ **Compose**
-    + _COMPOSE_BOM_
-    + _COMPOSE_MATERIAL3_
-    + _COMPOSE_MATERIAL2_
-    + _COMPOSE_FOUNDATION_
-    + _COMPOSE_UI_
-    + _COMPOSE_PREVIEW_
-    + _COMPOSE_TOOLING_
-    + _COMPOSE_TEST_
-    + _COMPOSE_TEST_MANIFEST_
-    + _COMPOSE_ICON_CORE_
-    + _COMPOSE_ICON_EXTENDED_
-    + _COMPOSE_WINDOW_SIZE_
-    + _COMPOSE_ACTIVITY_
-    + _COMPOSE_VIEWMODEL_
-    + _COMPOSE_LIVEDATA_
-+ **Lifecycle**
-    + _LIVEDATA_LIFE_
-    + _VIEWMODEL_LIFE_
-    + _RUNTIME_LIFE_
-+ **Room**
-    + _ROOM_RUNTIME_
-    + _ROOM_KTX_
-    + _ROOM_COMPILE_
-+ **Hilt**
-    + _HILT_
-    + _HILT_COMPILE_
-+ **Coroutine**
-    + _COROUTINE_ANDROID_
-    + _COROUTINE_CORE_
-+ **Retrofit**
-    + _RETROFIT_
-    + _RETROFIT_GSON_
-+ **OkHttp**
-    + _OKHTTP_
-    + _OKHTTP_LOGGING_
-+ **Glide**
-    + _GLIDE_
-    + _GLIDE_COMPILE_
-+ **Lottie**
-  + _LOTTIE_
-+ **DataStore**
-  + _DATASTORE_
-  + _DATASTORE_PREFERENCE_
-  + _DATASTORE_PREFERENCE_CORE_
-+ **Google**
-  + _MAP_
-  + _MAP_COMPOSE_
+## Credits
+The ReRollBag project was developed by a team consisting of a backend developer, Donghwan Lee (Github ID: hwanld) , an Android developer, Heehoon Jeon (Github ID: citytexi), and a designer, Hyeonji Kim, and was created for the 2023 Google Solution Challenge.
