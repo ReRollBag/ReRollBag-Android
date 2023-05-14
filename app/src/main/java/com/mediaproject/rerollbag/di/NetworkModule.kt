@@ -57,7 +57,7 @@ object NetworkModule {
 
     //region Retrofit
 
-    private const val BASE_URL = "http://34.64.247.152:8080"
+    private const val BASE_URL = "http://34.64.122.161:8080"
 
     @Provides
     fun provideNullOrEmptyConverterFactory(): NullOrEmptyConverterFactory = NullOrEmptyConverterFactory()

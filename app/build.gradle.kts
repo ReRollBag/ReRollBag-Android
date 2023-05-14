@@ -43,8 +43,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = AppConfig.sourceCompatibility
+        targetCompatibility = AppConfig.targetCompatibility
     }
     kotlinOptions {
         jvmTarget = AppConfig.jvmTarget
