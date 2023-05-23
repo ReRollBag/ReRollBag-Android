@@ -20,7 +20,7 @@ import com.mediaproject.presentation.screen.vm.BagViewModel
 import com.mediaproject.presentation.screen.vm.MapViewModel
 
 @Composable
-fun HomeNavGraph(
+fun UserHomeNavGraph(
     navController: NavHostController,
     context: Context,
     mapViewModel: MapViewModel = hiltViewModel(),

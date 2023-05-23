@@ -32,4 +32,6 @@ interface UserRemoteDataSource {
     suspend fun getReturningBagsListWithUserToken(): List<BagInfo>
 
     suspend fun getReturnedBagsListWithUserToken(): List<BagInfo>
+
+    suspend fun isAdminUser(): BaseCondition
 }

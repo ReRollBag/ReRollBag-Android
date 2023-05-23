@@ -17,7 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.maps.MapsInitializer
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
-import com.mediaproject.presentation.common.nav.HomeNavGraph
+import com.mediaproject.presentation.common.nav.UserHomeNavGraph
 import com.mediaproject.presentation.common.theme.ReRollBagTheme
 import com.mediaproject.presentation.screen.vm.MapViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -69,7 +69,7 @@ class UserHomeActivity : ComponentActivity() {
         setContent {
             ReRollBagTheme {
                 val navController = rememberNavController()
-                HomeNavGraph(
+                UserHomeNavGraph(
                     navController = navController,
                     context = applicationContext,
                 ) {

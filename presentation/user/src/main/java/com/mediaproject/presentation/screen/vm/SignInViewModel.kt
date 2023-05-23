@@ -9,6 +9,7 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.mediaproject.domain.usecase.IsAdminUserUseCase
 import com.mediaproject.domain.usecase.IsAlreadyLoginUseCase
 import com.mediaproject.domain.usecase.SignInUseCase
 import com.mediaproject.domain.usecase.SignUpUseCase
@@ -23,7 +24,7 @@ class SignInViewModel
 @Inject
 constructor(
     private val signInUseCase: SignInUseCase,
-    private val signUpUseCase: SignUpUseCase,
+    private val isAdminUserUseCase: IsAdminUserUseCase,
     private val isAlreadyLoginUseCase: IsAlreadyLoginUseCase,
     private val firebaseAuth: FirebaseAuth,
 ) : ViewModel() {
@@ -158,7 +159,7 @@ constructor(
             )
         ).onSuccess {
             Log.d(TAG, "Entry signIn method onSuccess")
-            _signInState.postValue(SignInState.SignInSuccess(isAdmin = false))
+            _signInState.postValue(SignInState.SignInSuccess(isAdmin = isAdminUserUseCase()))
         }.onFailure {
             Log.d(TAG, "Entry signIn method onFailure")
             _signInState.postValue(

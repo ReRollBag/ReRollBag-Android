@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mediaproject.presentation.common.route.LandingScreenRoute
 import com.mediaproject.presentation.common.theme.AnimatedSplashScreenTheme
+import com.mediaproject.presentation.screen.admin.home.AdminHomeActivity
 import com.mediaproject.presentation.screen.landing.LandingScreen
 import com.mediaproject.presentation.screen.landing.access.AccessActivity
 import com.mediaproject.presentation.screen.landing.signin.SignInScreen
@@ -51,6 +52,13 @@ fun LandingNavGraph(
                 onSuccessUserSignIn = {
                     context.startActivity(
                         Intent(context, UserHomeActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        }
+                    )
+                },
+                onSuccessAdminSignIn = {
+                    context.startActivity(
+                        Intent(context, AdminHomeActivity::class.java).apply {
                             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         }
                     )

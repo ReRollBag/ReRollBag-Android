@@ -59,5 +59,8 @@
             android:screenOrientation="portrait"
             tools:replace="screenOrientation" />
 
+        <activity android:name=".screen.admin.home.AdminHomeActivity"
+            android:exported="false"/>
+
     </application>
 </manifest>

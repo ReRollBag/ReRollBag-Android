@@ -41,6 +41,7 @@ fun SignInScreen(
     modifier: Modifier = Modifier,
     viewModel: SignInViewModel = hiltViewModel(),
     onSuccessUserSignIn: () -> Unit = {},
+    onSuccessAdminSignIn: () -> Unit = {},
     onSignUpBtnClick: () -> Unit = {},
     onGoogleSignIn: () -> Unit = {},
     onSocialSignUp: () -> Unit = {},
@@ -66,6 +67,7 @@ fun SignInScreen(
         onSocialSignIn = { token -> viewModel.signIn(token = token) },
         onGoogleSignIn = onGoogleSignIn,
         onSuccessUserSignIn = onSuccessUserSignIn,
+        onSuccessAdminSignIn = onSuccessAdminSignIn,
         onErrorSignIn = { error ->
             viewModel.throwError(error = error)
         },

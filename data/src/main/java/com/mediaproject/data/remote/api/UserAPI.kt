@@ -47,4 +47,7 @@ interface UserAPI {
     @GET("/api/v1/users/getReturnedBagsList")
     suspend fun getReturnedBagsList(): GetReturnedBagsListResponse
 
+    @GET("/api/v3/users/dummyMethod")
+    suspend fun checkAdminRole(): Boolean
+
 }
