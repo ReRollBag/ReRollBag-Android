@@ -12,6 +12,8 @@ sealed class SignInState {
         val errorMessage: String
     ) : SignInState()
 
-    object SignInSuccess : SignInState()
+    data class SignInSuccess(
+        val isAdmin: Boolean = false
+    ) : SignInState()
 
 }

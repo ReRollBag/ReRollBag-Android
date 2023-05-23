@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.home
+package com.mediaproject.presentation.screen.user.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,7 +20,7 @@ import com.mediaproject.presentation.common.component.icons.IconPack
 import com.mediaproject.presentation.common.component.icons.iconpack.IconArrow
 
 @Composable
-fun HomeNoticeScreen(
+fun UserHomeNoticeScreen(
     modifier: Modifier = Modifier,
     noticeInfo: NoticeInfo,
     onClickNotice: () -> Unit = {},
@@ -65,8 +65,8 @@ fun HomeNoticeScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun HomeNoticeScreenPreview() {
-    HomeNoticeScreen(
+fun UserHomeNoticeScreenPreview() {
+    UserHomeNoticeScreen(
         noticeInfo = NoticeInfo(
             title = "testTitle1",
             content = "testContent1",

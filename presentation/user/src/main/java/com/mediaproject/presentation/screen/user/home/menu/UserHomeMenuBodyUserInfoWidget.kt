@@ -1,6 +1,5 @@
-package com.mediaproject.presentation.screen.home.menu
+package com.mediaproject.presentation.screen.user.home.menu
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

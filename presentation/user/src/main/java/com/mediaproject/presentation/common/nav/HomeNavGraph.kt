@@ -2,7 +2,6 @@ package com.mediaproject.presentation.common.nav
 
 import android.content.Context
 import android.content.Intent
-import androidx.activity.OnBackPressedDispatcher
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,16 +10,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.mediaproject.presentation.common.route.HomeScreenRoute
-import com.mediaproject.presentation.screen.home.HomeActivity
-import com.mediaproject.presentation.screen.home.menu.HomeMenuScreen
-import com.mediaproject.presentation.screen.home.HomeScreen
+import com.mediaproject.presentation.common.route.UserHomeScreenRoute
 import com.mediaproject.presentation.screen.landing.LandingActivity
-import com.mediaproject.presentation.screen.notice.NoticeScreen
-import com.mediaproject.presentation.screen.rent.RentListScreen
+import com.mediaproject.presentation.screen.user.home.UserHomeScreen
+import com.mediaproject.presentation.screen.user.home.menu.UserHomeMenuScreen
+import com.mediaproject.presentation.screen.user.notice.NoticeScreen
+import com.mediaproject.presentation.screen.user.rent.RentListScreen
 import com.mediaproject.presentation.screen.vm.BagViewModel
 import com.mediaproject.presentation.screen.vm.MapViewModel
-import com.mediaproject.presentation.screen.vm.RentListViewModel
 
 @Composable
 fun HomeNavGraph(
@@ -32,22 +29,22 @@ fun HomeNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = HomeScreenRoute.Home.route
+        startDestination = UserHomeScreenRoute.Home.route
     ) {
-        composable(route = HomeScreenRoute.Home.route) {
-            HomeScreen(
+        composable(route = UserHomeScreenRoute.Home.route) {
+            UserHomeScreen(
                 onClickQrScan = onClickQrScan,
                 mapViewModel = mapViewModel,
                 bagViewModel = bagViewModel,
                 onClickNotice = {
-                    navController.navigate(HomeScreenRoute.Notice.route)
+                    navController.navigate(UserHomeScreenRoute.Notice.route)
                 },
             ) {
-                navController.navigate(HomeScreenRoute.HomeMenu.route)
+                navController.navigate(UserHomeScreenRoute.HomeMenu.route)
             }
         }
-        composable(route = HomeScreenRoute.HomeMenu.route) {
-            HomeMenuScreen(
+        composable(route = UserHomeScreenRoute.HomeMenu.route) {
+            UserHomeMenuScreen(
                 modifier = Modifier.background(color = Color.White),
                 onSignOut = {
                     context.startActivity(
@@ -57,21 +54,21 @@ fun HomeNavGraph(
                     )
                 },
                 onClickRentList = {
-                    navController.navigate(HomeScreenRoute.RentList.route)
+                    navController.navigate(UserHomeScreenRoute.RentList.route)
                 },
                 onClickNotice = {
-                    navController.navigate(HomeScreenRoute.Notice.route)
+                    navController.navigate(UserHomeScreenRoute.Notice.route)
                 }
             ) {
                 navController.popBackStack()
             }
         }
-        composable(route = HomeScreenRoute.RentList.route) {
+        composable(route = UserHomeScreenRoute.RentList.route) {
             RentListScreen {
                 navController.popBackStack()
             }
         }
-        composable(route = HomeScreenRoute.Notice.route) {
+        composable(route = UserHomeScreenRoute.Notice.route) {
             NoticeScreen {
                 navController.popBackStack()
             }

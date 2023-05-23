@@ -1,25 +1,23 @@
-package com.mediaproject.presentation.screen.notice
+package com.mediaproject.presentation.screen.user.home.menu
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.icons.IconPack
 import com.mediaproject.presentation.common.component.icons.iconpack.IconArrowBack
-import com.mediaproject.presentation.common.theme.green2
 
 @Composable
-fun NoticeScreenAppBar(
+fun HomeMenuAppBar(
     modifier: Modifier = Modifier,
-    onBackPressed: () -> Unit = {}
+    onBackPressed: () -> Unit = {},
 ) = Box(
     modifier = modifier
         .fillMaxWidth()
@@ -32,24 +30,19 @@ fun NoticeScreenAppBar(
         modifier = Modifier.padding(
             start = 16.dp
         ).clickable { onBackPressed() },
-        tint = green2
     )
-    Text(
-        text = "공지사항",
-        style = TextStyle(
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            color = green2
-        ),
+    Image(
         modifier = Modifier
             .widthIn(max = 123.dp)
             .heightIn(max = 33.dp)
             .align(Alignment.Center),
+        painter = painterResource(id = R.drawable.logo_rerollbag),
+        contentDescription = "logo",
     )
 }
 
 @Preview(showBackground = true)
 @Composable
-fun NoticeScreenAppBarPreview() {
-    NoticeScreenAppBar()
+fun HomeMenuAppBarPreview() {
+    HomeMenuAppBar()
 }

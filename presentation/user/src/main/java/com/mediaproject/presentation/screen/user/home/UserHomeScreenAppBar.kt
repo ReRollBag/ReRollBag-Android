@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.home.menu
+package com.mediaproject.presentation.screen.user.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -12,12 +12,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.icons.IconPack
-import com.mediaproject.presentation.common.component.icons.iconpack.IconArrowBack
+import com.mediaproject.presentation.common.component.icons.iconpack.IconMenuHamburger
+import com.mediaproject.presentation.common.theme.green2
 
 @Composable
-fun HomeMenuAppBar(
+fun HomeScreenAppBar(
     modifier: Modifier = Modifier,
-    onBackPressed: () -> Unit = {},
+    onClickMenu: () -> Unit = {},
 ) = Box(
     modifier = modifier
         .fillMaxWidth()
@@ -25,11 +26,12 @@ fun HomeMenuAppBar(
     contentAlignment = Alignment.CenterStart
 ) {
     Icon(
-        IconPack.IconArrowBack,
-        contentDescription = "back",
+        imageVector = IconPack.IconMenuHamburger,
+        contentDescription = "menu",
         modifier = Modifier.padding(
             start = 16.dp
-        ).clickable { onBackPressed() },
+        ).clickable { onClickMenu() },
+        tint = green2
     )
     Image(
         modifier = Modifier
@@ -43,6 +45,6 @@ fun HomeMenuAppBar(
 
 @Preview(showBackground = true)
 @Composable
-fun HomeMenuAppBarPreview() {
-    HomeMenuAppBar()
+fun HomeScreenAppBarPreview() {
+    HomeScreenAppBar()
 }

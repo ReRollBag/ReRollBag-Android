@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.home
+package com.mediaproject.presentation.screen.user.home
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

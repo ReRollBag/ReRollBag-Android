@@ -26,12 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.KakaoSdk
-import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.ReRollBagTextField
-import com.mediaproject.presentation.common.theme.ReRollBagTypography
 import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.gray2
 import com.mediaproject.presentation.common.theme.green1
@@ -43,7 +40,7 @@ import com.mediaproject.presentation.widgets.states.SignInState
 fun SignInScreen(
     modifier: Modifier = Modifier,
     viewModel: SignInViewModel = hiltViewModel(),
-    onSuccessSignIn: () -> Unit = {},
+    onSuccessUserSignIn: () -> Unit = {},
     onSignUpBtnClick: () -> Unit = {},
     onGoogleSignIn: () -> Unit = {},
     onSocialSignUp: () -> Unit = {},
@@ -68,7 +65,7 @@ fun SignInScreen(
         },
         onSocialSignIn = { token -> viewModel.signIn(token = token) },
         onGoogleSignIn = onGoogleSignIn,
-        onSuccessSignIn = onSuccessSignIn,
+        onSuccessUserSignIn = onSuccessUserSignIn,
         onErrorSignIn = { error ->
             viewModel.throwError(error = error)
         },
@@ -85,7 +82,8 @@ fun SignInContentView(
     onSignInClick: (userId: String, password: String) -> Unit = { _, _ -> },
     onSocialSignIn: (token: String) -> Unit = { _ -> },
     onGoogleSignIn: () -> Unit = {},
-    onSuccessSignIn: () -> Unit = {},
+    onSuccessUserSignIn: () -> Unit = {},
+    onSuccessAdminSignIn: () -> Unit = {},
     onErrorSignIn: (error: Throwable) -> Unit = { _ -> },
     onSignUpBtnClick: () -> Unit = {},
     onSocialSignUp: () -> Unit = {},
@@ -102,11 +100,10 @@ fun SignInContentView(
         contentAlignment = Alignment.Center
     ) {
         when (uiState) {
-            is SignInState.SignInLoading -> {
-                CircularProgressIndicator(color = green2)
-            }
-            is SignInState.SignInSuccess -> {
-                onSuccessSignIn()
+            is SignInState.SignInLoading -> CircularProgressIndicator(color = green2)
+            is SignInState.SignInSuccess -> when (uiState.isAdmin) {
+                true -> onSuccessAdminSignIn()
+                false -> onSuccessUserSignIn()
             }
             else -> {
                 Column(
@@ -388,7 +385,7 @@ fun SignInScreenPreview() {
             SignInContentView(uiState = SignInState.SignInLoading)
         }
         4 -> {
-            SignInContentView(uiState = SignInState.SignInSuccess)
+            SignInContentView(uiState = SignInState.SignInSuccess())
         }
         else -> {
             SignInContentView(

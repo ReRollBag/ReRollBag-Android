@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.home
+package com.mediaproject.presentation.screen.user.home
 
 import android.Manifest
 import android.content.Context
@@ -23,7 +23,7 @@ import com.mediaproject.presentation.screen.vm.MapViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeActivity : ComponentActivity() {
+class UserHomeActivity : ComponentActivity() {
 
     private val mapViewModel: MapViewModel by viewModels()
 

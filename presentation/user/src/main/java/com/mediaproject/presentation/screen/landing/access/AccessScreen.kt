@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.finish
+package com.mediaproject.presentation.screen.landing.access
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,7 +26,7 @@ import com.mediaproject.presentation.common.theme.green1
 import com.mediaproject.presentation.common.theme.notoSansFamily
 
 @Composable
-fun FinishRentScreen(
+fun AccessScreen(
     modifier: Modifier = Modifier,
     onSuccess: () -> Unit = {},
 ) = Scaffold(
@@ -61,56 +61,51 @@ fun FinishRentScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
+            .padding(padding)
     ) {
         Column(
             modifier = Modifier.padding(
                 start = 30.dp,
+                end = 30.dp,
+                top = 96.dp,
             ),
         ) {
-            Column(
-                modifier = Modifier.padding(
-                    end = 30.dp,
-                    top = 96.dp,
-                ),
-            ) {
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(
-                            style = SpanStyle(
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = notoSansFamily,
-                            )
-                        ) {
-                            append("대여가 완료되었습니다!")
-                        }
-                        withStyle(
-                            style = SpanStyle(
-                                fontSize = 16.sp,
-                                fontFamily = notoSansFamily,
-                            )
-                        ) {
-                            append("\n회원님 덕분에 지구가 깨끗해지고 있어요!")
-                        }
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(
+                        style = SpanStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = notoSansFamily,
+                        )
+                    ) {
+                        append("가입을 환영합니다!")
                     }
-                )
-                Spacer(modifier = Modifier.height(50.dp))
-                Image(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    painter = painterResource(
-                        id = R.drawable.image_roll_earth
-                    ),
-                    contentDescription = null
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-            }
+                    withStyle(
+                        style = SpanStyle(
+                            fontSize = 16.sp,
+                            fontFamily = notoSansFamily,
+                        )
+                    ) {
+                        append("\n지구방위대가 되어 지구를 지켜주세요!")
+                    }
+                }
+            )
+            Spacer(modifier = Modifier.height(50.dp))
             Image(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
+                    .fillMaxWidth(),
                 painter = painterResource(
-                    id = R.drawable.image_finsh_earth
+                    id = R.drawable.image_roll_earth
+                ),
+                contentDescription = null
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                painter = painterResource(
+                    id = R.drawable.image_earth
                 ),
                 contentDescription = null
             )
@@ -118,8 +113,10 @@ fun FinishRentScreen(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true
+)
 @Composable
-fun FinishRentScreenPreview() {
-    FinishRentScreen()
+fun AccessScreenPreview() {
+    AccessScreen()
 }

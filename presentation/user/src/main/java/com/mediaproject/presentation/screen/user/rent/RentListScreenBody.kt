@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.rent
+package com.mediaproject.presentation.screen.user.rent
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

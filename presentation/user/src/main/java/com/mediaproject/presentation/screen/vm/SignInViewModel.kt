@@ -158,7 +158,7 @@ constructor(
             )
         ).onSuccess {
             Log.d(TAG, "Entry signIn method onSuccess")
-            _signInState.postValue(SignInState.SignInSuccess)
+            _signInState.postValue(SignInState.SignInSuccess(isAdmin = false))
         }.onFailure {
             Log.d(TAG, "Entry signIn method onFailure")
             _signInState.postValue(

@@ -39,19 +39,19 @@
         </activity>
 
         <activity
-            android:name="com.mediaproject.presentation.screen.access.AccessActivity"
+            android:name="com.mediaproject.presentation.screen.landing.access.AccessActivity"
             android:exported="false"/>
 
         <activity
-            android:name=".screen.finish.FinishRentActivity"
+            android:name=".screen.user.finish.FinishRentActivity"
             android:exported="false"/>
 
         <activity
-            android:name=".screen.finish.FinishReturnActivity"
+            android:name=".screen.user.finish.FinishReturnActivity"
             android:exported="false"/>
 
         <activity
-            android:name="com.mediaproject.presentation.screen.home.HomeActivity"
+            android:name="com.mediaproject.presentation.screen.user.home.UserHomeActivity"
             android:exported="false" />
 
         <activity

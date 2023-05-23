@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.rent
+package com.mediaproject.presentation.screen.user.rent
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -18,7 +18,6 @@ import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.icons.IconPack
 import com.mediaproject.presentation.common.component.icons.iconpack.IconArrowBack
 import com.mediaproject.presentation.common.theme.green2
-import com.mediaproject.presentation.screen.home.menu.HomeMenuAppBar
 
 @Composable
 fun RentListScreenAppBar(

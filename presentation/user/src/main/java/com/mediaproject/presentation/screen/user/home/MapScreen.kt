@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.home
+package com.mediaproject.presentation.screen.user.home
 
 import android.annotation.SuppressLint
 import android.content.Context

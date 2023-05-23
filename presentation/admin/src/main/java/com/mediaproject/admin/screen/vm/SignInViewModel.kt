@@ -125,11 +125,12 @@ constructor(
             when (task.isSuccessful) {
                 true -> {
                     try {
-                        task.result.user!!.getIdToken(true).addOnCompleteListener {
-                            signInWithIdToken(it.result.token!!)
-                        }.addOnCanceledListener {
-                            throwError(task.exception ?: Exception())
-                        }
+                        task.result.user!!.getIdToken(true)
+                            .addOnCompleteListener {
+                                signInWithIdToken(it.result.token!!)
+                            }.addOnCanceledListener {
+                                throwError(task.exception ?: Exception())
+                            }
                     } catch (e: Exception) {
                         throwError(task.exception ?: Exception())
                     }

@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.notice
+package com.mediaproject.presentation.screen.user.notice
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

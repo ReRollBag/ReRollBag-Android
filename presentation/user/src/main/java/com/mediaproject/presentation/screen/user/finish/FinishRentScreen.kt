@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.finish
+package com.mediaproject.presentation.screen.user.finish
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,7 +26,7 @@ import com.mediaproject.presentation.common.theme.green1
 import com.mediaproject.presentation.common.theme.notoSansFamily
 
 @Composable
-fun FinishReturnScreen(
+fun FinishRentScreen(
     modifier: Modifier = Modifier,
     onSuccess: () -> Unit = {},
 ) = Scaffold(
@@ -82,7 +82,7 @@ fun FinishReturnScreen(
                                 fontFamily = notoSansFamily,
                             )
                         ) {
-                            append("반납이 완료되었습니다!")
+                            append("대여가 완료되었습니다!")
                         }
                         withStyle(
                             style = SpanStyle(
@@ -90,7 +90,7 @@ fun FinishReturnScreen(
                                 fontFamily = notoSansFamily,
                             )
                         ) {
-                            append("\n앞으로도 지구방위대 활동 기대할게요!")
+                            append("\n회원님 덕분에 지구가 깨끗해지고 있어요!")
                         }
                     }
                 )
@@ -120,6 +120,6 @@ fun FinishReturnScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun FinishReturnScreenPreview() {
-    FinishReturnScreen()
+fun FinishRentScreenPreview() {
+    FinishRentScreen()
 }

@@ -1,6 +1,5 @@
-package com.mediaproject.presentation.screen.access
+package com.mediaproject.presentation.screen.user.finish
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -16,21 +15,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.green1
 import com.mediaproject.presentation.common.theme.notoSansFamily
-import com.mediaproject.presentation.screen.vm.AccessViewModel
 
 @Composable
-fun AccessScreen(
+fun FinishReturnScreen(
     modifier: Modifier = Modifier,
     onSuccess: () -> Unit = {},
 ) = Scaffold(
@@ -65,51 +61,56 @@ fun AccessScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(padding)
     ) {
         Column(
             modifier = Modifier.padding(
                 start = 30.dp,
-                end = 30.dp,
-                top = 96.dp,
             ),
         ) {
-            Text(
-                text = buildAnnotatedString {
-                    withStyle(
-                        style = SpanStyle(
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
-                            fontFamily = notoSansFamily,
-                        )
-                    ) {
-                        append("가입을 환영합니다!")
-                    }
-                    withStyle(
-                        style = SpanStyle(
-                            fontSize = 16.sp,
-                            fontFamily = notoSansFamily,
-                        )
-                    ) {
-                        append("\n지구방위대가 되어 지구를 지켜주세요!")
-                    }
-                }
-            )
-            Spacer(modifier = Modifier.height(50.dp))
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                painter = painterResource(
-                    id = R.drawable.image_roll_earth
+            Column(
+                modifier = Modifier.padding(
+                    end = 30.dp,
+                    top = 96.dp,
                 ),
-                contentDescription = null
-            )
-            Spacer(modifier = Modifier.height(20.dp))
+            ) {
+                Text(
+                    text = buildAnnotatedString {
+                        withStyle(
+                            style = SpanStyle(
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = notoSansFamily,
+                            )
+                        ) {
+                            append("반납이 완료되었습니다!")
+                        }
+                        withStyle(
+                            style = SpanStyle(
+                                fontSize = 16.sp,
+                                fontFamily = notoSansFamily,
+                            )
+                        ) {
+                            append("\n앞으로도 지구방위대 활동 기대할게요!")
+                        }
+                    }
+                )
+                Spacer(modifier = Modifier.height(50.dp))
+                Image(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    painter = painterResource(
+                        id = R.drawable.image_roll_earth
+                    ),
+                    contentDescription = null
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+            }
             Image(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
                 painter = painterResource(
-                    id = R.drawable.image_earth
+                    id = R.drawable.image_finsh_earth
                 ),
                 contentDescription = null
             )
@@ -117,10 +118,8 @@ fun AccessScreen(
     }
 }
 
-@Preview(
-    showBackground = true
-)
+@Preview(showBackground = true)
 @Composable
-fun AccessScreenPreview() {
-    AccessScreen()
+fun FinishReturnScreenPreview() {
+    FinishReturnScreen()
 }

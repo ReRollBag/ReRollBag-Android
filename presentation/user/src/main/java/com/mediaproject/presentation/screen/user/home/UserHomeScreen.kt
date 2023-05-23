@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.home
+package com.mediaproject.presentation.screen.user.home
 
 import android.content.Intent
 import androidx.compose.foundation.background
@@ -25,14 +25,13 @@ import com.mediaproject.presentation.screen.vm.MapViewModel
 import com.mediaproject.presentation.widgets.states.LocationState
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.maps.android.compose.*
 import com.mediaproject.domain.model.NoticeInfo
-import com.mediaproject.presentation.screen.finish.FinishRentActivity
-import com.mediaproject.presentation.screen.finish.FinishReturnActivity
+import com.mediaproject.presentation.screen.user.finish.FinishRentActivity
+import com.mediaproject.presentation.screen.user.finish.FinishReturnActivity
 import com.mediaproject.presentation.screen.vm.NoticeViewModel
 
 @Composable
-fun HomeScreen(
+fun UserHomeScreen(
     modifier: Modifier = Modifier,
     mapViewModel: MapViewModel = hiltViewModel(),
     bagViewModel: BagViewModel = hiltViewModel(),
@@ -147,7 +146,7 @@ fun HomeScreen(
             }
 
             noticeState.value?.lastUpdatedNotice?.let { notice ->
-                HomeNoticeScreen(noticeInfo = notice) {
+                UserHomeNoticeScreen(noticeInfo = notice) {
                     onClickNotice()
                 }
             }
@@ -157,7 +156,7 @@ fun HomeScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreenBodyPreview() {
+fun UserHomeScreenBodyPreview() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -170,7 +169,7 @@ fun HomeScreenBodyPreview() {
         ) {
 
         }
-        HomeNoticeScreen(
+        UserHomeNoticeScreen(
             noticeInfo = NoticeInfo(
                 title = "지구방위대가 된 걸 환영합니다! 함께 지구를 지켜가요.",
                 content = "testContent",
