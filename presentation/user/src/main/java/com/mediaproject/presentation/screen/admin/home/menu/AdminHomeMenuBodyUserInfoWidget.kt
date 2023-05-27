@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.user.home.menu
+package com.mediaproject.presentation.screen.admin.home.menu
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,12 +18,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.theme.*
+import com.mediaproject.presentation.widgets.states.AdminHomeMenuState
 import com.mediaproject.presentation.widgets.states.HomeMenuState
 
 @Composable
-fun HomeMenuBodyUserInfoWidget(
+fun AdminHomeMenuBodyUserInfoWidget(
     modifier: Modifier = Modifier,
-    userState: HomeMenuState = HomeMenuState.Init,
+    userState: AdminHomeMenuState = AdminHomeMenuState.Init,
 ) = Row(
     modifier = Modifier
         .fillMaxWidth()
@@ -59,30 +60,18 @@ fun HomeMenuBodyUserInfoWidget(
             )
             Spacer(modifier = Modifier.width(6.dp))
             Text(
-                text = "지구방위대원",
+                text = "지구방위대 대장",
                 style = TextStyle(
                     fontSize = 10.sp,
                     color = gray2
                 )
             )
         }
-        Text(
-            text = "${
-                userState.listRentingBag.size
-                + userState.listReturningBag.size
-                + userState.listReturnedBag.size
-            }번째 비닐 격퇴 성공!",
-            style = TextStyle(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                color = ivory3
-            )
-        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun HomeMenuBodyUserInfoWidgetPreview() {
-    HomeMenuBodyUserInfoWidget()
+fun AdminHomeMenuBodyUserInfoWidgetPreview() {
+    AdminHomeMenuBodyUserInfoWidget()
 }

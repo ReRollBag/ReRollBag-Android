@@ -1,4 +1,4 @@
-package com.mediaproject.presentation.screen.admin.home
+package com.mediaproject.presentation.screen.admin.notice
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
@@ -6,17 +6,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun AdminHomeScreen(
+fun AdminNoticeScreen(
     modifier: Modifier = Modifier,
-    onClickMenu: () -> Unit = {},
+    onClickBack: () -> Unit = {},
 ) = Scaffold(
     topBar = {
-        AdminHomeScreenAppBar {
-            onClickMenu()
+        AdminNoticeScreenAppBar {
+            onClickBack()
         }
     },
 ) { padding ->
-    AdminHomeScreenBody(
-        modifier = modifier.padding(padding),
-    )
+    AdminNoticeScreenBody(modifier = modifier.padding(padding))
 }

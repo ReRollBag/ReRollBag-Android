@@ -2,6 +2,7 @@ package com.mediaproject.data.mapper
 
 import com.mediaproject.data.remote.model.response.*
 import com.mediaproject.domain.model.*
+import kotlin.math.max
 
 internal fun SignInResponse.toModel() = UserToken(
     accessToken = accessToken,
@@ -160,4 +161,20 @@ internal fun GetAllNoticesListResponse.toModel() = this.map {
 
 internal fun ApplyAdminResponse.toModel() = BaseCondition(
     condition = isExist
+)
+
+internal fun SaveRentingMarkersResponse.toModel() = RentingMarker(
+    latitude = latitude,
+    longitude = longitude,
+    name = name,
+    maxBagsNum = maxBagsNum,
+    currentBagsNum = currentBagsNum,
+    imageUrl = imageUrl
+)
+
+internal fun SaveReturningMarkersResponse.toModel() = ReturningMarker(
+    latitude = latitude,
+    longitude = longitude,
+    name = name,
+    imageUrl = imageUrl
 )
