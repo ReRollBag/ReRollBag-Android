@@ -17,6 +17,7 @@ fun UserHomeMenuScreen(
     onSignOut: () -> Unit = {},
     onClickRentList: () -> Unit = {},
     onClickNotice: () -> Unit = {},
+    onClickAdmin: () -> Unit = {},
     onBackPressed: () -> Unit = {},
 ) = Scaffold(
     topBar = {
@@ -33,7 +34,7 @@ fun UserHomeMenuScreen(
             LaunchedEffect(true) {
                 menuViewModel.getUserInfo().invokeOnCompletion {
                     when (it) {
-                        null -> menuViewModel.getUserRentingBagsList()
+                        null -> menuViewModel.getUserBagsList()
                     }
                 }
             }
@@ -42,9 +43,10 @@ fun UserHomeMenuScreen(
                 modifier = modifier.padding(padding),
                 userState = userState.value!!,
                 onClickSignOut = { menuViewModel.signOut() },
-                onClickRefreshList = { menuViewModel.getUserRentingBagsList() },
+                onClickRefreshList = { menuViewModel.getUserBagsList() },
                 onClickRentList = onClickRentList,
                 onClickNotice = onClickNotice,
+                onClickAdmin = onClickAdmin
             )
         }
     }

@@ -122,4 +122,9 @@ object NetworkModule {
         retrofit: Retrofit
     ): NoticeAPI = retrofit.create(NoticeAPI::class.java)
 
+    @Provides
+    fun providerAdminAPI(
+        retrofit: Retrofit
+    ): AdminAPI = retrofit.create(AdminAPI::class.java)
+
 }

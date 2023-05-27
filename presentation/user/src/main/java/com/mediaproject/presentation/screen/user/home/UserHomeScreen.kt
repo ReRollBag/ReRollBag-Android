@@ -41,7 +41,7 @@ fun UserHomeScreen(
     onClickMenu: () -> Unit = {},
 ) = Scaffold(
     topBar = {
-        HomeScreenAppBar {
+        UserHomeScreenAppBar {
             onClickMenu()
         }
     },

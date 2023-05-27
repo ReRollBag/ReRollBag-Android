@@ -1,8 +1,12 @@
-package com.mediaproject.presentation.screen.user.home
+package com.mediaproject.presentation.screen.admin.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,7 +20,7 @@ import com.mediaproject.presentation.common.component.icons.iconpack.IconMenuHam
 import com.mediaproject.presentation.common.theme.green2
 
 @Composable
-fun UserHomeScreenAppBar(
+fun AdminHomeScreenAppBar(
     modifier: Modifier = Modifier,
     onClickMenu: () -> Unit = {},
 ) = Box(
@@ -46,5 +50,5 @@ fun UserHomeScreenAppBar(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenAppBarPreview() {
-    UserHomeScreenAppBar()
+    AdminHomeScreenAppBar()
 }

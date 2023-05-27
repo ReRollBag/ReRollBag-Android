@@ -17,6 +17,7 @@ fun AdminHomeNavGraph(
         startDestination = AdminHomeScreenRoute.Home.route
     ) {
         composable(route = AdminHomeScreenRoute.Home.route) {
+
         }
     }
 }

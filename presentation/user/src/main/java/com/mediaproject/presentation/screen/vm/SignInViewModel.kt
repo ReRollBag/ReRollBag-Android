@@ -36,6 +36,10 @@ constructor(
     val alreadyLogin: LiveData<Boolean>
         get() = _alreadyLogin
 
+    private val _adminLogin = MutableLiveData(false)
+    val adminLogin: LiveData<Boolean>
+        get() = _adminLogin
+
     private val _signInState = MutableLiveData<SignInState>(SignInState.SignInInit)
     val signInState: LiveData<SignInState>
         get() = _signInState
@@ -43,8 +47,18 @@ constructor(
     fun isAlreadyLogin() = viewModelScope.launch {
         isAlreadyLoginUseCase()
             .onSuccess {
-                _alreadyLogin.postValue(true)
+                when (isAdminUserUseCase()) {
+                    true -> {
+                        _adminLogin.postValue(true)
+                        _alreadyLogin.postValue(true)
+                    }
+                    false -> {
+                        _adminLogin.postValue(false)
+                        _alreadyLogin.postValue(true)
+                    }
+                }
             }.onFailure {
+                _adminLogin.postValue(false)
                 _alreadyLogin.postValue(false)
             }
     }

@@ -42,4 +42,10 @@ abstract class RemoteDataSourceModule {
         remoteNoticeDataSourceImpl: NoticeRemoteDataSourceImpl
     ): NoticeRemoteDataSource
 
+    @Singleton
+    @Binds
+    abstract fun providerAdminDataSource(
+        remoteAdminDataSourceImpl: AdminRemoteDataSourceImpl
+    ): AdminRemoteDataSource
+
 }

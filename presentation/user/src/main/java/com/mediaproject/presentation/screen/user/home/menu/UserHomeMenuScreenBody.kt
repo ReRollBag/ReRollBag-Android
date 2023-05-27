@@ -38,6 +38,7 @@ fun UserHomeMenuScreenBody(
     onClickRefreshList: () -> Unit = {},
     onClickRentList: () -> Unit = {},
     onClickNotice: () -> Unit = {},
+    onClickAdmin: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val interactionSource = remember { MutableInteractionSource() }
@@ -126,9 +127,10 @@ fun UserHomeMenuScreenBody(
                         interactionSource = interactionSource,
                         indication = null
                     ) {
-                        Toast
-                            .makeText(context, "현재 관리자 신청이 불가합니다.", Toast.LENGTH_SHORT)
-                            .show()
+//                        Toast
+//                            .makeText(context, "현재 관리자 신청이 불가합니다.", Toast.LENGTH_SHORT)
+//                            .show()
+                      onClickAdmin()
                     },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -322,9 +324,9 @@ fun UserHomeMenuScreenBodyPreview() {
     Column {
         UserHomeMenuScreenBody(
             userState = HomeMenuState.Update(
-                updateUserId = "test@gmail.com",
-                updateUserName = "test",
-                updateListRentingBag = listOf(
+                userId = "test@gmail.com",
+                userName = "test",
+                listRentingBag = listOf(
                     BagInfo(
                         bagsId = "KOR_SUWON_1",
                         whenIsRented = "2023-03-09T08:02:38.278",
@@ -349,7 +351,9 @@ fun UserHomeMenuScreenBodyPreview() {
                         whenIsReturned = "",
                         isReturning = false
                     )
-                )
+                ),
+                listReturningBag = listOf(),
+                listReturnedBag = listOf()
             )
         )
     }
@@ -361,9 +365,11 @@ fun HomeMenuScreenBodyEmptyPreview() {
     Column {
         UserHomeMenuScreenBody(
             userState = HomeMenuState.Update(
-                updateUserId = "test@gmail.com",
-                updateUserName = "test",
-                updateListRentingBag = listOf()
+                userId = "test@gmail.com",
+                userName = "test",
+                listRentingBag = listOf(),
+                listReturningBag = listOf(),
+                listReturnedBag = listOf()
             )
         )
     }

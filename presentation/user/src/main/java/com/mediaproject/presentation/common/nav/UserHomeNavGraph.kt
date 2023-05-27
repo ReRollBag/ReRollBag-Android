@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import com.mediaproject.presentation.common.route.UserHomeScreenRoute
 import com.mediaproject.presentation.screen.landing.LandingActivity
 import com.mediaproject.presentation.screen.user.home.UserHomeScreen
+import com.mediaproject.presentation.screen.user.check.CheckAdminScreen
 import com.mediaproject.presentation.screen.user.home.menu.UserHomeMenuScreen
 import com.mediaproject.presentation.screen.user.notice.NoticeScreen
 import com.mediaproject.presentation.screen.user.rent.RentListScreen
@@ -58,6 +59,9 @@ fun UserHomeNavGraph(
                 },
                 onClickNotice = {
                     navController.navigate(UserHomeScreenRoute.Notice.route)
+                },
+                onClickAdmin = {
+                    navController.navigate(UserHomeScreenRoute.CheckAdmin.route)
                 }
             ) {
                 navController.popBackStack()
@@ -70,6 +74,11 @@ fun UserHomeNavGraph(
         }
         composable(route = UserHomeScreenRoute.Notice.route) {
             NoticeScreen {
+                navController.popBackStack()
+            }
+        }
+        composable(route = UserHomeScreenRoute.CheckAdmin.route) {
+            CheckAdminScreen {
                 navController.popBackStack()
             }
         }

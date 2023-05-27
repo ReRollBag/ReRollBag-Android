@@ -31,9 +31,16 @@ fun LandingNavGraph(
             AnimatedSplashScreenTheme {
                 LandingScreen(
                     viewModel = viewModel,
-                    onTimeoutHome = {
+                    onTimeoutUserHome = {
                         context.startActivity(
                             Intent(context, UserHomeActivity::class.java).apply {
+                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            }
+                        )
+                    },
+                    onTimeoutAdminHome = {
+                        context.startActivity(
+                            Intent(context, AdminHomeActivity::class.java).apply {
                                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                             }
                         )

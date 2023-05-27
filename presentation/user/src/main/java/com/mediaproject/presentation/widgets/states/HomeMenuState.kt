@@ -3,30 +3,40 @@ package com.mediaproject.presentation.widgets.states
 import com.mediaproject.domain.model.BagInfo
 
 sealed class HomeMenuState(
-    val userId: String,
-    val userName: String,
-    val listRentingBag: List<BagInfo>,
+    open val userId: String,
+    open val userName: String,
+    open val listRentingBag: List<BagInfo>,
+    open val listReturningBag: List<BagInfo>,
+    open val listReturnedBag: List<BagInfo>,
 ) {
     object Init : HomeMenuState(
         userId = "",
         userName = "",
-        listRentingBag = listOf()
+        listRentingBag = listOf(),
+        listReturningBag = listOf(),
+        listReturnedBag = listOf()
     )
 
     data class Update(
-        private val updateUserId: String,
-        private val updateUserName: String,
-        private val updateListRentingBag: List<BagInfo>,
+        override val userId: String,
+        override val userName: String,
+        override val listRentingBag: List<BagInfo>,
+        override val listReturnedBag: List<BagInfo>,
+        override val listReturningBag: List<BagInfo>
     ) : HomeMenuState(
-        userId = updateUserId,
-        userName = updateUserName,
-        listRentingBag = updateListRentingBag
+        userId = userId,
+        userName = userName,
+        listRentingBag = listRentingBag,
+        listReturningBag = listReturningBag,
+        listReturnedBag = listReturnedBag
     )
 
     object SignOut : HomeMenuState(
         userId = "",
         userName = "",
-        listRentingBag = listOf()
+        listRentingBag = listOf(),
+        listReturningBag = listOf(),
+        listReturnedBag = listOf()
     )
 
 }

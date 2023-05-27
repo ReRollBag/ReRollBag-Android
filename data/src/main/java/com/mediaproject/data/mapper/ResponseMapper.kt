@@ -157,3 +157,7 @@ internal fun GetAllNoticesResponse.toModel() = NoticeInfo(
 internal fun GetAllNoticesListResponse.toModel() = this.map {
     it.toModel()
 }
+
+internal fun ApplyAdminResponse.toModel() = BaseCondition(
+    condition = isExist
+)

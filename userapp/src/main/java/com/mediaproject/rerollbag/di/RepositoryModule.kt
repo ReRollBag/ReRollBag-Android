@@ -1,9 +1,11 @@
 package com.mediaproject.rerollbag.di
 
+import com.mediaproject.data.repository.AdminRepositoryImpl
 import com.mediaproject.data.repository.BagRepositoryImpl
 import com.mediaproject.data.repository.MarkerRepositoryImpl
 import com.mediaproject.data.repository.NoticeRepositoryImpl
 import com.mediaproject.data.repository.UserRepositoryImpl
+import com.mediaproject.domain.repository.AdminRepository
 import com.mediaproject.domain.repository.BagRepository
 import com.mediaproject.domain.repository.MarkerRepository
 import com.mediaproject.domain.repository.NoticeRepository
@@ -41,5 +43,11 @@ abstract class RepositoryModule {
     abstract fun provideNoticeRepository(
         noticeRepositoryImpl: NoticeRepositoryImpl
     ): NoticeRepository
+
+    @Singleton
+    @Binds
+    abstract fun provideAdminRepository(
+        adminRepositoryImpl: AdminRepositoryImpl
+    ): AdminRepository
 
 }

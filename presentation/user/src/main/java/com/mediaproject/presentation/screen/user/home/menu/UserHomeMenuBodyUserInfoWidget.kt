@@ -24,7 +24,6 @@ import com.mediaproject.presentation.widgets.states.HomeMenuState
 fun HomeMenuBodyUserInfoWidget(
     modifier: Modifier = Modifier,
     userState: HomeMenuState = HomeMenuState.Init,
-
 ) = Row(
     modifier = Modifier
         .fillMaxWidth()
