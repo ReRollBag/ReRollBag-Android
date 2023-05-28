@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -17,18 +18,24 @@ import com.mediaproject.presentation.screen.admin.marker.rent.RentMarkerScreen
 import com.mediaproject.presentation.screen.admin.marker.returned.ReturnedMarkerScreen
 import com.mediaproject.presentation.screen.admin.notice.AdminNoticeScreen
 import com.mediaproject.presentation.screen.landing.LandingActivity
+import com.mediaproject.presentation.screen.vm.AdminMapViewModel
 
 @Composable
 fun AdminHomeNavGraph(
     navController: NavHostController,
     context: Context,
+    adminMapViewModel: AdminMapViewModel = hiltViewModel(),
+    onClickQrScan: () -> Unit = {},
 ) {
     NavHost(
         navController = navController,
         startDestination = AdminHomeScreenRoute.Home.route
     ) {
         composable(route = AdminHomeScreenRoute.Home.route) {
-            AdminHomeScreen {
+            AdminHomeScreen(
+                mapViewModel = adminMapViewModel,
+                onClickQrScan = onClickQrScan
+            ) {
                 navController.navigate(AdminHomeScreenRoute.HomeMenu.route)
             }
         }

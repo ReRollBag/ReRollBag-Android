@@ -78,7 +78,15 @@ fun UserHomeNavGraph(
             }
         }
         composable(route = UserHomeScreenRoute.CheckAdmin.route) {
-            CheckAdminScreen {
+            CheckAdminScreen(
+                onSignOut = {
+                    context.startActivity(
+                        Intent(context, LandingActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        }
+                    )
+                }
+            ) {
                 navController.popBackStack()
             }
         }

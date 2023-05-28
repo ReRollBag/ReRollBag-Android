@@ -9,6 +9,7 @@ import com.mediaproject.domain.usecase.FindBagByIdUseCase
 import com.mediaproject.domain.usecase.GetUserInfoUseCase
 import com.mediaproject.domain.usecase.RentBagUseCase
 import com.mediaproject.domain.usecase.RequestReturningBagUseCase
+import com.mediaproject.domain.usecase.ReturningBagUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,6 +22,7 @@ constructor(
     private val rentBagUseCase: RentBagUseCase,
     private val getUserInfoUseCase: GetUserInfoUseCase,
     private val findBagByIdUseCase: FindBagByIdUseCase,
+    private val returningBagUseCase: ReturningBagUseCase
 ) : ViewModel() {
 
     private val _selectedBagInfo = MutableLiveData<BagInfo>()
@@ -70,6 +72,14 @@ constructor(
             )
         ).onSuccess { bagInfo ->
             _selectedBagInfo.postValue(bagInfo)
+        }
+    }
+
+    fun requestReturnedBagWithBagId(
+        bagId: String
+    ) = viewModelScope.launch {
+        returningBagUseCase(bagId = bagId).onSuccess {
+            _hasSuccess.postValue("return")
         }
     }
 

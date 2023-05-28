@@ -41,6 +41,15 @@ android {
                 )
             )
         }
+        debug {
+            isMinifyEnabled = false
+            setProguardFiles(
+                listOf(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
+            )
+        }
     }
     compileOptions {
         sourceCompatibility = AppConfig.sourceCompatibility

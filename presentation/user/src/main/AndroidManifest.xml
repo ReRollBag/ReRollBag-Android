@@ -10,6 +10,10 @@
 
     <application>
 
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false"/>
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="${KAKAO_KEY}" />
@@ -60,6 +64,10 @@
             tools:replace="screenOrientation" />
 
         <activity android:name=".screen.admin.home.AdminHomeActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".screen.admin.finish.FinishReturnedActivity"
             android:exported="false"/>
 
     </application>

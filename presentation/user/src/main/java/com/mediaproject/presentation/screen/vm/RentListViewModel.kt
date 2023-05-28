@@ -44,47 +44,35 @@ constructor(
     }
 
     private suspend fun sideEffectAllData(): List<BagInfo> = withContext(Dispatchers.IO) {
-        val map = hashMapOf<String, BagInfo>()
+        val allList = mutableListOf<BagInfo>()
         getUserRentingBagsListUseCase().onSuccess { list ->
-            list.forEach {
-                map[it.bagsId] = it
-            }
+            allList.addAll(list)
         }
         getUserReturningBagsListUseCase().onSuccess { list ->
-            list.forEach {
-                map[it.bagsId] = it
-            }
+            allList.addAll(list)
         }
         getUserReturnedBagsListUseCase().onSuccess { list ->
-            list.forEach {
-                map[it.bagsId] = it
-            }
+            allList.addAll(list)
         }
-        return@withContext map.values.toList()
+        return@withContext allList.toList()
     }
 
     private suspend fun sideEffectReturnedData(): List<BagInfo> = withContext(Dispatchers.IO) {
-        val map = hashMapOf<String, BagInfo>()
+        val allList = mutableListOf<BagInfo>()
         getUserReturnedBagsListUseCase().onSuccess { list ->
-            list.forEach {
-                map[it.bagsId] = it
-            }
+            allList.addAll(list)
         }
-        return@withContext map.values.toList()
+        return@withContext allList.toList()
     }
 
     private suspend fun sideEffectRentingAndReturningData() = withContext(Dispatchers.IO) {
-        val map = hashMapOf<String, BagInfo>()
+        val allList = mutableListOf<BagInfo>()
         getUserRentingBagsListUseCase().onSuccess { list ->
-            list.forEach {
-                map[it.bagsId] = it
-            }
+            allList.addAll(list)
         }
         getUserReturningBagsListUseCase().onSuccess { list ->
-            list.forEach {
-                map[it.bagsId] = it
-            }
+            allList.addAll(list)
         }
-        return@withContext map.values.toList()
+        return@withContext allList.toList()
     }
 }

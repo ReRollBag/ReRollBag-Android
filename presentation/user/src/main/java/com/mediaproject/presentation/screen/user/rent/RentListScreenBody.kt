@@ -1,5 +1,6 @@
 package com.mediaproject.presentation.screen.user.rent
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -168,6 +169,7 @@ fun ItemView(
                 val startDate: String
                 val endDate: String
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
+                val returnedFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SS")
 
                 when (item.whenIsReturned.isEmpty()) {
                     true -> {
@@ -176,8 +178,21 @@ fun ItemView(
                         endDate = rentTime.plusDays(7).format(DateTimeFormatter.ofPattern("MM.dd"))
                     }
                     false -> {
-                        startDate = LocalDateTime.parse(item.whenIsRented, formatter).format(DateTimeFormatter.ofPattern("MM.dd"))
-                        endDate = LocalDateTime.parse(item.whenIsReturned, formatter).format(DateTimeFormatter.ofPattern("MM.dd"))
+                        Log.d("TEST", "item.whenIsRented = ${item.whenIsRented}")
+                        Log.d("TEST", "item.whenIsReturned = ${item.whenIsReturned}")
+
+                        startDate = try {
+                            LocalDateTime.parse(item.whenIsRented, formatter).format(DateTimeFormatter.ofPattern("MM.dd"))
+                        } catch (e: Exception) {
+                            LocalDateTime.parse(item.whenIsRented, returnedFormatter).format(DateTimeFormatter.ofPattern("MM.dd"))
+                        }
+                        
+
+                        endDate = try {
+                            LocalDateTime.parse(item.whenIsReturned, formatter).format(DateTimeFormatter.ofPattern("MM.dd"))
+                        } catch (e: Exception) {
+                            LocalDateTime.parse(item.whenIsReturned, returnedFormatter).format(DateTimeFormatter.ofPattern("MM.dd"))
+                        }
                     }
                 }
 
@@ -250,7 +265,7 @@ fun TestItemViewPreview() {
         ItemView(
             item = BagInfo(
                 bagsId = "KOR_SUWON_1",
-                whenIsRented = "2023-03-09T08:02:38.278",
+                whenIsRented = "2023-03-09T08:02:38.27",
                 rentingUsersId = "testUsersId",
                 rented = true,
                 whenIsReturned = "2023-03-09T08:02:38.278",
