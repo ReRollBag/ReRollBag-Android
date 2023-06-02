@@ -41,4 +41,6 @@ interface UserRepository {
 
     suspend fun getUserReturnedBagsList(): List<BagInfo>
 
+    suspend fun isAdminUser(): Boolean
+
 }

@@ -22,7 +22,7 @@ constructor(
         regionCode: String
     ): BagInfo = baseApiCall {
         bagAPI.saveBag(
-            SaveBagRequest(
+            request = SaveBagRequest(
                 countryCode = countryCode,
                 regionCode = regionCode
             )

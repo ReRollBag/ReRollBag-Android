@@ -12,16 +12,16 @@ interface MarkerRepository {
         maxBagsNum: Int,
         currentBagsNum: Int,
         imageUrl: String
-    )
+    ): RentingMarker
 
     suspend fun findAllRentingMarkers(): List<RentingMarker>
 
-    suspend fun saveReturningMarkers(
+    suspend fun saveReturningMarker(
         latitude: Double,
         longitude: Double,
         name: String,
         imageUrl: String
-    )
+    ): ReturningMarker
 
     suspend fun findAllReturningMarkers(): List<ReturningMarker>
 
