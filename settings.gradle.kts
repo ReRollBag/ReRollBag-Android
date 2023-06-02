@@ -16,7 +16,8 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ReRollBag"
 
-include("app")
-include(":presentation")
+include(":userapp")
+include(":presentation:user")
 include(":data")
 include(":domain")
+include(":presentation:admin")

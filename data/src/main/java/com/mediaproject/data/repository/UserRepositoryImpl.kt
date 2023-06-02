@@ -98,4 +98,5 @@ constructor(
 
     override suspend fun getUserReturnedBagsList(): List<BagInfo> = remoteUserDataSource.getReturnedBagsListWithUserToken()
 
+    override suspend fun isAdminUser(): Boolean = remoteUserDataSource.isAdminUser().condition
 }

@@ -13,16 +13,16 @@ import retrofit2.http.POST
 interface MarkerAPI {
 
     @POST("/api/v3/markers/renting/save")
-    suspend fun saveRentingMarkers(
-        @Body saveRentingMarkersRequest: SaveRentingMarkersRequest
+    suspend fun saveRentingMarker(
+        @Body request: SaveRentingMarkersRequest
     ): SaveRentingMarkersResponse
 
     @GET("/api/v1/markers/renting/findAll")
     suspend fun findAllRentingMarkers(): FindAllRentingMarkersResponseList
 
     @POST("/api/v3/markers/returning/save")
-    suspend fun saveReturningMarkers(
-        @Body saveReturningMarkersRequest: SaveReturningMarkersRequest
+    suspend fun saveReturningMarker(
+        @Body request: SaveReturningMarkersRequest
     ): SaveReturningMarkersResponse
 
     @GET("/api/v1/markers/returning/findAll")

@@ -70,4 +70,8 @@ constructor(
         userAPI.getReturnedBagsList().toModel()
     }
 
+    override suspend fun isAdminUser(): BaseCondition = baseApiCall {
+        BaseCondition(userAPI.checkAdminRole())
+    }
+
 }
