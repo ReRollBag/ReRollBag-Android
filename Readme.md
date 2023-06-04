@@ -4,14 +4,31 @@
 
 The "ReRollBag" project is an Android application aimed at promoting sustainable consumption by encouraging the use of reusable bags instead of plastic bags.
 
+## Submit File(.apk)
+
+---
+
+- [Google drive](https://drive.google.com/file/d/1w965UfvgRYcKQR3xsoH5PsC8_3_rSKnh/view?usp=sharing)
+- [Firebase App Distribution](https://appdistribution.firebase.google.com/testerapps/1:1037483029667:android:67f9546ca4de9f235abb16/releases/700l1eoomabng?utm_source=firebase-console)
+
+
 ## Features
 
 ---
 
+### User
 - Custom login and social media account login for "ReRollBag"
 - Renting of reusable bags through QR codes attached to the bags
 - Returning the rented bags to designated locations using QR codes before the one-week rental period ends
 - Promoting the use of reusable bags by allowing users to borrow and return bags without a deposit for rental.
+- Users can apply for administrator status through the administrator application menu, receive an authentication number, and enter the number and management area to register as an administrator.
+
+
+### Admin
+- The administrator can register a rental location using the latitude and longitude of the location.
+- The administrator can register a return location using the latitude and longitude of the location.
+- The administrator can register a bag and create information to be inserted into the QR code.
+- The administrator can process the return of a bag that the user has requested to return.
 
 ## Technologies Used
 
@@ -23,11 +40,11 @@ The "ReRollBag" project is an Android application aimed at promoting sustainable
 
 ---
 
-- To test the project, you must log in with the ID: test@test.com and password: test1234.
+- To test the project, you must log in with the ID: test@test.com and password: test1234 OR ID: test12@test.com and password: test1234.
 - The rental and return location markers cannot be placed worldwide, so they currently exist at "latitude":37.2963, "longitude":127.0471 and "latitude":37.2753, "longitude":127.0413 near Ajou University.
 - A QR code is required to proceed with the test, and the code will be included in the presentation video's PPT.
 - Currently, the application has not applied localization, so the language is set to Korean only.
-- Additionally, not all key values have been uploaded to Github, which may cause problems when building. Therefore, an apk file for testing purposes exists in the submit folder of the Github project. [Firebase App Distribution](https://appdistribution.firebase.google.com/testerapps/1:1037483029667:android:67f9546ca4de9f235abb16/releases/01k9pgtdg33s0?utm_source=firebase-console)
+- Additionally, not all key values have been uploaded to Github, which may cause problems when building. Therefore, an apk file for testing purposes exists in the submit folder of the Github project. [Firebase App Distribution](https://appdistribution.firebase.google.com/testerapps/1:1037483029667:android:67f9546ca4de9f235abb16/releases/700l1eoomabng?utm_source=firebase-console)
 
 ## Application Design
 
