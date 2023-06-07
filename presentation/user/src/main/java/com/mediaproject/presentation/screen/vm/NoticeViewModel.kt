@@ -16,7 +16,6 @@ import javax.inject.Inject
 class NoticeViewModel
 @Inject
 constructor(
-    private val saveNoticeWithTitleAndContentUseCase: SaveNoticeWithTitleAndContentUseCase,
     private val getNoticeByLastUpdatedUseCase: GetNoticeByLastUpdatedUseCase,
     private val getNoticeListByAllUseCase: GetNoticeListByAllUseCase,
 ) : ViewModel() {

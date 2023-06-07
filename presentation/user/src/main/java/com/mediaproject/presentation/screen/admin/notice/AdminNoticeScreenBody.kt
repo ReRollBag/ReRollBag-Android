@@ -41,6 +41,9 @@ import com.mediaproject.presentation.common.theme.notoSansFamily
 @Composable
 fun AdminNoticeScreenBody(
     modifier: Modifier = Modifier,
+    onChangeTitle: (String) -> Unit = {},
+    onChangeContent: (String) -> Unit = {},
+    onClickSave: () -> Unit = {}
 ) = Column(
     modifier = modifier.fillMaxSize()
         .background(color = Color.White)
@@ -69,6 +72,7 @@ fun AdminNoticeScreenBody(
                 ReRollBagTextField(
                     value = title,
                     onValueChange = {
+                        onChangeTitle(it)
                         title = it
                     },
                     hint = "공지사항 제목을 입력해주세요"
@@ -102,6 +106,7 @@ fun AdminNoticeScreenBody(
                 ReRollBagTextField(
                     value = content,
                     onValueChange = {
+                        onChangeContent(it)
                         content = it
                     },
                     hint = "공지사항 내용을 입력해주세요"
@@ -124,7 +129,7 @@ fun AdminNoticeScreenBody(
             .clip(shape = RoundedCornerShape(25.dp))
             .combinedClickable(
                 onLongClick = {},
-                onClick = {}
+                onClick = onClickSave
             ),
         backgroundColor = green1,
         elevation = 0.dp

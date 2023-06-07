@@ -54,8 +54,15 @@ fun NoticeListItemView(
             vertical = 12.dp,
         ),
 ) {
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
-    val date = LocalDateTime.parse(item.updatedAt, formatter).format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+    var date: String = ""
+    kotlin.runCatching {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
+        date = LocalDateTime.parse(item.updatedAt, formatter).format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+    }.onFailure {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SS")
+        date = LocalDateTime.parse(item.updatedAt, formatter).format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+    }
+
 
     Text(
         text = item.title,
