@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mediaproject.domain.model.NoticeInfo
+import com.mediaproject.core.model.NoticeInfo
 import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.gray2
 import org.threeten.bp.LocalDateTime
@@ -23,7 +23,7 @@ import org.threeten.bp.format.DateTimeFormatter
 @Composable
 fun NoticeScreenBody(
     modifier: Modifier = Modifier,
-    itemList: List<NoticeInfo> = listOf(),
+    itemList: List<com.mediaproject.core.model.NoticeInfo> = listOf(),
 ) {
     LazyColumn(
         modifier = Modifier
@@ -45,8 +45,8 @@ fun NoticeScreenBody(
 @Composable
 fun NoticeListItemView(
     modifier: Modifier = Modifier,
-    item: NoticeInfo,
-    onClickKind: (item: NoticeInfo) -> Unit = {},
+    item: com.mediaproject.core.model.NoticeInfo,
+    onClickKind: (item: com.mediaproject.core.model.NoticeInfo) -> Unit = {},
 ) = Column(
     modifier = Modifier.fillMaxWidth()
         .padding(
@@ -80,7 +80,7 @@ fun NoticeListItemView(
 @Composable
 fun NoticeListItemViewPreview() {
     NoticeListItemView(
-        item = NoticeInfo(
+        item = com.mediaproject.core.model.NoticeInfo(
             title = "지구방위대가 된 걸 환영합니다! 함께 지구를 지켜가요.",
             content = "testContent",
             createdAt = "2023-03-25T09:02:31.516",
@@ -94,25 +94,25 @@ fun NoticeListItemViewPreview() {
 fun NoticeScreenBodyPreview() {
     NoticeScreenBody(
         itemList = listOf(
-            NoticeInfo(
+            com.mediaproject.core.model.NoticeInfo(
                 title = "지구방위대가 된 걸 환영합니다! 함께 지구를 지켜가요.",
                 content = "testContent",
                 createdAt = "2023-03-25T09:02:31.516",
                 updatedAt = "2023-03-25T09:02:31.516",
             ),
-            NoticeInfo(
+            com.mediaproject.core.model.NoticeInfo(
                 title = "지구방위대가 된 걸 환영합니다! 함께 지구를 지켜가요.",
                 content = "testContent",
                 createdAt = "2023-03-25T09:02:31.516",
                 updatedAt = "2023-03-25T09:02:31.516",
             ),
-            NoticeInfo(
+            com.mediaproject.core.model.NoticeInfo(
                 title = "지구방위대가 된 걸 환영합니다! 함께 지구를 지켜가요.",
                 content = "testContent",
                 createdAt = "2023-03-25T09:02:31.516",
                 updatedAt = "2023-03-25T09:02:31.516",
             ),
-            NoticeInfo(
+            com.mediaproject.core.model.NoticeInfo(
                 title = "지구방위대가 된 걸 환영합니다! 함께 지구를 지켜가요.",
                 content = "testContent",
                 createdAt = "2023-03-25T09:02:31.516",

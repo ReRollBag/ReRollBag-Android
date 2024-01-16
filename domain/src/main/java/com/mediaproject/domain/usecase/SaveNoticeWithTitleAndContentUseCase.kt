@@ -1,6 +1,6 @@
 package com.mediaproject.domain.usecase
 
-import com.mediaproject.domain.repository.NoticeRepository
+import com.mediaproject.data.repository.NoticeRepository
 import javax.inject.Inject
 
 class SaveNoticeWithTitleAndContentUseCase

@@ -1,11 +1,11 @@
 package com.mediaproject.data.remote.datasourceimpl
 
 import com.mediaproject.data.mapper.toModel
+import com.mediaproject.core.model.NoticeInfo
 import com.mediaproject.data.remote.api.NoticeAPI
 import com.mediaproject.data.remote.datasource.NoticeRemoteDataSource
 import com.mediaproject.data.remote.model.request.SaveNoticeRequest
 import com.mediaproject.data.utils.baseApiCall
-import com.mediaproject.domain.model.NoticeInfo
 import javax.inject.Inject
 
 class NoticeRemoteDataSourceImpl

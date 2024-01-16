@@ -1,10 +1,10 @@
 package com.mediaproject.data.remote.datasourceimpl
 
 import com.mediaproject.data.mapper.toModel
+import com.mediaproject.core.model.AccessToken
 import com.mediaproject.data.remote.api.AuthAPI
 import com.mediaproject.data.remote.datasource.AuthRemoteDataSource
 import com.mediaproject.data.utils.baseApiCall
-import com.mediaproject.domain.model.AccessToken
 import javax.inject.Inject
 
 class AuthRemoteDataSourceImpl

@@ -2,7 +2,6 @@ package com.mediaproject.data.repository
 
 import com.mediaproject.data.remote.datasource.AdminRemoteDataSource
 import com.mediaproject.data.remote.model.request.SetUpRequest
-import com.mediaproject.domain.repository.AdminRepository
 import javax.inject.Inject
 
 class AdminRepositoryImpl

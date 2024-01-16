@@ -1,6 +1,6 @@
 package com.mediaproject.domain.usecase
 
-import com.mediaproject.domain.repository.AdminRepository
+import com.mediaproject.data.repository.AdminRepository
 import javax.inject.Inject
 
 class ApplyAdminUseCase

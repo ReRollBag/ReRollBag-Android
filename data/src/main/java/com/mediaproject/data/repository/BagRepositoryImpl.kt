@@ -1,9 +1,8 @@
 package com.mediaproject.data.repository
 
+import com.mediaproject.core.model.BagInfo
+import com.mediaproject.core.model.BaseCondition
 import com.mediaproject.data.remote.datasource.BagRemoteDataSource
-import com.mediaproject.domain.model.BagInfo
-import com.mediaproject.domain.model.BaseCondition
-import com.mediaproject.domain.repository.BagRepository
 import javax.inject.Inject
 
 class BagRepositoryImpl

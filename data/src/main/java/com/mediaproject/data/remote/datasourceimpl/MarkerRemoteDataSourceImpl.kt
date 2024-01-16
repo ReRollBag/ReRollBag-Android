@@ -1,13 +1,13 @@
 package com.mediaproject.data.remote.datasourceimpl
 
 import com.mediaproject.data.mapper.toModel
+import com.mediaproject.core.model.RentingMarker
+import com.mediaproject.core.model.ReturningMarker
 import com.mediaproject.data.remote.api.MarkerAPI
 import com.mediaproject.data.remote.datasource.MarkerRemoteDataSource
 import com.mediaproject.data.remote.model.request.SaveRentingMarkersRequest
 import com.mediaproject.data.remote.model.request.SaveReturningMarkersRequest
 import com.mediaproject.data.utils.baseApiCall
-import com.mediaproject.domain.model.RentingMarker
-import com.mediaproject.domain.model.ReturningMarker
 import javax.inject.Inject
 
 class MarkerRemoteDataSourceImpl

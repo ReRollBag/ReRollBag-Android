@@ -1,12 +1,10 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
-    namespace = "com.mediaproject.domain"
+    namespace = "com.mediaproject.core.model"
     compileSdk = AppConfig.compileSdk
 
     defaultConfig {
@@ -36,17 +34,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:model"))
-    implementation(project(":data"))
-
     implementation(Dependencies.KTX.KTX)
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    implementation(Dependencies.Hilt.HILT)
-    kapt(Dependencies.Hilt.HILT_COMPILE)
-    implementation(Dependencies.Retrofit.RETROFIT)
-    implementation(Dependencies.Retrofit.RETROFIT_GSON)
-    implementation(Dependencies.OkHttp.OKHTTP)
-    implementation(Dependencies.OkHttp.OKHTTP_LOGGING)
 }

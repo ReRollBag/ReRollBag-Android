@@ -1,9 +1,9 @@
 package com.mediaproject.data.remote.datasource
 
-import com.mediaproject.domain.model.BaseCondition
-import com.mediaproject.domain.model.BagInfo
-import com.mediaproject.domain.model.User
-import com.mediaproject.domain.model.UserToken
+import com.mediaproject.core.model.BagInfo
+import com.mediaproject.core.model.BaseCondition
+import com.mediaproject.core.model.User
+import com.mediaproject.core.model.UserToken
 
 interface UserRemoteDataSource {
 

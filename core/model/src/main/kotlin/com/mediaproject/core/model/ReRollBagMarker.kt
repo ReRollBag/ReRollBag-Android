@@ -1,4 +1,4 @@
-package com.mediaproject.domain.model
+package com.mediaproject.core.model
 
 abstract class ReRollBagMarker {
     abstract val latitude: Double

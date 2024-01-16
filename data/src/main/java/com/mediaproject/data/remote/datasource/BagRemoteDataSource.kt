@@ -1,7 +1,7 @@
 package com.mediaproject.data.remote.datasource
 
-import com.mediaproject.domain.model.BagInfo
-import com.mediaproject.domain.model.BaseCondition
+import com.mediaproject.core.model.BagInfo
+import com.mediaproject.core.model.BaseCondition
 
 interface BagRemoteDataSource {
 

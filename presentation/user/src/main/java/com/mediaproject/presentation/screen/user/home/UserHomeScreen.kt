@@ -25,7 +25,7 @@ import com.mediaproject.presentation.screen.vm.MapViewModel
 import com.mediaproject.presentation.widgets.states.LocationState
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
-import com.mediaproject.domain.model.NoticeInfo
+import com.mediaproject.core.model.NoticeInfo
 import com.mediaproject.presentation.screen.user.finish.FinishRentActivity
 import com.mediaproject.presentation.screen.user.finish.FinishReturnActivity
 import com.mediaproject.presentation.screen.vm.NoticeViewModel
@@ -170,7 +170,7 @@ fun UserHomeScreenBodyPreview() {
 
         }
         UserHomeNoticeScreen(
-            noticeInfo = NoticeInfo(
+            noticeInfo = com.mediaproject.core.model.NoticeInfo(
                 title = "지구방위대가 된 걸 환영합니다! 함께 지구를 지켜가요.",
                 content = "testContent",
                 createdAt = "2023-03-25T09:02:31.516",

@@ -36,7 +36,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
+    implementation(project(":core:model"))
 
     implementation(Dependencies.KTX.KTX)
     testImplementation("junit:junit:4.13.2")

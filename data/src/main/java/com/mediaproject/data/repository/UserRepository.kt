@@ -1,7 +1,7 @@
-package com.mediaproject.domain.repository
+package com.mediaproject.data.repository
 
-import com.mediaproject.domain.model.BagInfo
-import com.mediaproject.domain.model.User
+import com.mediaproject.core.model.BagInfo
+import com.mediaproject.core.model.User
 
 interface UserRepository {
 

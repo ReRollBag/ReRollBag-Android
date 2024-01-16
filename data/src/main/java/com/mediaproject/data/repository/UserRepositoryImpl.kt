@@ -2,11 +2,10 @@ package com.mediaproject.data.repository
 
 import android.util.Log
 import com.mediaproject.data.local.datasource.LocalUserDataSource
+import com.mediaproject.core.model.BagInfo
+import com.mediaproject.core.model.User
 import com.mediaproject.data.remote.datasource.AuthRemoteDataSource
 import com.mediaproject.data.remote.datasource.UserRemoteDataSource
-import com.mediaproject.domain.model.BagInfo
-import com.mediaproject.domain.model.User
-import com.mediaproject.domain.repository.UserRepository
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 

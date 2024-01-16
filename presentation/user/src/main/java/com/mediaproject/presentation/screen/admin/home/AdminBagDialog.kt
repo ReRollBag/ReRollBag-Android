@@ -21,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.core.model.BagInfo
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.theme.gray2
 import com.mediaproject.presentation.common.theme.green1
@@ -276,7 +276,7 @@ fun AdminCancelDialog(
 @Composable
 fun AdminReturningBagItemDialogPreview() {
     AdminReturningBagItemDialog(
-        bagInfo = BagInfo(
+        bagInfo = com.mediaproject.core.model.BagInfo(
             bagsId = "KOR_SUWON_1",
             whenIsRented = "2023-03-23T04:37:16.704",
             rentingUsersId = "test@test.com",

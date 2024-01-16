@@ -19,8 +19,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mediaproject.domain.model.RentingMarker
-import com.mediaproject.domain.model.ReturningMarker
+import com.mediaproject.core.model.RentingMarker
+import com.mediaproject.core.model.ReturningMarker
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.icons.IconPack
 import com.mediaproject.presentation.common.component.icons.iconpack.IconQrScan
@@ -34,7 +34,7 @@ import com.mediaproject.presentation.common.theme.green2
 @Composable
 fun RentModalItemView(
     modifier: Modifier = Modifier,
-    marker: RentingMarker,
+    marker: com.mediaproject.core.model.RentingMarker,
     onClickQrScan: () -> Unit = {},
 ) = Column(
     modifier = Modifier
@@ -125,7 +125,7 @@ fun RentModalItemView(
 @Composable
 fun ReturningModalItemView(
     modifier: Modifier = Modifier,
-    marker: ReturningMarker,
+    marker: com.mediaproject.core.model.ReturningMarker,
     onClickQrScan: () -> Unit = {},
 ) = Column(
     modifier = Modifier
@@ -210,7 +210,7 @@ fun ReturningModalItemView(
 @Composable
 fun RentModalItemViewPreview() {
     RentModalItemView(
-        marker = RentingMarker(
+        marker = com.mediaproject.core.model.RentingMarker(
             latitude = 37.0,
             longitude = 127.0,
             name = "GS편의점 우만점",
@@ -225,7 +225,7 @@ fun RentModalItemViewPreview() {
 @Composable
 fun ReturningItemViewPreview() {
     ReturningModalItemView(
-        marker = ReturningMarker(
+        marker = com.mediaproject.core.model.ReturningMarker(
             latitude = 37.0,
             longitude = 127.0,
             name = "GS편의점 우만점",

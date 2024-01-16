@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.core.model.BagInfo
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.theme.gray2
 import org.threeten.bp.LocalDateTime
@@ -26,7 +26,7 @@ import org.threeten.bp.format.DateTimeFormatter
 
 @Composable
 fun HomeMenuListItemWidget(
-    item: BagInfo,
+    item: com.mediaproject.core.model.BagInfo,
 ) {
     var startDate: String
     var endDate: String
@@ -139,7 +139,7 @@ fun HomeMenuListItemWidget(
 @Composable
 fun HomeMenuListItemWidgetPreview() {
     HomeMenuListItemWidget(
-        item = BagInfo(
+        item = com.mediaproject.core.model.BagInfo(
             bagsId = "KOR_SUWON_1",
             whenIsRented = "2023-03-09T08:02:38.278",
             rentingUsersId = "testUsersId",

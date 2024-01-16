@@ -1,6 +1,6 @@
-package com.mediaproject.domain.repository
+package com.mediaproject.data.repository
 
-import com.mediaproject.domain.model.NoticeInfo
+import com.mediaproject.core.model.NoticeInfo
 
 interface NoticeRepository {
 

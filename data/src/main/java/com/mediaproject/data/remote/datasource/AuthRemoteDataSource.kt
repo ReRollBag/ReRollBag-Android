@@ -1,6 +1,6 @@
 package com.mediaproject.data.remote.datasource
 
-import com.mediaproject.domain.model.AccessToken
+import com.mediaproject.core.model.AccessToken
 
 interface AuthRemoteDataSource {
 

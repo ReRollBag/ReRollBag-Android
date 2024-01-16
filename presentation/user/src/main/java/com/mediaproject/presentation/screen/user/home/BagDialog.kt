@@ -21,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.core.model.BagInfo
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.theme.gray2
 import com.mediaproject.presentation.common.theme.green1
@@ -31,7 +31,7 @@ import org.threeten.bp.format.DateTimeFormatter
 @Composable
 fun RentBagItemDialog(
     modifier: Modifier = Modifier,
-    bagInfo: BagInfo,
+    bagInfo: com.mediaproject.core.model.BagInfo,
     clearQrScanState: () -> Unit = {},
     onClickRentBag: (bagId: String) -> Unit = {},
 ) = AlertDialog(
@@ -201,7 +201,7 @@ fun RentBagItemDialog(
 @Composable
 fun ReturningBagItemDialog(
     modifier: Modifier = Modifier,
-    bagInfo: BagInfo,
+    bagInfo: com.mediaproject.core.model.BagInfo,
     clearQrScanState: () -> Unit = {},
     onClickReturnBag: (bagId: String) -> Unit = {},
 ) = AlertDialog(
@@ -454,7 +454,7 @@ fun CancelDialog(
 @Composable
 fun RentBagItemDialogPreview() {
     RentBagItemDialog(
-        bagInfo = BagInfo(
+        bagInfo = com.mediaproject.core.model.BagInfo(
             bagsId = "KOR_SUWON_1",
             whenIsRented = "2023-03-23T04:37:16.704",
             rentingUsersId = "test@test.com",
@@ -469,7 +469,7 @@ fun RentBagItemDialogPreview() {
 @Composable
 fun ReturningBagItemDialogPreview() {
     ReturningBagItemDialog(
-        bagInfo = BagInfo(
+        bagInfo = com.mediaproject.core.model.BagInfo(
             bagsId = "KOR_SUWON_1",
             whenIsRented = "2023-03-23T04:37:16.704",
             rentingUsersId = "test@test.com",

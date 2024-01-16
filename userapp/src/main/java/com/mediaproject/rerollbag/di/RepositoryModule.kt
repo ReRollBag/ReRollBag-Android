@@ -5,11 +5,11 @@ import com.mediaproject.data.repository.BagRepositoryImpl
 import com.mediaproject.data.repository.MarkerRepositoryImpl
 import com.mediaproject.data.repository.NoticeRepositoryImpl
 import com.mediaproject.data.repository.UserRepositoryImpl
-import com.mediaproject.domain.repository.AdminRepository
-import com.mediaproject.domain.repository.BagRepository
-import com.mediaproject.domain.repository.MarkerRepository
-import com.mediaproject.domain.repository.NoticeRepository
-import com.mediaproject.domain.repository.UserRepository
+import com.mediaproject.data.repository.AdminRepository
+import com.mediaproject.data.repository.BagRepository
+import com.mediaproject.data.repository.MarkerRepository
+import com.mediaproject.data.repository.NoticeRepository
+import com.mediaproject.data.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

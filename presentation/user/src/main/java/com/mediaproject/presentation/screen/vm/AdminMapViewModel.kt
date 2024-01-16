@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.core.model.BagInfo
 import com.mediaproject.domain.usecase.FindAllRentingMarkersUseCase
 import com.mediaproject.domain.usecase.FindAllReturningMarkersUseCase
 import com.mediaproject.domain.usecase.FindBagByIdUseCase
@@ -42,7 +42,7 @@ constructor(
         _uiState.value = AdminHomeUIState.Update(
             qrScanState = QrScanState.Update(
                 qrScanUrl = "",
-                bagInfo = BagInfo(
+                bagInfo = com.mediaproject.core.model.BagInfo(
                     bagsId = "-1"
                 )
             ),

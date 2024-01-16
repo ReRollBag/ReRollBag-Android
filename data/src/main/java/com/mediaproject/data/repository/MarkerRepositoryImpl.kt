@@ -1,11 +1,10 @@
 package com.mediaproject.data.repository
 
+import com.mediaproject.core.model.RentingMarker
+import com.mediaproject.core.model.ReturningMarker
 import com.mediaproject.data.remote.datasource.MarkerRemoteDataSource
 import com.mediaproject.data.remote.model.request.SaveRentingMarkersRequest
 import com.mediaproject.data.remote.model.request.SaveReturningMarkersRequest
-import com.mediaproject.domain.model.RentingMarker
-import com.mediaproject.domain.model.ReturningMarker
-import com.mediaproject.domain.repository.MarkerRepository
 import javax.inject.Inject
 
 class MarkerRepositoryImpl

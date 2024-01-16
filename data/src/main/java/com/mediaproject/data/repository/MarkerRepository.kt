@@ -1,7 +1,7 @@
-package com.mediaproject.domain.repository
+package com.mediaproject.data.repository
 
-import com.mediaproject.domain.model.RentingMarker
-import com.mediaproject.domain.model.ReturningMarker
+import com.mediaproject.core.model.RentingMarker
+import com.mediaproject.core.model.ReturningMarker
 
 interface MarkerRepository {
 

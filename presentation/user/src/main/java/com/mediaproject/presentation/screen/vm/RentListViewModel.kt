@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.core.model.BagInfo
 import com.mediaproject.domain.usecase.GetUserRentingBagsListUseCase
 import com.mediaproject.domain.usecase.GetUserReturnedBagsListUseCase
 import com.mediaproject.domain.usecase.GetUserReturningBagsListUseCase
@@ -43,8 +43,8 @@ constructor(
         )
     }
 
-    private suspend fun sideEffectAllData(): List<BagInfo> = withContext(Dispatchers.IO) {
-        val allList = mutableListOf<BagInfo>()
+    private suspend fun sideEffectAllData(): List<com.mediaproject.core.model.BagInfo> = withContext(Dispatchers.IO) {
+        val allList = mutableListOf<com.mediaproject.core.model.BagInfo>()
         getUserRentingBagsListUseCase().onSuccess { list ->
             allList.addAll(list)
         }
@@ -57,8 +57,8 @@ constructor(
         return@withContext allList.toList()
     }
 
-    private suspend fun sideEffectReturnedData(): List<BagInfo> = withContext(Dispatchers.IO) {
-        val allList = mutableListOf<BagInfo>()
+    private suspend fun sideEffectReturnedData(): List<com.mediaproject.core.model.BagInfo> = withContext(Dispatchers.IO) {
+        val allList = mutableListOf<com.mediaproject.core.model.BagInfo>()
         getUserReturnedBagsListUseCase().onSuccess { list ->
             allList.addAll(list)
         }
@@ -66,7 +66,7 @@ constructor(
     }
 
     private suspend fun sideEffectRentingAndReturningData() = withContext(Dispatchers.IO) {
-        val allList = mutableListOf<BagInfo>()
+        val allList = mutableListOf<com.mediaproject.core.model.BagInfo>()
         getUserRentingBagsListUseCase().onSuccess { list ->
             allList.addAll(list)
         }

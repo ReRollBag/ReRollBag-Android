@@ -25,7 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mediaproject.domain.model.SignUpData
+import com.mediaproject.core.model.SignUpData
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.ReRollBagTextField
 import com.mediaproject.presentation.common.theme.*
@@ -39,8 +39,8 @@ fun SignUpScreenBody(
     uiState: SignUpState?,
     isSocial: Boolean = false,
     onChangeEmail: (newValue: String) -> Unit = {},
-    onDuplicateCheckUserId: (data: SignUpData) -> Unit = {},
-    onRefreshCheck: (data: SignUpData) -> Unit = {},
+    onDuplicateCheckUserId: (data: com.mediaproject.core.model.SignUpData) -> Unit = {},
+    onRefreshCheck: (data: com.mediaproject.core.model.SignUpData) -> Unit = {},
     onChangePassword: (newValue: String) -> Unit = {},
     onChangePasswordChecker: (newValue: String) -> Unit = {},
     onChangeName: (newValue: String) -> Unit = {},
@@ -83,7 +83,7 @@ fun SignUpScreenBody(
             ) {
                 if (uiState!!.data.isCheckDuplication) {
                     onRefreshCheck(
-                        SignUpData(
+                        com.mediaproject.core.model.SignUpData(
                             userId = userId,
                             isCheckDuplication = !isCheckDuplication,
                             isErrorDuplication = false,
@@ -94,7 +94,7 @@ fun SignUpScreenBody(
                     )
                 } else {
                     onDuplicateCheckUserId(
-                        SignUpData(
+                        com.mediaproject.core.model.SignUpData(
                             userId = userId,
                             isCheckDuplication = isCheckDuplication,
                             isErrorDuplication = uiState.data.isErrorDuplication,
@@ -476,7 +476,7 @@ fun SignUpScreenBodyPreview() {
     when (screenCase) {
         1 -> SignUpScreenBody(
             uiState = SignUpState.SignUpError(
-                state = SignUpData(),
+                state = com.mediaproject.core.model.SignUpData(),
                 errorMessage = "error"
             )
         )

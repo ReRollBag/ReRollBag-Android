@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.core.model.BagInfo
 import com.mediaproject.domain.usecase.FindBagByIdUseCase
 import com.mediaproject.domain.usecase.GetUserInfoUseCase
 import com.mediaproject.domain.usecase.RentBagUseCase
@@ -25,8 +25,8 @@ constructor(
     private val returningBagUseCase: ReturningBagUseCase
 ) : ViewModel() {
 
-    private val _selectedBagInfo = MutableLiveData<BagInfo>()
-    val selectedBagInfo: LiveData<BagInfo>
+    private val _selectedBagInfo = MutableLiveData<com.mediaproject.core.model.BagInfo>()
+    val selectedBagInfo: LiveData<com.mediaproject.core.model.BagInfo>
         get() = _selectedBagInfo
 
     private val _hasSuccess = MutableLiveData("")

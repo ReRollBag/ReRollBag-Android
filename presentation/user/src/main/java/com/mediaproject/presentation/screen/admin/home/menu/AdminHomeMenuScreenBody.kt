@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.core.model.BagInfo
 import com.mediaproject.presentation.common.component.icons.IconPack
 import com.mediaproject.presentation.common.component.icons.iconpack.IconArrow
 import com.mediaproject.presentation.common.component.icons.iconpack.IconRefreshList

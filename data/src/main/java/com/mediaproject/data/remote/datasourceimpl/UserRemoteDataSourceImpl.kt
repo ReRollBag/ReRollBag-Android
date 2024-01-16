@@ -1,14 +1,14 @@
 package com.mediaproject.data.remote.datasourceimpl
 
 import com.mediaproject.data.mapper.toModel
+import com.mediaproject.core.model.BagInfo
+import com.mediaproject.core.model.BaseCondition
+import com.mediaproject.core.model.User
+import com.mediaproject.core.model.UserToken
 import com.mediaproject.data.remote.api.UserAPI
 import com.mediaproject.data.remote.model.request.SignUpRequest
 import com.mediaproject.data.remote.datasource.UserRemoteDataSource
 import com.mediaproject.data.utils.baseApiCall
-import com.mediaproject.domain.model.BaseCondition
-import com.mediaproject.domain.model.BagInfo
-import com.mediaproject.domain.model.User
-import com.mediaproject.domain.model.UserToken
 import javax.inject.Inject
 
 class UserRemoteDataSourceImpl

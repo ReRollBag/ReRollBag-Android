@@ -26,9 +26,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
-import com.mediaproject.domain.model.ReRollBagMarker
-import com.mediaproject.domain.model.RentingMarker
-import com.mediaproject.domain.model.ReturningMarker
+import com.mediaproject.core.model.ReRollBagMarker
+import com.mediaproject.core.model.RentingMarker
+import com.mediaproject.core.model.ReturningMarker
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.icons.IconPack
 import com.mediaproject.presentation.common.component.icons.iconpack.*
@@ -49,7 +49,7 @@ fun MapScreen(
     onClickRentBag: (bagId: String) -> Unit = {},
     onClickRequestReturning: (bagId: String) -> Unit = {},
     currentLatLng: LatLng = LatLng(0.0, 0.0),
-    markerList: List<ReRollBagMarker> = listOf(),
+    markerList: List<com.mediaproject.core.model.ReRollBagMarker> = listOf(),
     isRent: Boolean = true,
     onChangeRent: (value: Boolean) -> Unit = {},
     cameraPositionState: CameraPositionState = CameraPositionState(),
@@ -60,7 +60,7 @@ fun MapScreen(
     onClickQrScan: () -> Unit = {},
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val selectedMarker: MutableState<ReRollBagMarker?> = remember{ mutableStateOf(null) }
+    val selectedMarker: MutableState<com.mediaproject.core.model.ReRollBagMarker?> = remember{ mutableStateOf(null) }
     val modalSheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
         confirmStateChange = {
@@ -121,14 +121,14 @@ fun MapScreen(
                 }
                 selectedMarker.value?.let {
                     when (it) {
-                        is ReturningMarker -> {
+                        is com.mediaproject.core.model.ReturningMarker -> {
                             ReturningModalItemView(
                                 marker = it,
                                 onClickQrScan = onClickQrScan,
                             )
                             Spacer(modifier = modifier.height(10.dp))
                         }
-                        is RentingMarker -> {
+                        is com.mediaproject.core.model.RentingMarker -> {
                             RentModalItemView(
                                 marker = it,
                                 onClickQrScan = onClickQrScan
@@ -168,8 +168,8 @@ fun InnerMapView(
     cameraPositionState: CameraPositionState = CameraPositionState(),
     uiSettings: MapUiSettings = MapUiSettings(),
     properties: MapProperties = MapProperties(),
-    markerList: List<ReRollBagMarker> = listOf(),
-    onClickMarker: (marker: ReRollBagMarker) -> Unit = {},
+    markerList: List<com.mediaproject.core.model.ReRollBagMarker> = listOf(),
+    onClickMarker: (marker: com.mediaproject.core.model.ReRollBagMarker) -> Unit = {},
     onRefreshRentingMarker: () -> Unit = {},
     onRefreshReturningMarker: () -> Unit = {},
     onClickQrScan: () -> Unit = {},

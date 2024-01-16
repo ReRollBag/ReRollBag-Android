@@ -1,10 +1,10 @@
 package com.mediaproject.presentation.widgets.states
 
-import com.mediaproject.domain.model.NoticeInfo
+import com.mediaproject.core.model.NoticeInfo
 
 sealed class NoticeState(
-    open val lastUpdatedNotice: NoticeInfo?,
-    open val noticeList: List<NoticeInfo>,
+    open val lastUpdatedNotice: com.mediaproject.core.model.NoticeInfo?,
+    open val noticeList: List<com.mediaproject.core.model.NoticeInfo>,
 ) {
 
     object Init : NoticeState(
@@ -13,8 +13,8 @@ sealed class NoticeState(
     )
 
     data class Update(
-        override val lastUpdatedNotice: NoticeInfo?,
-        override val noticeList: List<NoticeInfo>,
+        override val lastUpdatedNotice: com.mediaproject.core.model.NoticeInfo?,
+        override val noticeList: List<com.mediaproject.core.model.NoticeInfo>,
     ) : NoticeState(
         lastUpdatedNotice = lastUpdatedNotice,
         noticeList = noticeList,

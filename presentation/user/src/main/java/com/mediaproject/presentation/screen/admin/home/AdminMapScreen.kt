@@ -25,8 +25,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
-import com.mediaproject.domain.model.ReRollBagMarker
-import com.mediaproject.domain.model.ReturningMarker
+import com.mediaproject.core.model.ReRollBagMarker
+import com.mediaproject.core.model.ReturningMarker
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.component.icons.IconPack
 import com.mediaproject.presentation.common.component.icons.iconpack.*
@@ -104,7 +104,7 @@ fun AdminMapScreen(
                 }
                 selectedMarker.value?.let {
                     when (it) {
-                        is ReturningMarker -> {
+                        is com.mediaproject.core.model.ReturningMarker -> {
                             AdminReturningModalItemView(
                                 marker = it,
                                 onClickQrScan = onClickQrScan,

@@ -1,6 +1,6 @@
 package com.mediaproject.domain.usecase
 
-import com.mediaproject.domain.repository.BagRepository
+import com.mediaproject.data.repository.BagRepository
 import javax.inject.Inject
 
 class RequestReturningBagUseCase

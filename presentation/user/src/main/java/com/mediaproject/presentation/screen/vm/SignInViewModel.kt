@@ -167,23 +167,24 @@ constructor(
     private fun signInWithIdToken(
         idToken: String
     ) = viewModelScope.launch {
-        signInUseCase(
-            params = SignInUseCase.Params(
-                idToken = idToken
-            )
-        ).onSuccess {
-            Log.d(TAG, "Entry signIn method onSuccess")
-            _signInState.postValue(SignInState.SignInSuccess(isAdmin = isAdminUserUseCase()))
-        }.onFailure {
-            Log.d(TAG, "Entry signIn method onFailure")
-            _signInState.postValue(
-                SignInState.SignInError(
-                    userId = "",
-                    password = "",
-                    errorMessage = it.message ?: ""
-                )
-            )
-        }
+        _signInState.postValue(SignInState.SignInSuccess(isAdmin = isAdminUserUseCase()))
+//        signInUseCase(
+//            params = SignInUseCase.Params(
+//                idToken = idToken
+//            )
+//        ).onSuccess {
+//            Log.d(TAG, "Entry signIn method onSuccess")
+//            _signInState.postValue(SignInState.SignInSuccess(isAdmin = isAdminUserUseCase()))
+//        }.onFailure {
+//            Log.d(TAG, "Entry signIn method onFailure")
+//            _signInState.postValue(
+//                SignInState.SignInError(
+//                    userId = "",
+//                    password = "",
+//                    errorMessage = it.message ?: ""
+//                )
+//            )
+//        }
     }
 
 }

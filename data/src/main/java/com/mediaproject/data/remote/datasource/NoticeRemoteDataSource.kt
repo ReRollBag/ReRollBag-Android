@@ -1,6 +1,6 @@
 package com.mediaproject.data.remote.datasource
 
-import com.mediaproject.domain.model.NoticeInfo
+import com.mediaproject.core.model.NoticeInfo
 
 interface NoticeRemoteDataSource {
 

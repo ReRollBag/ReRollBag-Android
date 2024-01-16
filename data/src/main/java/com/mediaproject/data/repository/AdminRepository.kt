@@ -1,4 +1,4 @@
-package com.mediaproject.domain.repository
+package com.mediaproject.data.repository
 
 interface AdminRepository {
 

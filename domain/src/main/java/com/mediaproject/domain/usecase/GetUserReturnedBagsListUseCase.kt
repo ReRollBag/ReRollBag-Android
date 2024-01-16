@@ -1,6 +1,6 @@
 package com.mediaproject.domain.usecase
 
-import com.mediaproject.domain.repository.UserRepository
+import com.mediaproject.data.repository.UserRepository
 import javax.inject.Inject
 
 class GetUserReturnedBagsListUseCase

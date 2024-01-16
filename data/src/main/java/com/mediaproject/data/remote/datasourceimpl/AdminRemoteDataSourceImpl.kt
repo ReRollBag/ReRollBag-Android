@@ -1,11 +1,11 @@
 package com.mediaproject.data.remote.datasourceimpl
 
 import com.mediaproject.data.mapper.toModel
+import com.mediaproject.core.model.BaseCondition
 import com.mediaproject.data.remote.api.AdminAPI
 import com.mediaproject.data.remote.datasource.AdminRemoteDataSource
 import com.mediaproject.data.remote.model.request.SetUpRequest
 import com.mediaproject.data.utils.baseApiCall
-import com.mediaproject.domain.model.BaseCondition
 import javax.inject.Inject
 
 class AdminRemoteDataSourceImpl

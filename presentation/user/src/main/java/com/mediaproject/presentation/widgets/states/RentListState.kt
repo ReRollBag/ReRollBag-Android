@@ -1,12 +1,12 @@
 package com.mediaproject.presentation.widgets.states
 
-import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.core.model.BagInfo
 
 sealed class RentListState(
-    val list: List<BagInfo>
+    val list: List<com.mediaproject.core.model.BagInfo>
 ) {
     object Init : RentListState(list = listOf())
     data class Update(
-        val fetchList: List<BagInfo>
+        val fetchList: List<com.mediaproject.core.model.BagInfo>
     ) : RentListState(list = fetchList)
 }

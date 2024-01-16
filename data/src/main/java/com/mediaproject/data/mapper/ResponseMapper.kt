@@ -1,8 +1,7 @@
 package com.mediaproject.data.mapper
 
+import com.mediaproject.core.model.*
 import com.mediaproject.data.remote.model.response.*
-import com.mediaproject.domain.model.*
-import kotlin.math.max
 
 internal fun SignInResponse.toModel() = UserToken(
     accessToken = accessToken,

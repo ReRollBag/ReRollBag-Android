@@ -56,6 +56,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:model"))
     implementation(project(":domain"))
 
     val composeBom = platform(Dependencies.Compose.COMPOSE_BOM)

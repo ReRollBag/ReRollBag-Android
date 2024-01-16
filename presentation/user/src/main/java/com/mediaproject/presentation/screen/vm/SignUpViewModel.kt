@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.mediaproject.domain.model.SignUpData
+import com.mediaproject.core.model.SignUpData
 import com.mediaproject.domain.usecase.IsExistUserIdUseCase
 import com.mediaproject.domain.usecase.SignUpUseCase
 import com.mediaproject.presentation.widgets.utils.error.SignUpErrorConst
@@ -37,7 +37,7 @@ constructor(
         userId: String,
     ) = _signUpState.value!!.data.run {
         _signUpState.value = SignUpState.UpdateData(
-            state = SignUpData(
+            state = com.mediaproject.core.model.SignUpData(
                 userId = userId,
                 isCheckDuplication = this.isCheckDuplication,
                 isErrorDuplication = this.isErrorDuplication,
@@ -52,7 +52,7 @@ constructor(
         password: String
     ) = _signUpState.value!!.data.run {
         _signUpState.value = SignUpState.UpdateData(
-            state = SignUpData(
+            state = com.mediaproject.core.model.SignUpData(
                 userId = this.userId,
                 isCheckDuplication = this.isCheckDuplication,
                 isErrorDuplication = this.isErrorDuplication,
@@ -67,7 +67,7 @@ constructor(
         passwordChecker: String
     ) = _signUpState.value!!.data.run {
         _signUpState.value = SignUpState.UpdateData(
-            state = SignUpData(
+            state = com.mediaproject.core.model.SignUpData(
                 userId = this.userId,
                 isCheckDuplication = this.isCheckDuplication,
                 isErrorDuplication = this.isErrorDuplication,
@@ -82,7 +82,7 @@ constructor(
         name: String
     ) = _signUpState.value!!.data.run {
         _signUpState.value = SignUpState.UpdateData(
-            state = SignUpData(
+            state = com.mediaproject.core.model.SignUpData(
                 userId = this.userId,
                 isCheckDuplication = this.isCheckDuplication,
                 isErrorDuplication = this.isErrorDuplication,
@@ -94,7 +94,7 @@ constructor(
     }
 
     fun signUp(
-        data: SignUpData,
+        data: com.mediaproject.core.model.SignUpData,
     ) = viewModelScope.launch {
         postLoading()
         data.run {
@@ -142,7 +142,7 @@ constructor(
     }
 
     private fun signUpWithIdToken(
-        data: SignUpData,
+        data: com.mediaproject.core.model.SignUpData,
         idToken: String,
     ) = viewModelScope.launch {
         signUpUseCase(
@@ -167,7 +167,7 @@ constructor(
     }
 
     fun duplicateCheckUserId(
-        data: SignUpData
+        data: com.mediaproject.core.model.SignUpData
     ) = viewModelScope.launch {
         postLoading()
         when (data.userId.isEmpty()) {
@@ -181,7 +181,7 @@ constructor(
                     Log.d(TAG, "Success")
                     _signUpState.postValue(
                         SignUpState.UpdateData(
-                            state = SignUpData(
+                            state = com.mediaproject.core.model.SignUpData(
                                 data,
                                 isExistUserId = true,
                                 isErrorDuplication = false
@@ -192,7 +192,7 @@ constructor(
                     Log.d(TAG, it.message ?: "")
                     _signUpState.postValue(
                         SignUpState.SignUpError(
-                            state = SignUpData(
+                            state = com.mediaproject.core.model.SignUpData(
                                 data,
                                 isExistUserId = false,
                                 isErrorDuplication = true
@@ -206,7 +206,7 @@ constructor(
     }
 
     fun refreshCheck(
-        data: SignUpData
+        data: com.mediaproject.core.model.SignUpData
     ) = viewModelScope.launch {
         postLoading()
         _signUpState.postValue(
@@ -218,7 +218,7 @@ constructor(
 
     @Deprecated("UnUsed")
     private fun duplicateCheckNickname(
-        data: SignUpData,
+        data: com.mediaproject.core.model.SignUpData,
     ) = viewModelScope.launch {
         throw Exception("UnUsed")
 //        postLoading()

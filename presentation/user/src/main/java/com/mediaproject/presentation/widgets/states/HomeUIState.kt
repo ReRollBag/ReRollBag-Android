@@ -1,12 +1,12 @@
 package com.mediaproject.presentation.widgets.states
 
-import com.mediaproject.domain.model.ReRollBagMarker
+import com.mediaproject.core.model.ReRollBagMarker
 
 sealed class HomeUIState(
     val qrScanState: QrScanState,
     val locationState: LocationState,
     val isRentState: Boolean,
-    val markerList: List<ReRollBagMarker>,
+    val markerList: List<com.mediaproject.core.model.ReRollBagMarker>,
 ) {
 
     object Init : HomeUIState(
@@ -20,7 +20,7 @@ sealed class HomeUIState(
         private val updateQrScan: QrScanState,
         private val updateLocation: LocationState,
         private val updateIsRent: Boolean,
-        private val updateMarkerList: List<ReRollBagMarker>,
+        private val updateMarkerList: List<com.mediaproject.core.model.ReRollBagMarker>,
     ) : HomeUIState(
         qrScanState = updateQrScan,
         locationState = updateLocation,

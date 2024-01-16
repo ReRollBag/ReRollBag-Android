@@ -1,6 +1,6 @@
 package com.mediaproject.presentation.widgets.states
 
-import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.core.model.BagInfo
 
 sealed class AdminHomeMenuState(
     open val userId: String,

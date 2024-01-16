@@ -15,14 +15,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mediaproject.domain.model.NoticeInfo
+import com.mediaproject.core.model.NoticeInfo
 import com.mediaproject.presentation.common.component.icons.IconPack
 import com.mediaproject.presentation.common.component.icons.iconpack.IconArrow
 
 @Composable
 fun UserHomeNoticeScreen(
     modifier: Modifier = Modifier,
-    noticeInfo: NoticeInfo,
+    noticeInfo: com.mediaproject.core.model.NoticeInfo,
     onClickNotice: () -> Unit = {},
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -67,7 +67,7 @@ fun UserHomeNoticeScreen(
 @Composable
 fun UserHomeNoticeScreenPreview() {
     UserHomeNoticeScreen(
-        noticeInfo = NoticeInfo(
+        noticeInfo = com.mediaproject.core.model.NoticeInfo(
             title = "testTitle1",
             content = "testContent1",
             createdAt = "2023-03-23T04:37:18.11",

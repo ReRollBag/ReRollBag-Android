@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.core.model.BagInfo
 import com.mediaproject.presentation.R
 import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.gray2
@@ -109,7 +109,7 @@ fun RentListMenuBar(
 
 @Composable
 fun ItemView(
-    item: BagInfo,
+    item: com.mediaproject.core.model.BagInfo,
 ) {
     Row(
         modifier = Modifier
@@ -253,7 +253,7 @@ fun ItemView(
 fun TestItemViewPreview() {
     Column {
         ItemView(
-            item = BagInfo(
+            item = com.mediaproject.core.model.BagInfo(
                 bagsId = "KOR_SUWON_1",
                 whenIsRented = "2023-03-09T08:02:38.278",
                 rentingUsersId = "testUsersId",
@@ -263,7 +263,7 @@ fun TestItemViewPreview() {
             )
         )
         ItemView(
-            item = BagInfo(
+            item = com.mediaproject.core.model.BagInfo(
                 bagsId = "KOR_SUWON_1",
                 whenIsRented = "2023-03-09T08:02:38.27",
                 rentingUsersId = "testUsersId",

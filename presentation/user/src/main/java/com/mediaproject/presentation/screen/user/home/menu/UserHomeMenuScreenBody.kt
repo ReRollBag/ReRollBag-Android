@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mediaproject.domain.model.BagInfo
+import com.mediaproject.core.model.BagInfo
 import com.mediaproject.presentation.common.component.icons.IconPack
 import com.mediaproject.presentation.common.component.icons.iconpack.IconArrow
 import com.mediaproject.presentation.common.component.icons.iconpack.IconRefreshList
@@ -327,7 +327,7 @@ fun UserHomeMenuScreenBodyPreview() {
                 userId = "test@gmail.com",
                 userName = "test",
                 listRentingBag = listOf(
-                    BagInfo(
+                    com.mediaproject.core.model.BagInfo(
                         bagsId = "KOR_SUWON_1",
                         whenIsRented = "2023-03-09T08:02:38.278",
                         rentingUsersId = "testUsersId",
@@ -335,7 +335,7 @@ fun UserHomeMenuScreenBodyPreview() {
                         whenIsReturned = "",
                         isReturning = false
                     ),
-                    BagInfo(
+                    com.mediaproject.core.model.BagInfo(
                         bagsId = "KOR_SUWON_2",
                         whenIsRented = "2023-03-09T08:02:38.278",
                         rentingUsersId = "testUsersId",
@@ -343,7 +343,7 @@ fun UserHomeMenuScreenBodyPreview() {
                         whenIsReturned = "",
                         isReturning = false
                     ),
-                    BagInfo(
+                    com.mediaproject.core.model.BagInfo(
                         bagsId = "KOR_SUWON_3",
                         whenIsRented = "2023-03-09T08:02:38.278",
                         rentingUsersId = "testUsersId",

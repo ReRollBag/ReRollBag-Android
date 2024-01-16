@@ -1,4 +1,4 @@
-package com.mediaproject.domain.model
+package com.mediaproject.core.model
 
 data class User(
     val userId: String,

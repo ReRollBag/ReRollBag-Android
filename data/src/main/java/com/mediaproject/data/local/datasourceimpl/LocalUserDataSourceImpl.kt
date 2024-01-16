@@ -2,7 +2,7 @@ package com.mediaproject.data.local.datasourceimpl
 
 import com.mediaproject.data.local.datasource.DataStoreDataSource
 import com.mediaproject.data.local.datasource.LocalUserDataSource
-import com.mediaproject.domain.model.UserToken
+import com.mediaproject.core.model.UserToken
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

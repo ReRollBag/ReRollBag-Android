@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mediaproject.domain.model.SignUpData
+import com.mediaproject.core.model.SignUpData
 import com.mediaproject.presentation.common.component.ReRollBagTextField
 import com.mediaproject.presentation.common.theme.gray1
 import com.mediaproject.presentation.common.theme.gray2
